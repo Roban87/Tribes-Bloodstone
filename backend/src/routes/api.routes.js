@@ -9,6 +9,6 @@ router.use(cors());
 router.use(express.json());
 
 router.get('/hello', helloController.get);
-router.post('/login', loginController.post)
+router.post('/login', loginController.post);
 
 export default router;
