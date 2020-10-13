@@ -1,6 +1,6 @@
 import request from 'supertest';
 import { db } from '../../data/connection';
-import app from '../../App';
+import app from '../../app';
 
 beforeAll(async () => {
   let hash1 = '$2b$10$0BkmlcSgF4Vs8IxPqt8S/uKQDkBS3kNbCXCX0htPDcz0B/7605DFi'
