@@ -14,7 +14,7 @@ export const loginService = {
     if (userData.results.length === 0 || !bcrypt.compareSync(password, userData.results[0].phash)) {
       throw {message: 'Username or password is incorrect', status: 400};
     } else {
-      let token = jwt.sign({username: username, id: userData.results[0].id}, config.secret);
+      let token = jwt.sign({id: userData.results[0].id, kingdomid: userData.results[0].kingdomid}, config.secret);
       return token;
     }
   }
