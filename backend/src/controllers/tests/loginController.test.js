@@ -1,26 +1,33 @@
 import request from 'supertest';
 import { db } from '../../data/connection';
 import app from '../../app';
+import { loginRepo } from '../../repositories/loginRepo';
 
-beforeAll(async () => {
-  let hash1 = '$2b$10$0BkmlcSgF4Vs8IxPqt8S/uKQDkBS3kNbCXCX0htPDcz0B/7605DFi'
-  let hash2 = '$2b$10$sWmdFqL87flO56Op4g79Eu/wTomkp7DVuU2rvb/MsunQAZSUsjxNu'
-  let hash3 = '$2b$10$f0kByEGrCZ.78E.KVmONOOoskilCU8z7ctyGvwSKEqg715hIEy22u'
-  let password1  = 'password';
-  let password2 = "secret";
-  let password3 = "topsecret";
-  let user1 = "marci";
-  let user2 = "zoli";
-  let user3 = "peti";
-  await db.query('INSERT INTO users (username, phash, kingdomid) VALUES ?', [[[user1, hash1, 1], [user2, hash2, 2], [user3, hash3, 3]]]);
-});
-
-afterAll(async () => {
-  await db.query('TRUNCATE users');
-});
+const database = {
+  user1: {
+    username: "marci",
+    phash: '$2b$10$0BkmlcSgF4Vs8IxPqt8S/uKQDkBS3kNbCXCX0htPDcz0B/7605DFi',
+    id: 1,
+    kingdomid: 1,
+  },
+  user2: {
+    username: "zoli",
+    phash: '$2b$10$sWmdFqL87flO56Op4g79Eu/wTomkp7DVuU2rvb/MsunQAZSUsjxNu',
+    id: 2,
+    kingdomid: 2,
+  },
+  user3: {
+    username: "peti",
+    phash: '$2b$10$f0kByEGrCZ.78E.KVmONOOoskilCU8z7ctyGvwSKEqg715hIEy22u',
+    id: 3,
+    kingdomid: 3,
+  }
+}
 
 describe('POST /api/login', () => {
   it('responds with json that holds token', (done) => {
+    let spy = jest.spyOn(loginRepo, 'getUser');
+    spy.mockReturnValue({results: [database.user1], fields: 'somedata'})
     request(app)
       .post('/api/login')
       .send({username: 'marci', password: 'password'})
@@ -85,6 +92,8 @@ describe('POST /api/login', () => {
 
 describe('POST /api/login', () => {
   it('bad username responds with error', (done) => {
+    let spy = jest.spyOn(loginRepo, 'getUser');
+    spy.mockReturnValue({results: [], fields: 'somedata'})
     request(app)
       .post('/api/login')
       .set('Accept', 'application/json')
@@ -100,6 +109,8 @@ describe('POST /api/login', () => {
 
 describe('POST /api/login', () => {
   it('bad password responds with error', (done) => {
+    let spy = jest.spyOn(loginRepo, 'getUser');
+    spy.mockReturnValue({results: [database.user1], fields: 'somedata'})
     request(app)
       .post('/api/login')
       .set('Accept', 'application/json')
