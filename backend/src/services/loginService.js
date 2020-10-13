@@ -10,7 +10,7 @@ export const loginService = {
     } else if(!username) {
       throw {message: "Username is required", status: 400};
     }
-   let userData = await loginRepo.getUser(username);
+      let userData = await loginRepo.getUser(username);
     if (userData.results.length === 0 || !bcrypt.compareSync(password, userData.results[0].phash)) {
       throw {message: 'Username or password is incorrect', status: 400};
     } else {
