@@ -5,9 +5,16 @@ import Login from './pages/Login';
 
 function App() {
   return (
-    <div className="App">
-         <Login />
-    </div>
+    <Router>
+      <div className="App">
+        <Switch>
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/main">
+            <h1>HomePage</h1>
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
