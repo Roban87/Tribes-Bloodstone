@@ -1,6 +1,7 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import '../styles/Login.css';
 
 function Login() {
 
@@ -10,10 +11,16 @@ function Login() {
   const history = useHistory();
 
   const onUsernameChange = (e) => {
+    if (errorMessage) {
+      setErrorMessage("");
+    }
     setUsername(e.target.value);
   };
 
   const onPasswordChange = (e) => {
+    if (errorMessage) {
+      setErrorMessage("");
+    }
     setPassword(e.target.value);
   };
 
@@ -45,13 +52,29 @@ function Login() {
     .catch((err) => console.log(err));
   }
 
+  const inputStyle = {
+    borderBottom: "2px solid rgb(221,67,48)",
+  };
+
   return (
-    <div>
-      <h1>Hello world</h1>
-      <form onSubmit={handleSubmit}className="login-form">
-        <input type="text" id="login-username" value={username} onChange={onUsernameChange} />
-        <input type="password" id="login-password" value={password} onChange={onPasswordChange} />
-        <p>{errorMessage}</p>
+    <div className="login-container">
+      <h1>Tribes of Microtis</h1>
+      <form onSubmit={handleSubmit} className="login-form">
+        <input 
+          type="text" 
+          id="login-username" 
+          value={username} 
+          placeholder="Username" 
+          onChange={onUsernameChange} />
+        <input 
+          type="password" 
+          id="login-password" 
+          value={password} 
+          placeholder="Password" 
+          onChange={onPasswordChange} 
+          style={errorMessage ? inputStyle : null}
+          />
+        {errorMessage && <div className="error-message"><p>{errorMessage}</p><i class="fas fa-exclamation-triangle"></i></div>}
         <button type="submit">LOGIN</button>
       </form>
     </div>
