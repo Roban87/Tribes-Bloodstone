@@ -1,5 +1,4 @@
 import request from 'supertest';
-import { db } from '../../data/connection';
 import app from '../../app';
 import { loginRepo } from '../../repositories/loginRepo';
 
