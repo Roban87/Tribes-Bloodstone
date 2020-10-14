@@ -23,33 +23,18 @@ const database = {
 }
 
 test('missing username and password', async () => {
-  let thrownError;
-  try {
-    await loginService.getToken(undefined, undefined);
-  } catch(err) {
-    thrownError = err 
-  }
-  expect(thrownError).toEqual({status: 400, message: 'All fields required'});
+  const errorMessage = loginService.validateUser(undefined, undefined);
+  expect(errorMessage).toEqual({status: 400, message: 'All fields required'});
 });
 
 test('missing username',async () => {
-  let thrownError;
-  try {
-    await loginService.getToken(undefined, 'password');
-  } catch(err) {
-    thrownError = err 
-  }
-  expect(thrownError).toEqual({status: 400, message: 'Username is required'});
+  const errorMessage = loginService.validateUser(undefined, 'password');
+  expect(errorMessage).toEqual({status: 400, message: 'Username is required'});
 }); 
 
 test('missing password',async () => {
-  let thrownError;
-  try {
-    await loginService.getToken('username', undefined);
-  } catch(err) {
-    thrownError = err 
-  }
-  expect(thrownError).toEqual({status: 400, message: 'Password is required'});
+  const errorMessage = loginService.validateUser('username', undefined);
+  expect(errorMessage).toEqual({status: 400, message: 'Password is required'});
 }); 
 
 test('bad username',async () => {
@@ -71,7 +56,7 @@ test('bad password',async () => {
   try {
     await loginService.getToken("marci", 'badpassword');
   } catch(err) {
-    thrownError = err 
+    thrownError = err; 
   }
   expect(thrownError).toEqual({status: 400, message: 'Username or password is incorrect'});
 }); 
