@@ -87,33 +87,33 @@ function Form({formType}) {
   return (
     <div>
       <form onSubmit={handleSubmit} className="user-form">
-          <input 
-            type="text" 
-            id="username-input"
-            value={username} 
-            placeholder="Username" 
-            onChange={onUsernameChange} />
-          <input 
-            type="password" 
-            id="password-input"
-            value={password} 
-            placeholder="Password" 
-            onChange={onPasswordChange} 
-            style={errorMessage ? errorStyle : null}
-            />
-          {errorMessage && <div className="error-message"><p>{errorMessage}</p><i class="fas fa-exclamation-triangle"></i></div>}
-          {formType === "register" ? 
-          <input 
-            type="text" 
-            id="kingdom-input"
-            value={kingdomName}
-            placeholder="Kingdom name"
-            onChange={onKingdomNameChange}
-            style={kingdomInputStyle}
-            /> : null
-            }
-          <button type="submit">{formType === "register" ? "SIGN UP" : "LOG IN"}</button>
-        </form>
+        <input 
+          type="text" 
+          id="username-input"
+          value={username} 
+          placeholder="Username" 
+          onChange={onUsernameChange} />
+        <input 
+          type="password" 
+          id="password-input"
+          value={password} 
+          placeholder="Password" 
+          onChange={onPasswordChange} 
+          style={errorMessage ? errorStyle : null}
+          />
+        {errorMessage && <div className="error-message"><p>{errorMessage}</p><i class="fas fa-exclamation-triangle"></i></div>}
+        {formType === "register" ? 
+        <input 
+          type="text" 
+          id="kingdom-input"
+          value={kingdomName}
+          placeholder="Kingdom name"
+          onChange={onKingdomNameChange}
+          style={kingdomInputStyle}
+          /> : null
+          }
+        <button type="submit">{formType === "register" ? "SIGN UP" : "LOG IN"}</button>
+      </form>
     </div>
   )
 }
