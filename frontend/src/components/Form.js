@@ -51,7 +51,7 @@ function Form({formType}) {
         setErrorMessage(result.message);
         return null;
       }
-      window.localStorage.jwt = result.token;
+      window.localStorage.token = result.token;
       setPassword("");
       setUsername("");
       history.push('/main');
