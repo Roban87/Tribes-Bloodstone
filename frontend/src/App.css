@@ -1,8 +1,11 @@
 .App {
   text-align: center;
+  font-family: 'Roboto', sans-serif;
+}
+
+html{ 
   background-image: url('./assets/bg3-01.png');
   height: 100vh;
   background-size: cover;
   background-repeat: no-repeat;
 }
-
