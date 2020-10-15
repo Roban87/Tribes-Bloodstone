@@ -11,6 +11,7 @@ function Form({formType}) {
   const [errorMessage, setErrorMessage] = useState("");
   const [kingdomName, setKingdomName] = useState("");
   const history = useHistory();
+  const path = process.env.REACT_APP_API_PATH;
 
   const onUsernameChange = (e) => {
     if (errorMessage) {
@@ -38,7 +39,7 @@ function Form({formType}) {
       username: username,
       password: password,
     };
-    fetch('http://localhost:3000/api/login/', {
+    fetch(path +  'login/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json', 
