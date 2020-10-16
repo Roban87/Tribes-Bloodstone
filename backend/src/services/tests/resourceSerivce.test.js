@@ -52,11 +52,6 @@ const database = {
   },
 }
 
-test('missing kingdomId', async () => {
-  const missingdId = await resourceService.getResources(undefined);
-  expect(missingdId).toEqual({status: 500, message: 'Internal server error'});
-});
-
 test('invalid kingdomId', async () => {
   let spy = jest.spyOn(resourceRepo, 'getResources');
   spy.mockReturnValue({results: []});
