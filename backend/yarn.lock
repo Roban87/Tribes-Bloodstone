@@ -3372,6 +3372,7 @@ i@0.3.x:
   integrity sha1-2WyScyB28HJxG2sQ/X1PZa2O4j0=
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 iconv-lite@0.4.24, iconv-lite@^0.4.24, iconv-lite@^0.4.4:
 =======
 iconv-lite@0.4.24, iconv-lite@^0.4.4:
@@ -3385,6 +3386,9 @@ iconv-lite@0.4.24, iconv-lite@^0.4.24, iconv-lite@^0.4.4:
 iconv-lite@0.4.24, iconv-lite@^0.4.4:
 >>>>>>> 7056329... refactored registrationRepositories
 >>>>>>> 9d78a92... refactored registrationRepositories
+=======
+iconv-lite@0.4.24, iconv-lite@^0.4.24, iconv-lite@^0.4.4:
+>>>>>>> 5890215... yarn lock refactored
   version "0.4.24"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.24.tgz#2022b4b25fbddc21d2f524974a474aafe733908b"
   integrity sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==
