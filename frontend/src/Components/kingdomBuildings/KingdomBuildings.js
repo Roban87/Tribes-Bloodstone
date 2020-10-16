@@ -4,6 +4,7 @@ import './Components/kingdomBuildings/kingdomBuildings.css';
 
 function KingdomBuildings() {
   const [buildings, setBuildings] = useState([]);
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     fetchBuildings();
@@ -19,13 +20,19 @@ function KingdomBuildings() {
       setBuildings(buildingResult.buildings);
     } catch (error) {
       console.log(error);
+      setErrorMessage('Something went wrong');
     }
   }
 
-
   return (
     <div className="buildings">
-     { buildings.map(building => <Buildings key={building.id} building={building} />)}
+      {errorMessage ? (
+        <h2>{errorMessage}</h2>
+      ) : (
+        buildings.map(building => (
+          <Buildings key={building.id} building={building} />
+        ))
+      )}
     </div>
   );
 }
