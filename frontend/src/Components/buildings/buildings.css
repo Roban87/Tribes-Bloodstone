@@ -1,0 +1,60 @@
+#mine {
+  background: url(./icons/mine.svg) no-repeat center top;
+  background-size: cover;
+  overflow: hidden;
+  cursor: pointer;
+  width: 120px;
+  height: 120px;
+  border: none;
+}
+
+#farm {
+  background: url(./icons/farm.svg) no-repeat center top;
+  background-size: cover;
+  overflow: hidden;
+  cursor: pointer;
+  width: 120px;
+  height: 120px;
+  border: none;
+}
+
+#barracks {
+  background: url(./icons/barracks.svg) no-repeat center top;
+  background-size: cover;
+  overflow: hidden;
+  cursor: pointer;
+  width: 120px;
+  height: 120px;
+  border: none;
+}
+
+#townhall {
+  background: url(./icons/townhall.svg) no-repeat center top;
+  background-size: cover;
+  overflow: hidden;
+  cursor: pointer;
+  width: 120px;
+  height: 120px;
+  border: none;
+}
+
+.building-buttons {
+  margin: 10px auto;
+}
+
+p::first-letter {
+  text-transform: uppercase;
+}
+
+p {
+  width: fit-content;
+  margin: 0px auto;
+}
+
+.building {
+  margin: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
