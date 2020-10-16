@@ -39,7 +39,7 @@ function Form({formType}) {
       username: username,
       password: password,
     };
-    fetch(path +  'login/', {
+    fetch(`${path}/login/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json', 
