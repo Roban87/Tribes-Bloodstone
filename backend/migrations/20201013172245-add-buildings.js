@@ -22,6 +22,7 @@ exports.up = function (db) {
     hp: 'int',
     started_at: 'timestamp',
     finished_at: 'timestamp',
+    kingdom_id: 'int'
   });
 };
 
