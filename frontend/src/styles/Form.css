@@ -1,0 +1,76 @@
+.user-form {
+  padding-top: 20px;
+  padding-bottom: 100px;
+  position: relative;
+  width: 400px;
+  height: 100%;
+  margin: auto;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.user-form > * {
+  display: block;
+}
+
+.user-form input {
+  font-size: 1.2em;
+  height: 30px;
+  margin: 20px 20px 5px 20px;
+  width: 90%;
+  background: none;
+  border: none;
+  border-bottom: 2px solid rgb(123,177,80);
+}
+
+.user-form input:focus {
+  background: none;
+  border: none;
+  outline: none;
+  border-bottom: 2px solid rgb(123,177,80);
+}
+
+
+.user-form input:-webkit-autofill,
+.user-form input:-webkit-autofill:hover, 
+.user-form input:-webkit-autofill:focus, 
+.user-form input:-webkit-autofill:active  {
+  transition: background-color 5000s;
+}
+
+.user-form button {
+  color: white;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  height: 40px;
+  width: 80px;
+  background-color: rgb(101,169,43);
+  border: none;
+  box-shadow: 4px 5px #999;
+}
+
+.user-form button:hover {
+  background-color: rgb(91, 151, 38);
+}
+
+.user-form button:focus {
+  outline: none;
+}
+
+.user-form button:active {
+  box-shadow: 2px 3px #666;
+  transform: translateY(2px);
+  transform: translateX(1px);
+}
+
+.error-message {
+  color: rgb(221,67,48);
+  font-weight: bold;
+  width: 90%;
+  margin: 0px 20px;
+  height: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
