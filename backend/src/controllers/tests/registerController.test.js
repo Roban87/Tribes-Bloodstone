@@ -1,5 +1,5 @@
-import { registrationRepo } from '../../repositories/registrationRepo';
 import { userRepo } from '../../repositories/userRepo';
+import { registerValidator } from '../../services/registrationValidator';
 import request from 'supertest';
 import app from '../../app';
 
@@ -75,7 +75,7 @@ describe('POST /api/register', () => {
 
 describe('POST /api/register', () => {
   let spySelectUser = jest.spyOn(userRepo, 'getUserByUsername');
-  let spyInsertNew = jest.spyOn(registrationRepo, 'insertNewUserWithKingdom');
+  let spyInsertNew = jest.spyOn(registerValidator, 'insertNewUser');
   spySelectUser.mockReturnValue({
     results: [database.user1],
     fields: 'somedata',
@@ -100,7 +100,7 @@ describe('POST /api/register', () => {
 
 describe('POST /api/register', () => {
   let spySelectUser = jest.spyOn(userRepo, 'getUserByUsername');
-  let spyInsertNew = jest.spyOn(registrationRepo, 'insertNewUserWithKingdom');
+  let spyInsertNew = jest.spyOn(registerValidator, 'insertNewUser');
   spySelectUser.mockReturnValue({ results: [], fields: 'somedata' });
   spyInsertNew.mockReturnValue({
     results: [{ id: 1, username: 'kornel', kingdom_id: 1 }],

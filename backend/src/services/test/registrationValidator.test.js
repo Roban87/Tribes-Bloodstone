@@ -1,5 +1,4 @@
 import { registerValidator } from '../registrationValidator';
-import { registrationRepo } from '../../repositories/registrationRepo';
 import { userRepo } from '../../repositories/userRepo';
 
 const database = {
@@ -68,35 +67,29 @@ test('username already exist check', async () => {
   });
 });
 
-test('successfull registration with kingdomname', async () => {
+test('successfull registration without kingdomname', async () => {
   let spySelectUser = jest.spyOn(userRepo, 'getUserByUsername');
-  let spyInsertNew = jest.spyOn(registrationRepo, 'insertNewUserWithKingdom');
+  let spyInsertNew = jest.spyOn(registerValidator, 'insertNewUser');
   spySelectUser.mockReturnValue({ results: [], fields: 'somedata' });
-  spyInsertNew.mockReturnValue({
-    results: [{ id: 1, username: 'kornel', kingdom_id: 1 }],
-    fields: 'somedata',
-  });
+  spyInsertNew.mockReturnValue({ userId: 1, username: 'kornel', kingdomId: 1 });
   let result = await registerValidator.registUser('kornel', 'asdasdasd');
-  expect(result).toEqual({
+  expect(result).toStrictEqual({
     userId: 1,
     username: 'kornel',
     kingdomId: 1,
   });
 });
-test('successfull registration without kingdomname', async () => {
+test('successfull registration with kingdomname', async () => {
   let spySelectUser = jest.spyOn(userRepo, 'getUserByUsername');
-  let spyInsertNew = jest.spyOn(registrationRepo, 'insertNewUserWithKingdom');
+  let spyInsertNew = jest.spyOn(registerValidator, 'insertNewUser');
   spySelectUser.mockReturnValue({ results: [], fields: 'somedata' });
-  spyInsertNew.mockReturnValue({
-    results: [{ id: 1, username: 'kornel', kingdom_id: 1 }],
-    fields: 'somedata',
-  });
+  spyInsertNew.mockReturnValue({ userId: 1, username: 'kornel', kingdomId: 1 });
   let result = await registerValidator.registUser(
     'kornel',
     'asdasdasd',
     'KORNELKINGDOM'
   );
-  expect(result).toEqual({
+  expect(result).toStrictEqual({
     userId: 1,
     username: 'kornel',
     kingdomId: 1,

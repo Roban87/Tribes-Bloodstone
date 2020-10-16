@@ -1,5 +1,5 @@
-import { registrationRepo } from '../repositories/registrationRepo.js';
 import { userRepo } from '../repositories/userRepo.js';
+import { kingdomRepo } from '../repositories/kingdomRepo';
 import bcrypt from 'bcrypt';
 
 export const registerValidator = {
@@ -43,15 +43,16 @@ export const registerValidator = {
     }
   },
   async insertNewUser(username, password, kingdomname){
-    const insertNewUser = await registrationRepo.insertNewUserWithKingdom(
-        username,
-        password,
-        kingdomname
-      );
+    const insertUser = await userRepo.insertNewUser(username, password);
+    await kingdomRepo.insertNewKingdom(
+      kingdomname,
+      insertUser.results.insertId
+    );
+    const selectUserWithKingdomname = await userRepo.selectUserWithKingdom(username);
       return {
-        userId: insertNewUser.results[0].id,
-        username: insertNewUser.results[0].username,
-        kingdomId: insertNewUser.results[0].kingdom_id,
+        userId: selectUserWithKingdomname.results[0].id,
+        username: selectUserWithKingdomname.results[0].username,
+        kingdomId: selectUserWithKingdomname.results[0].kingdom_id,
       };
   },
   async registUser(username, password, kingdomname) {
