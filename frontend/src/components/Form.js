@@ -39,7 +39,7 @@ function Form({formType}) {
       username: username,
       password: password,
     };
-    fetch(path +  'login/', {
+    fetch(`${path}/login/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json', 
@@ -101,7 +101,7 @@ function Form({formType}) {
           onChange={onPasswordChange} 
           style={errorMessage ? errorStyle : null}
           />
-        {errorMessage && <div className="error-message"><p>{errorMessage}</p><i class="fas fa-exclamation-triangle"></i></div>}
+        {errorMessage && <div className="error-message"><p>{errorMessage}</p><i className="fas fa-exclamation-triangle"></i></div>}
         {formType === "register" ? 
         <input 
           type="text" 
