@@ -12,11 +12,12 @@ function Resources() {
   const [foodGeneration, setFoodGeneration] = useState(0);
   const [goldAmount, setGoldAmount] = useState(0);
   const [goldGeneration, setGoldGeneration] = useState(0);
+  const path = process.env.REACT_APP_API_PATH;
 
   useEffect(() => {
     const kingdom = localStorage.getItem('kingdomId');
 
-    fetch(`http://localhost:3000/kingdom/resource?kingdomId=${kingdom}`)
+    fetch(`${path}/kingdom/resource/${kingdom}`)
       .then(response => response.json())
       .then(data => {
         for(let resource of data.resources) {
