@@ -9,5 +9,5 @@ export const userRepo = {
     const sqlQueryInsertUser =
       'INSERT INTO users(username, password) VALUES(?,?);';
     return await db.query(sqlQueryInsertUser, [username, password]);
-  }
+  },
 };
