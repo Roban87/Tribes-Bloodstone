@@ -44,8 +44,7 @@ describe('GET /api/kingdom/buildings', () => {
     let spy = jest.spyOn(buildingsRepo, 'getBuildings');
     spy.mockReturnValue(database.buildings);
     request(app)
-      .get('/api/kingdom/buildings')
-      .send({ kingdom_id: 1 })
+      .get('/api/kingdom/buildings/1')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(200)
