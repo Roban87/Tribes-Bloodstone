@@ -1,0 +1,43 @@
+.resource-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4% 8%;
+  color: rgb(53, 53, 53);
+}
+
+.building {
+  width: 30%;
+  height: auto;
+  margin-right: 8%;
+}
+
+.resource-container .resource-amount {
+  display: flex;
+  align-items: center;
+}
+
+.resource-container .resource-amount h2 {
+  font-size: 10vw;
+  margin: 0 2rem 0 0;
+}
+
+.icon {
+  width: 23%;
+  padding-top: 3%;
+}
+
+.resource-container h3 {
+  text-align: left;
+  font-size: 6vw;
+  margin: 0;
+}
+
+.increase {
+  color: rgb(92, 153, 0);
+}
+
+.decrease {
+  color: rgb(255, 102, 0);
+}
+
