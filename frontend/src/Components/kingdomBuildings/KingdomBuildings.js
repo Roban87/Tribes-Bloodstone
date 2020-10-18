@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Buildings from '../buildings/Buildings';
-import './Components/kingdomBuildings/kingdomBuildings.css';
+import './kingdomBuildings.css';
 
 function KingdomBuildings() {
   const [buildings, setBuildings] = useState([]);
@@ -11,10 +11,18 @@ function KingdomBuildings() {
   }, []);
 
   async function fetchBuildings() {
-    const kingdomId = localStorage.getItem('kingdomId');
+    const token = JSON.parse(localStorage.getItem('token'));
+    ;
     try {
       const buildingData = await fetch(
-        `http://localhost:3000/api/kingdom/buildings/${kingdomId}`
+        `${process.env.REACT_APP_API_PATH}/kingdom/buildings/${token.kingdomId}`, {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Token': token,
+          }
+        }
       );
       const buildingResult = await buildingData.json();
       setBuildings(buildingResult.buildings);

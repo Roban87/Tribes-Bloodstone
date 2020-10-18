@@ -1,5 +1,5 @@
 #mine {
-  background: url(./icons/mine.svg) no-repeat center top;
+  background: url(../../assets/buildings/mine.svg) no-repeat center top;
   background-size: cover;
   overflow: hidden;
   cursor: pointer;
@@ -9,7 +9,7 @@
 }
 
 #farm {
-  background: url(./icons/farm.svg) no-repeat center top;
+  background: url(../../assets/buildings/farm.svg) no-repeat center top;
   background-size: cover;
   overflow: hidden;
   cursor: pointer;
@@ -19,7 +19,7 @@
 }
 
 #barracks {
-  background: url(./icons/barracks.svg) no-repeat center top;
+  background: url(../../assets/buildings/barracks.svg) no-repeat center top;
   background-size: cover;
   overflow: hidden;
   cursor: pointer;
@@ -29,7 +29,7 @@
 }
 
 #townhall {
-  background: url(./icons/townhall.svg) no-repeat center top;
+  background: url(../../assets/buildings/townhall.svg) no-repeat center top;
   background-size: cover;
   overflow: hidden;
   cursor: pointer;
@@ -49,6 +49,7 @@ p::first-letter {
 p {
   width: fit-content;
   margin: 0px auto;
+  color: #727374;
 }
 
 .building {
