@@ -12,4 +12,9 @@ export const resourceController = {
     }
   },
 
+  async updateResources(req, res) {
+    const { kingdomId } = req.body;
+    return await resourceService.updateResources(kingdomId);
+  },
+
 }

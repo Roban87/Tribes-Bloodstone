@@ -2,11 +2,13 @@ import express from 'express';
 const cors = require('cors');
 import { helloController, loginController, buildingsController, registerController, resourceController } from '../controllers';
 import authHandler from '../middlewares/authorization-handler';
+import updateResources from '../middlewares/update-resources';
 
 const router = express.Router();
 
 router.use(cors());
 router.use(express.json());
+router.use(updateResources);
 
 router.get('/hello', helloController.get);
 router.post('/login', loginController.post);

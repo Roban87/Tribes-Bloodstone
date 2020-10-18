@@ -3,8 +3,10 @@ import app from '../../app';
 import { resourceRepo, kingdomRepo } from '../../repositories';
 import jwt from 'jsonwebtoken';
 import config from '../../config';
+import { resourceController } from '../resourceController';
 
 const token = jwt.sign('payload',config.secret);
+
 
 const database = {
   resource1: {
@@ -119,5 +121,29 @@ describe('GET request on /api/kingdom/resource', () => {
         done();
       });
   });
+});
 
+test('update resource controller test: missing kingdomId', async () => {
+  let requestMock = { body: { userId: 2}};
+  
+  let errorInfo = await resourceController.updateResources(requestMock);
+  expect(errorInfo).toEqual({status: 500, error: 'Wrong Query'});
+});
+
+test('update resource service test: not valid kingdomId', async () => {
+  let spy = jest.spyOn(resourceRepo, 'updateResources');
+  spy.mockReturnValue({results: [], fields: 'sheeps'});
+  let requestMock = { body: { kingdomId: 56}};
+
+  let info = await resourceController.updateResources(requestMock);
+  expect(info).toEqual({results: [], fields: 'sheeps'});
+});
+
+test('update resource service test: correct kingdomId', async () => {
+  let spy = jest.spyOn(resourceRepo, 'updateResources');
+  spy.mockReturnValue({results: [], fields: 'sheeps'});
+  let requestMock = { body: { kingdomId: 1}};
+
+  let info = await resourceController.updateResources(requestMock);
+  expect(info).toEqual({results: [], fields: 'sheeps'});
 });

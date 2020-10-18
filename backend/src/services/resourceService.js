@@ -13,4 +13,8 @@ export const resourceService = {
     return resources;
   },
 
+  async updateResources(kingdomId) {
+      return await resourceRepo.updateResources(kingdomId);
+  }
+
 }
