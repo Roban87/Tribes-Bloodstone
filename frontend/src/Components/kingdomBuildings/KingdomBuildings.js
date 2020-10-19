@@ -11,16 +11,16 @@ function KingdomBuildings() {
   }, []);
 
   async function fetchBuildings() {
-    const token = JSON.parse(localStorage.getItem('token'));
+    const token = localStorage.getItem('token');
     ;
     try {
       const buildingData = await fetch(
-        `${process.env.REACT_APP_API_PATH}/kingdom/buildings/${token.kingdomId}`, {
+        `${process.env.REACT_APP_API_PATH}/kingdom/buildings/${kingdomId}`, {
           method: 'GET',
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Token': token,
+            'Authorization': `Bearer ${token}`,
           }
         }
       );
