@@ -1,9 +1,9 @@
 import { resourceController } from '../controllers';
 
-export default async function (req, res, next) {
+export default async (req, res, next) => {
   try {
-    if ((req.method === 'POST' || req.method === 'PUT') && req.url !== '/register' && req.url !== '/login') {
-      await resourceController.updateResources(req, res);
+    if (req.method === 'POST' || req.method === 'PUT') {
+      await resourceController.updateResources(req.user.kingdomId);
     }
     next();
   } catch (error) {

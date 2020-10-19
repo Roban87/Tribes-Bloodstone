@@ -5,8 +5,7 @@ import jwt from 'jsonwebtoken';
 import config from '../../config';
 import { resourceController } from '../resourceController';
 
-const token = jwt.sign('payload',config.secret);
-
+const token = jwt.sign('payload', config.secret);
 
 const database = {
   resource1: {
@@ -59,6 +58,7 @@ describe('GET request on /api/kingdom/resource', () => {
     request(app)
       .get(`/api/kingdom/resource/`)
       .set('Authorization', `Bearer ${token}`)
+      .set('user', {})
       .expect(404)
       .end((err, res) => {
         if (err) return done(err);
@@ -78,6 +78,7 @@ describe('GET request on /api/kingdom/resource', () => {
     request(app)
       .get('/api/kingdom/resource/23')
       .set('Authorization', `Bearer ${token}`)
+      .set('user', {"kingdomId": 23})
       .expect(404)
       .end((err, res) => {
         if (err) return done(err);
@@ -99,6 +100,7 @@ describe('GET request on /api/kingdom/resource', () => {
     request(app)
       .get('/api/kingdom/resource/3')
       .set('Authorization', `Bearer ${token}`)
+      .set('user', {"kingdomId": 3})
       .expect(200)
       .expect({
         "resources": [
@@ -123,27 +125,20 @@ describe('GET request on /api/kingdom/resource', () => {
   });
 });
 
-test('update resource controller test: missing kingdomId', async () => {
-  let requestMock = { body: { userId: 2}};
-  
-  let errorInfo = await resourceController.updateResources(requestMock);
-  expect(errorInfo).toEqual({status: 500, error: 'Wrong Query'});
-});
+describe('update resources middleware test', () => {
 
-test('update resource service test: not valid kingdomId', async () => {
-  let spy = jest.spyOn(resourceRepo, 'updateResources');
-  spy.mockReturnValue({results: [], fields: 'sheeps'});
-  let requestMock = { body: { kingdomId: 56}};
+  test('update resource service test: correct kingdomId', async () => {
+    let spyKingdom = jest.spyOn(kingdomRepo, 'getKingdom');
+    spyKingdom.mockReturnValue({
+      results: [
+        kingdom.kingdom3
+      ]
+    });
 
-  let info = await resourceController.updateResources(requestMock);
-  expect(info).toEqual({results: [], fields: 'sheeps'});
-});
+    let spy = jest.spyOn(resourceRepo, 'updateResources');
+    spy.mockReturnValue({results: [], fields: 'sheeps'});
 
-test('update resource service test: correct kingdomId', async () => {
-  let spy = jest.spyOn(resourceRepo, 'updateResources');
-  spy.mockReturnValue({results: [], fields: 'sheeps'});
-  let requestMock = { body: { kingdomId: 1}};
-
-  let info = await resourceController.updateResources(requestMock);
-  expect(info).toEqual({results: [], fields: 'sheeps'});
+    let info = await resourceController.updateResources(2);
+    expect(info).toEqual({results: [], fields: 'sheeps'});
+  });
 });
