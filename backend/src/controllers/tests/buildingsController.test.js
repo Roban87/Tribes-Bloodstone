@@ -1,6 +1,7 @@
 import request from 'supertest';
 import app from '../../app';
 import { buildingsRepo } from '../../repositories/buildingsRepo';
+jest.mock('../../middlewares/authorization-handler', () => jest.fn((req, res, next) => next()));
 
 const database = {
   buildings: [

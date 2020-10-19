@@ -17,7 +17,6 @@ const badTokenReq = {
     authorization: `Bearer ${badToken}`,
   }
 };
-
 const goodTokenReq = {
   headers: {
     authorization: `Bearer ${goodToken}`,
@@ -25,11 +24,10 @@ const goodTokenReq = {
 };
 
 
-test('good token returns user property in request', async () => {
+test('good token returns user property in request', () => {
   const next = jest.fn();
   const res = jest.fn();
   authHandler(goodTokenReq, res, next)
- 
   expect(goodTokenReq.user.id).toEqual(1);
   expect(goodTokenReq.user.kingdomId).toEqual(1);
 });
