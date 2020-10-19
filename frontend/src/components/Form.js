@@ -1,38 +1,36 @@
-import React from 'react'
+import React from 'react';
 import '../styles/Form.css';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-
-function Form({formType}) {
-  
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-  const [kingdomName, setKingdomName] = useState("");
+function Form({ formType }) {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [kingdomName, setKingdomName] = useState('');
   const history = useHistory();
   const path = process.env.REACT_APP_API_PATH;
 
-  const onUsernameChange = (e) => {
+  const onUsernameChange = e => {
     if (errorMessage) {
-      setErrorMessage("");
+      setErrorMessage('');
     }
     setUsername(e.target.value);
   };
 
-  const onPasswordChange = (e) => {
+  const onPasswordChange = e => {
     if (errorMessage) {
-      setErrorMessage("");
+      setErrorMessage('');
     }
     setPassword(e.target.value);
   };
 
-  const onKingdomNameChange = (e) => {
+  const onKingdomNameChange = e => {
     if (errorMessage) {
-      setErrorMessage("");
+      setErrorMessage('');
     }
     setKingdomName(e.target.value);
-  }
+  };
 
   const loginUser = () => {
     const loginData = {
@@ -42,80 +40,108 @@ function Form({formType}) {
     fetch(`${path}/login/`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json', 
-      }, 
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify(loginData),
     })
-    .then((result) => result.json())
-    .then((result) => {
-      if(!result.token) {
-        setErrorMessage(result.message);
+      .then(result => result.json())
+      .then(result => {
+        if (!result.token) {
+          setErrorMessage(result.message);
+          return null;
+        }
+        window.localStorage.token = result.token;
+        setPassword('');
+        setUsername('');
+        history.push('/main');
+      })
+      .catch(err => console.log(err));
+  };
+
+  const registerUser = async () => {
+    const registData = {
+      username: username,
+      password: password,
+      kingdomname: kingdomName.length === 0 ? username : kingdomName,
+    };
+    let res = await fetch(`${path}/register/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(registData),
+    });
+    let responseData = await res.json();
+    responseData.message
+      ? setErrorMessage(responseData.message)
+      : history.push('/login');
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    if (formType === 'login') {
+      if (!username || !password) {
+        setErrorMessage('All the input fields are required');
         return null;
       }
-      window.localStorage.token = result.token;
-      setPassword("");
-      setUsername("");
-      history.push('/main');
-    })
-    .catch((err) => console.log(err));
-  };
-
-  const registerUser = () => {
-    console.log("Placeholder for registration function")
-  };
-
-  const handleSubmit = (e) =>{
-    e.preventDefault();
-    if (!username || !password) {
-      setErrorMessage('All the input fields are required');
-      return null;
-    } 
-    if (formType === "login") {
       loginUser();
     }
-    if (formType === "register") {
+    if (formType === 'register') {
+      if (!username || !password) {
+        setErrorMessage('Username and password are required');
+        return null;
+      }
       registerUser();
     }
   };
 
   const kingdomInputStyle = {
-    borderBottom: "2px solid rgb(14,155,141)",
+    borderBottom: '2px solid rgb(14,155,141)',
   };
   const errorStyle = {
-    borderBottom: "2px solid rgb(221,67,48)",
+    borderBottom: '2px solid rgb(221,67,48)',
   };
   return (
     <div>
       <form onSubmit={handleSubmit} className="user-form">
-        <input 
-          type="text" 
+        <input
+          type="text"
           id="username-input"
-          value={username} 
-          placeholder="Username" 
-          onChange={onUsernameChange} />
-        <input 
-          type="password" 
+          value={username}
+          placeholder="Username"
+          onChange={onUsernameChange}
+        />
+        <input
+          type="password"
           id="password-input"
-          value={password} 
-          placeholder="Password" 
-          onChange={onPasswordChange} 
+          value={password}
+          placeholder="Password"
+          onChange={onPasswordChange}
           style={errorMessage ? errorStyle : null}
+        />
+        {errorMessage && (
+          <div className="error-message">
+            <p>{errorMessage}</p>
+            <i className="fas fa-exclamation-triangle"></i>
+          </div>
+        )}
+        {formType === 'register' ? (
+          <input
+            type="text"
+            id="kingdom-input"
+            value={kingdomName}
+            placeholder="Kingdom name"
+            onChange={onKingdomNameChange}
+            style={kingdomInputStyle}
           />
-        {errorMessage && <div className="error-message"><p>{errorMessage}</p><i className="fas fa-exclamation-triangle"></i></div>}
-        {formType === "register" ? 
-        <input 
-          type="text" 
-          id="kingdom-input"
-          value={kingdomName}
-          placeholder="Kingdom name"
-          onChange={onKingdomNameChange}
-          style={kingdomInputStyle}
-          /> : null
-          }
-        <button type="submit">{formType === "register" ? "SIGN UP" : "LOG IN"}</button>
+        ) : null}
+        <button type="submit">
+          {formType === 'register' ? 'SIGN UP' : 'LOG IN'}
+        </button>
       </form>
     </div>
-  )
+  );
 }
 
 export default Form;
