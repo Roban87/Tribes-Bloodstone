@@ -1,10 +1,15 @@
-import { resourceRepo } from '../repositories';
+import { resourceRepo, kingdomRepo } from '../repositories';
 
 export const resourceService = {
 
   async getResources(kingdomId) {
-    let result = await resourceRepo.getResources(kingdomId);
-    const resources = result.results;
+    let kingdom = await kingdomRepo.getKingdom(kingdomId);
+    if (kingdom.results.length === 0 ) {
+      throw { message: 'Bad Request', status: 404 };
+    }
+
+    let kingdomResources = await resourceRepo.getResources(kingdomId);
+    const resources = kingdomResources.results;
     return resources;
   },
 

@@ -1,5 +1,5 @@
 import { resourceService } from '../resourceService';
-import { resourceRepo } from '../../repositories';
+import { resourceRepo, kingdomRepo } from '../../repositories';
 
 const database = {
   resource1: {
@@ -52,17 +52,21 @@ const database = {
   },
 }
 
-test('invalid kingdomId', async () => {
-  let spy = jest.spyOn(resourceRepo, 'getResources');
-  spy.mockReturnValue({results: []});
-
-  const invalidId = await resourceService.getResources(56);
-  expect(invalidId).toEqual([]);
-});
+let kingdom = {
+  kingdom3 : {
+    id: 3
+  }
+}
 
 test('correct kingdomId', async () => {
-  let spy = jest.spyOn(resourceRepo, 'getResources');
-  spy.mockReturnValue({
+  let spyKingdom = jest.spyOn(kingdomRepo, 'getKingdom');
+  spyKingdom.mockReturnValue({
+    results: [
+      kingdom.kingdom3
+    ]
+  });
+  let spyResource = jest.spyOn(resourceRepo, 'getResources');
+  spyResource.mockReturnValue({
     results: [
       database.resource5, 
       database.resource6

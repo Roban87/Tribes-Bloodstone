@@ -12,6 +12,6 @@ router.get('/hello', helloController.get);
 router.post('/login', loginController.post);
 router.get('/kingdom/buildings/:kingdomId', buildingsController.get);
 router.post('/register', registerController.post);
-router.get('/kingdom/resource/:kingdomId', resourceController.getResources);
+router.get('/kingdom/resource/:kingdomId', resourceController.get);
 
 export default router;

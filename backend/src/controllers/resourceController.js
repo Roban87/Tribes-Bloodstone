@@ -2,7 +2,7 @@ import { resourceService } from '../services/';
 
 export const resourceController = {
 
-  async getResources(req, res, next) {
+  async get(req, res, next) {
     const { kingdomId } = req.params;
     try {
       const resources = await resourceService.getResources(kingdomId);

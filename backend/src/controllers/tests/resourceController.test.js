@@ -1,6 +1,6 @@
 import request from 'supertest';
 import app from '../../app';
-import { resourceRepo } from '../../repositories';
+import { resourceRepo, kingdomRepo } from '../../repositories';
 
 const database = {
   resource1: {
@@ -39,7 +39,13 @@ const database = {
     generation: 1,
     updatedAt: 1602609804
   },
-}
+};
+
+let kingdom = {
+  kingdom3 : {
+    id: 3
+  }
+};
 
 describe('GET request on /api/kingdom/resource', () => {
 
@@ -54,15 +60,17 @@ describe('GET request on /api/kingdom/resource', () => {
   });
 
   it('wrong kingdomId', (done) => {
+    let spyKingdom = jest.spyOn(kingdomRepo, 'getKingdom');
+  spyKingdom.mockReturnValue({
+    results: []
+  });
+
     let spy = jest.spyOn(resourceRepo, 'getResources');
     spy.mockReturnValue({results: [], fields: 'sheeps'})
 
     request(app)
       .get('/api/kingdom/resource/23')
-      .expect(200)
-      .expect({
-        "resources": []
-      })
+      .expect(404)
       .end((err, res) => {
         if (err) return done(err);
         done();
@@ -70,11 +78,18 @@ describe('GET request on /api/kingdom/resource', () => {
   });
 
   it('correct kingdomId', (done) => {
+    let spyKingdom = jest.spyOn(kingdomRepo, 'getKingdom');
+    spyKingdom.mockReturnValue({
+      results: [
+        kingdom.kingdom3
+      ]
+    });
+
     let spy = jest.spyOn(resourceRepo, 'getResources');
     spy.mockReturnValue({results: [database.resource1, database.resource2], fields: 'sheeps'})
 
     request(app)
-      .get('/api/kingdom/resource/1')
+      .get('/api/kingdom/resource/3')
       .expect(200)
       .expect({
         "resources": [
