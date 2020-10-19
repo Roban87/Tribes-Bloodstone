@@ -5,19 +5,19 @@ import { loginRepo } from '../../repositories/loginRepo';
 const database = {
   user1: {
     username: "marci",
-    phash: '$2b$10$0BkmlcSgF4Vs8IxPqt8S/uKQDkBS3kNbCXCX0htPDcz0B/7605DFi',
+    password: '$2b$10$0BkmlcSgF4Vs8IxPqt8S/uKQDkBS3kNbCXCX0htPDcz0B/7605DFi',
     id: 1,
     kingdomid: 1,
   },
   user2: {
     username: "zoli",
-    phash: '$2b$10$sWmdFqL87flO56Op4g79Eu/wTomkp7DVuU2rvb/MsunQAZSUsjxNu',
+    password: '$2b$10$sWmdFqL87flO56Op4g79Eu/wTomkp7DVuU2rvb/MsunQAZSUsjxNu',
     id: 2,
     kingdomid: 2,
   },
   user3: {
     username: "peti",
-    phash: '$2b$10$f0kByEGrCZ.78E.KVmONOOoskilCU8z7ctyGvwSKEqg715hIEy22u',
+    password: '$2b$10$f0kByEGrCZ.78E.KVmONOOoskilCU8z7ctyGvwSKEqg715hIEy22u',
     id: 3,
     kingdomid: 3,
   }
