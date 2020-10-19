@@ -12,12 +12,20 @@ function Resources() {
   const [foodGeneration, setFoodGeneration] = useState(0);
   const [goldAmount, setGoldAmount] = useState(0);
   const [goldGeneration, setGoldGeneration] = useState(0);
+  const [resourceError, setResourceError] = useState('');
   const path = process.env.REACT_APP_API_PATH;
 
   useEffect(() => {
     const kingdom = localStorage.getItem('kingdomId');
 
-    fetch(`${path}/kingdom/resource/${kingdom}`)
+    fetch(`${path}/kingdom/resource/${kingdom}`, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
       .then(response => response.json())
       .then(data => {
         for(let resource of data.resources) {
@@ -30,11 +38,16 @@ function Resources() {
           }
         }
       })
-      .catch(error => console.error(error))
+      .catch(error => setResourceError('Can\'t load  resources. Please refresh the page!'));
   }, []);
 
   return (
     <div className="resources-container">
+      {
+      resourceError !== '' ? 
+      <p>{resourceError}</p> : ''
+      }
+      
       <Resource 
         building={farm} 
         altBuilding={"Farm icon"} 

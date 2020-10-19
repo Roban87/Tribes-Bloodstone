@@ -5,3 +5,9 @@
   align-items: center;
   justify-content: center;
 }
+
+p {
+  color: red;
+  font-weight: bold;
+  letter-spacing: 3px;
+}
