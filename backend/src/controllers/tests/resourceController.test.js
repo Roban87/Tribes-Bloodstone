@@ -96,7 +96,10 @@ describe('GET request on /api/kingdom/resource', () => {
 
     request(app)
       .get('/api/kingdom/resource/3')
+<<<<<<< HEAD
       .set('Authorization', `Bearer ${token}`)
+=======
+>>>>>>> f03d7b9... added kingdomId validation to resources service; updated tests
       .expect(200)
       .expect({
         "resources": [
