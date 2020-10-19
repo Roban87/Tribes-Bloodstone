@@ -6,7 +6,7 @@ import mine from '../../assets/mine.png';
 import bread from '../../assets/big_bread.png';
 import coin from '../../assets/big_coins.png';
 
-function Resources() {
+function ResourcesContainer() {
 
   const [foodAmount, setFoodAmount] = useState(0);
   const [foodGeneration, setFoodGeneration] = useState(0);
@@ -16,6 +16,7 @@ function Resources() {
   const path = process.env.REACT_APP_API_PATH;
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
     const kingdom = localStorage.getItem('kingdomId');
 
     fetch(`${path}/kingdom/resource/${kingdom}`, {
@@ -38,34 +39,35 @@ function Resources() {
           }
         }
       })
-      .catch(error => setResourceError('Can\'t load  resources. Please refresh the page!'));
+      .catch(error => setResourceError('Can\'t load resources. Please refresh the page!'));
   }, []);
 
   return (
     <div className="resources-container">
       {
-      resourceError !== '' ? 
-      <p>{resourceError}</p> : ''
+        resourceError !== '' ? 
+        <p>{resourceError}</p> :
+        <div className="resources-container"> 
+          <Resource 
+            building={farm} 
+            altBuilding={"Farm icon"} 
+            amount={foodAmount} 
+            resource={bread}
+            altResource={'Bread Icon'}
+            generation={foodGeneration}
+          />
+          <Resource 
+            building={mine} 
+            altBuilding={"Mine Icon"} 
+            amount={goldAmount} 
+            resource={coin}
+            altResource={'Coins Icon'}
+            generation={goldGeneration}
+          />
+        </div>
       }
-      
-      <Resource 
-        building={farm} 
-        altBuilding={"Farm icon"} 
-        amount={foodAmount} 
-        resource={bread}
-        altResource={'Bread Icon'}
-        generation={foodGeneration}
-      />
-      <Resource 
-        building={mine} 
-        altBuilding={"Mine Icon"} 
-        amount={goldAmount} 
-        resource={coin}
-        altResource={'Coins Icon'}
-        generation={goldGeneration}
-      />
     </div>
   );
 };
 
-export default Resources;
+export default ResourcesContainer;
