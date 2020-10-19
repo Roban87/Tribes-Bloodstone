@@ -6,19 +6,19 @@ const database = {
     username: "marci",
     password: '$2b$10$0BkmlcSgF4Vs8IxPqt8S/uKQDkBS3kNbCXCX0htPDcz0B/7605DFi',
     id: 1,
-    kingdomid: 1,
+    kingdomId: 1,
   },
   user2: {
     username: "zoli",
     password: '$2b$10$sWmdFqL87flO56Op4g79Eu/wTomkp7DVuU2rvb/MsunQAZSUsjxNu',
     id: 2,
-    kingdomid: 2,
+    kingdomId: 2,
   },
   user3: {
     username: "peti",
     password: '$2b$10$f0kByEGrCZ.78E.KVmONOOoskilCU8z7ctyGvwSKEqg715hIEy22u',
     id: 3,
-    kingdomid: 3,
+    kingdomId: 3,
   }
 }
 

@@ -1,16 +1,17 @@
 import jwt from 'jsonwebtoken';
 import config from '../config';
 
-export default async (req, res, next) => {
-  const token = req.headers.authorization.match(/.*(?=Bearer\s)/);
+export default (req, res, next) => {
   try {
-    if (!token) {
+    if (!req.headers.authorization) {
       throw {message: "No token provided"}
     }
+    const token = req.headers.authorization.match(/(?<=Bearer\s).*/)[0];
     const decoded = jwt.verify(token, config.secret,{algorithms: ["HS256"]});
     req.user = decoded;
     next(); 
   } catch(err) {
+    console.log(err.message);
       if (err.name === 'JsonWebTokenError') {
         err.message = 'Invalid token';
       }
