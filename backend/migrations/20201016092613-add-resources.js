@@ -16,14 +16,14 @@ exports.setup = function(options, seedLink) {
 
 exports.up = function(db) {
   return db.createTable('resources', {
-    resourceId: {
+    id: {
       type: 'bigint',
       notNull: true,
       primaryKey: true,
       autoIncrement: true
     },
-    kingdomId: {
-      type: 'bigint',
+    kingdom_id: {
+      type: 'int',
       notNull: true
     },
     type: {

@@ -25,8 +25,8 @@ exports.up = function (db, callback) {
   }, callback);
 };
 
-exports.down = function(db) {
-  return null;
+exports.down = function(db, callback) {
+  db.removeForeignKey('kingdoms', 'user_id_FK', callback)
 };
 
 exports._meta = {
