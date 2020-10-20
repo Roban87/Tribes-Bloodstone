@@ -12,7 +12,7 @@ function ResourcesContainer() {
   const [foodGeneration, setFoodGeneration] = useState(0);
   const [goldAmount, setGoldAmount] = useState(0);
   const [goldGeneration, setGoldGeneration] = useState(0);
-  const [resourceError, setResourceError] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const path = process.env.REACT_APP_API_PATH;
 
   useEffect(() => {
@@ -39,14 +39,14 @@ function ResourcesContainer() {
           }
         }
       })
-      .catch(error => setResourceError('Can\'t load resources. Please refresh the page!'));
+      .catch(error => setErrorMessage('Can\'t load resources. Please refresh the page!'));
   }, []);
 
   return (
     <div className="resources-container">
       {
-        resourceError !== '' ? 
-        <p>{resourceError}</p> :
+        errorMessage !== '' ? 
+        <p>{errorMessage}</p> :
         <div className="resources-container"> 
           <Resource 
             building={farm} 
