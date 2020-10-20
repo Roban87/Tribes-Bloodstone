@@ -5,6 +5,7 @@ import farm from '../../assets/farm.png';
 import mine from '../../assets/mine.png';
 import bread from '../../assets/big_bread.png';
 import coin from '../../assets/big_coins.png';
+import { fetchDataGeneral } from '../../utilities/generalFetch';
 
 function ResourcesContainer() {
 
@@ -13,33 +14,29 @@ function ResourcesContainer() {
   const [goldAmount, setGoldAmount] = useState(0);
   const [goldGeneration, setGoldGeneration] = useState(0);
   const [errorMessage, setErrorMessage] = useState('');
-  const path = process.env.REACT_APP_API_PATH;
 
   useEffect(() => {
+    const path = process.env.REACT_APP_API_PATH;
     const token = localStorage.getItem('token');
-    const kingdom = localStorage.getItem('kingdomId');
+    const kingdomId = localStorage.getItem('kingdomId');
+    const endpoint = `${path}/kingdom/resource/${kingdomId}`;
+    const method = 'GET';
+    
+    try {
+      let resourcesData = fetchDataGeneral(endpoint, method, token);
 
-    fetch(`${path}/kingdom/resource/${kingdom}`, {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      }
-    })
-      .then(response => response.json())
-      .then(data => {
-        for(let resource of data.resources) {
-          if (resource.type === 'food') {
-            setFoodAmount(resource.amount);
-            setFoodGeneration(resource.generation);
-          } else {
-            setGoldAmount(resource.amount);
-            setGoldGeneration(resource.generation);
-          }
+      for(let resource of resourcesData.resources) {
+        if (resource.type === 'food') {
+          setFoodAmount(resource.amount);
+          setFoodGeneration(resource.generation);
+        } else {
+          setGoldAmount(resource.amount);
+          setGoldGeneration(resource.generation);
         }
-      })
-      .catch(error => setErrorMessage('Can\'t load resources. Please refresh the page!'));
+      }
+    } catch (error) {
+      setErrorMessage('Can\'t load resources. Please refresh the page!')
+    }
   }, []);
 
   return (
