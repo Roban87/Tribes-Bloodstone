@@ -16,11 +16,7 @@ export const buildingsController = {
       const buildingData = await buildingsService.getSingleBuilding(buildingId);
       res.status(200).json(buildingData);
     } catch(err) {
-<<<<<<< HEAD
         next(err);
-=======
-        next(err)
->>>>>>> 8358911...  added handlers for One Building request in buildingsService and buildingsController
     }
   },
 };
