@@ -15,9 +15,6 @@ export const fetchDataGeneral = async (path, method, token, data) => {
       window.location.href = `${process.env.REACT_APP_FRONTEND}/login/`;
       return null;
     };
-    // if (fetchedData.ok === false) {
-    //   throw ({status: fetchedData.status, message: fetchedData.statusText});
-    // }
     
     return fetchedData;
 }
