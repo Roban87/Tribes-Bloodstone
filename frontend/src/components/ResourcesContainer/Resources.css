@@ -1,0 +1,13 @@
+.resources-container {
+  background-color: grey;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+p {
+  color: red;
+  font-weight: bold;
+  letter-spacing: 3px;
+}
