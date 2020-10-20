@@ -1,6 +1,10 @@
 import request from 'supertest';
 import app from '../../app';
 import { buildingsRepo } from '../../repositories/buildingsRepo';
+import jwt from 'jsonwebtoken';
+import config from '../../config';
+
+const token = jwt.sign('payload',config.secret);
 
 const database = {
   buildings: [
@@ -46,6 +50,7 @@ describe('GET /api/kingdom/buildings', () => {
     request(app)
       .get('/api/kingdom/buildings/1')
       .set('Accept', 'application/json')
+      .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
       .expect(200)
       .end((err, res) => {

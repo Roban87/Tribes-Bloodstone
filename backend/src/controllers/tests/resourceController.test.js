@@ -1,6 +1,10 @@
 import request from 'supertest';
 import app from '../../app';
 import { resourceRepo, kingdomRepo } from '../../repositories';
+import jwt from 'jsonwebtoken';
+import config from '../../config';
+
+const token = jwt.sign('payload',config.secret);
 
 const database = {
   resource1: {
@@ -52,6 +56,7 @@ describe('GET request on /api/kingdom/resource', () => {
   it('missing kingdomId', (done) => {
     request(app)
       .get(`/api/kingdom/resource/`)
+      .set('Authorization', `Bearer ${token}`)
       .expect(404)
       .end((err, res) => {
         if (err) return done(err);
@@ -70,6 +75,7 @@ describe('GET request on /api/kingdom/resource', () => {
 
     request(app)
       .get('/api/kingdom/resource/23')
+      .set('Authorization', `Bearer ${token}`)
       .expect(404)
       .end((err, res) => {
         if (err) return done(err);
@@ -90,6 +96,7 @@ describe('GET request on /api/kingdom/resource', () => {
 
     request(app)
       .get('/api/kingdom/resource/3')
+      .set('Authorization', `Bearer ${token}`)
       .expect(200)
       .expect({
         "resources": [
