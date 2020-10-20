@@ -44,3 +44,23 @@ test('Returns buildings of a given kingdom', async () => {
   const buildings = await buildingsService.getBuildings(1);
   expect(buildings).toEqual({buildings: database.buildings});
 });
+
+test('getSingleBuilding Returns data from a single building', async () => {
+  const spy = jest.spyOn(buildingsRepo, 'getSingleBuilding');
+  spy.mockReturnValue({results: [database.buildings[0]], fields: []});
+  const building = await buildingsService.getSingleBuilding(1)
+  expect(building).toEqual(database.buildings[0]);
+})
+
+test('getSingleBuilding throws error message when no building was found', async () => {
+  const spy = jest.spyOn(buildingsRepo, 'getSingleBuilding');
+  spy.mockReturnValue({results: [], fields: []});
+  let thrownError = {};
+  try {
+    await buildingsService.getSingleBuilding(1);
+  } catch(err) {
+      thrownError = err;
+  }
+  expect(thrownError.message).toEqual("Something went wrong...");
+  expect(thrownError.status).toEqual(400);
+})
