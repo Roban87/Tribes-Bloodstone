@@ -48,7 +48,11 @@ test('Returns buildings of a given kingdom', async () => {
 test('getSingleBuilding Returns data from a single building', async () => {
   const spy = jest.spyOn(buildingsRepo, 'getSingleBuilding');
   spy.mockReturnValue({results: [database.buildings[0]], fields: []});
+<<<<<<< HEAD
   const building = await buildingsService.getSingleBuilding(1);
+=======
+  const building = await buildingsService.getSingleBuilding(1)
+>>>>>>> ead55f8... created unit tests for buildingsService.getSingleBuilding method
   expect(building).toEqual(database.buildings[0]);
 })
 
