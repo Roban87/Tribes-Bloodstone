@@ -13,8 +13,8 @@ export const regMapController = {
   },
   async get(req, res, next) {
     try {
-      const allKingdoms = await regMapService.getRegMap();
-      res.status(200).json({ allKingdoms });
+      const kingdoms = await regMapService.getRegMap();
+      res.status(200).json({ kingdoms });
     } catch (error) {
       next(error);
     }

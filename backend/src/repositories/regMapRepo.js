@@ -19,7 +19,7 @@ export const regMapRepo = {
   async getRegMap() {
     try {
       const kingdomsQuery =
-        'SELECT id, kingdomname, population, location FROM kingdoms';
+        'SELECT id AS kingdom_id, kingdomname, population, location FROM kingdoms';
       const queryData = await db.query(kingdomsQuery);
       return queryData.results;
     } catch (error) {
