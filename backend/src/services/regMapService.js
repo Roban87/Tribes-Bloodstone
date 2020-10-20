@@ -16,4 +16,7 @@ export const regMapService = {
     }
     return await regMapRepo.postRegMap(kingdomId, location);
   },
+  async getRegMap() {
+    return await regMapRepo.getRegMap(); 
+  }
 };
