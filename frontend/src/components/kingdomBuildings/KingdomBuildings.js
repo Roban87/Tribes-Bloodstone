@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Buildings from '../buildings/Buildings';
 import './kingdomBuildings.css';
+import { fetchDataGeneral } from '../../utilities/generalFetch';
 
 function KingdomBuildings() {
   const [buildings, setBuildings] = useState([]);
@@ -13,20 +14,13 @@ function KingdomBuildings() {
   async function fetchBuildings() {
     const token = localStorage.getItem('token');
     const kingdomId = localStorage.getItem('kingdomId');
+    const endpoint = `/kingdom/buildings/${kingdomId}`;
+    const method = 'GET';
     
     try {
-      const buildingData = await fetch(
-        `${process.env.REACT_APP_API_PATH}/kingdom/buildings/${kingdomId}`, {
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
-          }
-        }
-      );
-      const buildingResult = await buildingData.json();
-      setBuildings(buildingResult.buildings);
+      let fetchedData = fetchDataGeneral(endpoint, method, token);
+      let buildingsData = fetchedData.json();
+      setBuildings(buildingsData.buildings);
     } catch (error) {
       console.log(error);
       setErrorMessage('Something went wrong');

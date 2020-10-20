@@ -16,15 +16,14 @@ function ResourcesContainer() {
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
-    const path = process.env.REACT_APP_API_PATH;
     const token = localStorage.getItem('token');
     const kingdomId = localStorage.getItem('kingdomId');
-    const endpoint = `${path}/kingdom/resource/${kingdomId}`;
+    const endpoint = `/kingdom/resource/${kingdomId}`;
     const method = 'GET';
     
     try {
-      let resourcesData = fetchDataGeneral(endpoint, method, token);
-
+      let fetchedData = fetchDataGeneral(endpoint, method, token);
+      let resourcesData = fetchedData.json();
       for(let resource of resourcesData.resources) {
         if (resource.type === 'food') {
           setFoodAmount(resource.amount);
@@ -42,9 +41,9 @@ function ResourcesContainer() {
   return (
     <div className="resources-container">
       {
-        errorMessage !== '' ? 
-        <p>{errorMessage}</p> :
-        <div className="resources-container"> 
+        errorMessage ? 
+        (<p>{errorMessage}</p>) :
+        (<div className="resources-container"> 
           <Resource 
             building={farm} 
             altBuilding={"Farm icon"} 
@@ -61,7 +60,7 @@ function ResourcesContainer() {
             altResource={'Coins Icon'}
             generation={goldGeneration}
           />
-        </div>
+        </div>)
       }
     </div>
   );

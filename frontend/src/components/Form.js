@@ -2,6 +2,7 @@ import React from 'react';
 import '../styles/Form.css';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { fetchDataGeneral } from '../utilities/generalFetch';
 
 function Form({ formType }) {
   const [username, setUsername] = useState('');
@@ -9,7 +10,6 @@ function Form({ formType }) {
   const [errorMessage, setErrorMessage] = useState('');
   const [kingdomName, setKingdomName] = useState('');
   const history = useHistory();
-  const path = process.env.REACT_APP_API_PATH;
 
   const onUsernameChange = e => {
     if (errorMessage) {
@@ -33,49 +33,53 @@ function Form({ formType }) {
   };
 
   const loginUser = () => {
+    const endpoint = `/login/`;
+    const method = 'POST';
+    const token = localStorage.getItem('token');
     const loginData = {
       username: username,
       password: password,
     };
-    fetch(`${path}/login/`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(loginData),
-    })
-      .then(result => result.json())
-      .then(result => {
-        if (!result.token) {
-          setErrorMessage(result.message);
-          return null;
-        }
-        window.localStorage.token = result.token;
-        setPassword('');
-        setUsername('');
-        history.push('/main');
-      })
-      .catch(err => console.log(err));
+
+    try {
+      let fetchedData = fetchDataGeneral(endpoint, method, token, loginData);
+      let loginResponse = fetchedData.json();
+
+      if (!loginResponse.token) {
+        setErrorMessage(loginResponse.message);
+        return null;
+      }
+
+      window.localStorage.token = loginResponse.token;
+      setPassword('');
+      setUsername('');
+      history.push('/main');
+    } catch (error) {
+      console.log(error);
+    }
+      
   };
 
   const registerUser = async () => {
+    const endpoint = `/register/`;
+    const method = 'POST';
+    const token = localStorage.getItem('token');
     const registData = {
       username: username,
       password: password,
       kingdomname: kingdomName.length === 0 ? username : kingdomName,
     };
-    let res = await fetch(`${path}/register/`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify(registData),
-    });
-    let responseData = await res.json();
-    responseData.message
-      ? setErrorMessage(responseData.message)
+
+    try {
+      let fetchedData = fetchDataGeneral(endpoint, method, token, registData);
+      let registerResponse = fetchedData.json();
+
+      registerResponse.message
+      ? setErrorMessage(registerResponse.message)
       : history.push('/login');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleSubmit = e => {

@@ -6,6 +6,10 @@
   color: rgb(53, 53, 53);
 }
 
+.resource-container p {
+  color: red;
+}
+
 .building {
   width: 30%;
   height: auto;
