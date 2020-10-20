@@ -12,7 +12,11 @@ export const buildingsRepo = {
       const sql = 'SELECT * FROM buildings WHERE id = ?';
       return await db.query(sql, buildingId);
     } catch(err) {
+<<<<<<< HEAD
         throw {status: 500, message: 'Internal server error'};
+=======
+      throw {status: 500, message: 'Internal server error'};
+>>>>>>> f73dc9b... added getSingleBuilding method to buildingsRepo
     }
   },
 };
