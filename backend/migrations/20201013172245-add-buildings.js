@@ -16,7 +16,11 @@ exports.setup = function(options, seedLink) {
 
 exports.up = function (db, callback) {
   db.createTable('buildings', {
+<<<<<<< HEAD
     id: { type: 'int', primaryKey: true, autoIncrement: true },
+=======
+    id: { type: 'int', primaryKey: true },
+>>>>>>> 43b9448... added kingdom_id FK to buildings and resources tables in migration
     type: 'string',
     level: 'int',
     hp: 'int',
