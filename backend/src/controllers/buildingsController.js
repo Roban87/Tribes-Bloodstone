@@ -16,7 +16,7 @@ export const buildingsController = {
       const buildingData = await buildingsService.getSingleBuilding(buildingId);
       res.status(200).json(buildingData);
     } catch(err) {
-        next(err)
+        next(err);
     }
   },
 };

@@ -12,7 +12,7 @@ export const buildingsRepo = {
       const sql = 'SELECT * FROM buildings WHERE id = ?';
       return await db.query(sql, buildingId);
     } catch(err) {
-      throw {status: 500, message: 'Internal server error'};
+        throw {status: 500, message: 'Internal server error'};
     }
   },
 };

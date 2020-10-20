@@ -9,7 +9,7 @@ export const buildingsService = {
     const buildingData = queryResult.results[0];
     console.log(buildingData);
     if (!buildingData) {
-      throw { message: "Something went wrong...", status: 400 }
+      throw { message: "Something went wrong...", status: 400 };
     }
     return buildingData;
   }

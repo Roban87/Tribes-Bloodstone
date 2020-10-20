@@ -40,7 +40,7 @@ const database = {
 
 test('Returns buildings of a given kingdom', async () => {
   const spy = jest.spyOn(buildingsRepo, 'getBuildings');
-  spy.mockReturnValue(database)
+  spy.mockReturnValue(database);
   const buildings = await buildingsService.getBuildings(1);
   expect(buildings).toEqual({buildings: database.buildings});
 });
@@ -48,7 +48,7 @@ test('Returns buildings of a given kingdom', async () => {
 test('getSingleBuilding Returns data from a single building', async () => {
   const spy = jest.spyOn(buildingsRepo, 'getSingleBuilding');
   spy.mockReturnValue({results: [database.buildings[0]], fields: []});
-  const building = await buildingsService.getSingleBuilding(1)
+  const building = await buildingsService.getSingleBuilding(1);
   expect(building).toEqual(database.buildings[0]);
 })
 

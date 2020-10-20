@@ -65,7 +65,7 @@ describe('GET /api/kingdom/buildings', () => {
 describe('GET api/kingdom/buildings/:kindomId/buildingId', () => {
   it('responds with a JSON containing the building specified by the building id', done => {
     let spy = jest.spyOn(buildingsRepo, 'getSingleBuilding');
-    spy.mockReturnValue({results: [database.buildings[0]], fields: []});
+    spy.mockReturnValue({ results: [database.buildings[0]], fields: [] });
     request(app)
       .get('/api/kingdom/buildings/1/1')
       .set('Accept', 'application/json')
