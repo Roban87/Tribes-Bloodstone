@@ -4,3 +4,4 @@ export * from './buildingsController';
 export * from './registerController';
 export * from './resourceController';
 export * from './registerMapController';
+export * from './kingdomUpdateNameController';

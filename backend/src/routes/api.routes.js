@@ -1,6 +1,6 @@
 import express from 'express';
 const cors = require('cors');
-import { helloController, loginController, buildingsController, registerController, resourceController, registerMapController } from '../controllers';
+import { helloController, loginController, buildingsController, registerController, resourceController, registerMapController, kingdomUpdateNameController } from '../controllers';
 import authHandler from '../middlewares/authorization-handler';
 import updateResources from '../middlewares/update-resources';
 
@@ -22,5 +22,6 @@ router.get('/kingdom/resource/:kingdomId', resourceController.get);
 router.post('/register/map/:kingdomId', registerMapController.post);
 router.get('/kingdom/map/', registerMapController.get);
 
+router.put('/kingdom', kingdomUpdateNameController.put);
 
 export default router;

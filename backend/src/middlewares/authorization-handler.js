@@ -7,7 +7,7 @@ export default (req, res, next) => {
       throw {message: "No token provided"}
     }
     const token = req.headers.authorization.match(/(?<=Bearer\s).*/)[0];
-    const decoded = jwt.verify(token, config.secret,{algorithms: ["HS256"]});
+    const decoded = jwt.verify(token, config.secret ,{algorithms: ["HS256"]});
     req.user = decoded;
     next(); 
   } catch(err) {

@@ -3,7 +3,7 @@ import { db } from '../data/connection';
 export const kingdomRepo = {
 
   async getKingdom(kingdomId) {
-    const sqlQueryListOfKingdom = 'SELECT * FROM kingdoms WHERE id = ?;';
+    const sqlQueryListOfKingdom = 'SELECT * FROM kingdoms WHERE id = ?;';    
     return await db.query(sqlQueryListOfKingdom, [kingdomId]);
   },
 
@@ -23,4 +23,8 @@ export const kingdomRepo = {
       throw { status: 500, message: 'Internal server error' };
     }
   },
+  async updateName(kingdomname, kingdom_id) {
+    const sqlQuery = 'UPDATE kingdoms SET kingdomname=? WHERE id=?;';
+    return await db.query(sqlQuery, [kingdomname, kingdom_id]);
+  }
 };
