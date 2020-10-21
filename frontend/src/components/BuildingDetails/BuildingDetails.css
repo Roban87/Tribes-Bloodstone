@@ -1,0 +1,73 @@
+.details-container {
+  width: 1000px;
+  display: grid;
+  grid-template-columns: repeat(1fr 5);
+  color:rgb(52,53,53);
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 20px; 
+}
+
+.image-div {
+  grid-column: 1 / 2;
+}
+.building-image {
+  width: 200px;
+}
+
+.building-details {
+  padding: 0px 20px;
+  grid-column: 2 / 6;
+}
+
+.building-description {
+  text-align: left;
+}
+
+
+.building-description p {
+  font-size: 25px;
+  margin: 0px 10px;
+}
+
+p img {
+  height: 1em;
+}
+
+.addTroop-button {
+  margin: 20px auto;
+  padding: 10px;
+  height: 100px;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  width: 350px;
+  background-color: rgb(16,150,139);
+  color: white;
+  border-radius: 20px;
+  box-shadow: 0px 5px #999;
+}
+.addTroop-button:hover {
+  background-color:  rgb(13, 129, 120);
+}
+.addTroop-button:active {
+  box-shadow: 0px 3px #666;
+  transform: translateY(2px);
+}
+.addTroop-button * {
+  user-select: none;
+}
+.troop-icon {
+  max-height: 100%;
+}
+.troop-icon img {
+  max-height: 100px;
+}
+
+.addTroop-details {
+  justify-self: center;
+  align-self: center;
+  text-align: left;
+}
+
+.addTroop-details p {
+  margin: 3px;
+}

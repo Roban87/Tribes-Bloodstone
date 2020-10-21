@@ -27,8 +27,8 @@ router.post('/register/map/:kingdomId', registerMapController.post);
 router.use(authHandler);
 router.use(updateResources);
 
-router.get('/kingdom/buildings/:kingdomId', buildingsController.get);
-router.get('/kingdom/buildings/:kingdomId/:buildingId', buildingsController.getBuilding);
+router.get('/kingdom/buildings/', buildingsController.get);
+router.get('/kingdom/buildings/:buildingId', buildingsController.getBuilding);
 router.post('/kingdom/buildings', buildingsController.post);
 router.put('/kingdom/buildings/:buildingId', buildingsController.put);
 router.get('/kingdom/resource/:kingdomId', resourceController.get);

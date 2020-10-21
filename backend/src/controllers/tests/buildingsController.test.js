@@ -56,7 +56,7 @@ describe('GET /api/kingdom/buildings', () => {
     const spy = jest.spyOn(buildingsRepo, 'getBuildings');
     spy.mockReturnValue(database.buildings);
     request(app)
-      .get('/api/kingdom/buildings/1')
+      .get('/api/kingdom/buildings/')
       .set('Accept', 'application/json')
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
@@ -69,12 +69,12 @@ describe('GET /api/kingdom/buildings', () => {
   });
 });
 
-describe('GET api/kingdom/buildings/:kindomId/buildingId', () => {
+describe('GET api/kingdom/buildings/buildingId', () => {
   it('responds with a JSON containing the building specified by the building id', (done) => {
     const spy = jest.spyOn(buildingsRepo, 'getSingleBuilding');
     spy.mockReturnValue({ results: [database.buildings[0]], fields: [] });
     request(app)
-      .get('/api/kingdom/buildings/1/1')
+      .get('/api/kingdom/buildings/1')
       .set('Accept', 'application/json')
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
@@ -189,7 +189,7 @@ describe('POST /api/kingdom/buildings -> add new building tests', () => {
   });
 });
 
-describe('PUT api/kingdom/buildings/:kingdomId/:buildingId', () => {
+describe('PUT api/kingdom/buildings//:buildingId', () => {
   it('responds with a JSON object containing the updated building specified by the building id', (done) => {
     const spyGetBuildings = jest.spyOn(buildingsRepo, 'getBuildings');
     spyGetBuildings.mockReturnValue(database.buildings);
@@ -205,7 +205,7 @@ describe('PUT api/kingdom/buildings/:kingdomId/:buildingId', () => {
     spyResourceRate.mockReturnValue(null);
 
     request(app)
-      .get('/api/kingdom/buildings/4/5')
+      .get('/api/kingdom/buildings/5')
       .set('Accept', 'application/json')
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
