@@ -22,8 +22,7 @@ function ResourcesContainer() {
     const method = 'GET';
     
     try {
-      let fetchedData = fetchDataGeneral(endpoint, method, token);
-      let resourcesData = fetchedData.json();
+      let resourcesData = fetchDataGeneral(endpoint, method, token);
       for(let resource of resourcesData.resources) {
         if (resource.type === 'food') {
           setFoodAmount(resource.amount);

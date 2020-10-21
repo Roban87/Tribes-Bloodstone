@@ -42,8 +42,7 @@ function Form({ formType }) {
     };
 
     try {
-      let fetchedData = fetchDataGeneral(endpoint, method, token, loginData);
-      let loginResponse = fetchedData.json();
+      let loginResponse = fetchDataGeneral(endpoint, method, token, loginData);
 
       if (!loginResponse.token) {
         setErrorMessage(loginResponse.message);
@@ -71,8 +70,7 @@ function Form({ formType }) {
     };
 
     try {
-      let fetchedData = fetchDataGeneral(endpoint, method, token, registData);
-      let registerResponse = fetchedData.json();
+      let registerResponse = fetchDataGeneral(endpoint, method, token, registData);
 
       registerResponse.message
       ? setErrorMessage(registerResponse.message)

@@ -1,6 +1,6 @@
-export const fetchDataGeneral = async (path, method, token, data) => {
+export const fetchDataGeneral = async (endpoint, method, token, data) => {
 
-    const fetchedData = await fetch(`${process.env.REACT_APP_API_PATH}${path}`, {
+    const fetchedData = await fetch(`${process.env.REACT_APP_API_PATH}${endpoint}`, {
       method: method, 
       headers: {
         'Accept': 'application/json',
@@ -9,12 +9,12 @@ export const fetchDataGeneral = async (path, method, token, data) => {
       }, 
       body: JSON.stringify(data),
     });
-    console.log(fetchedData);
 
     if (fetchedData.status === 401) {
       window.location.href = `${process.env.REACT_APP_FRONTEND}/login/`;
       return null;
     };
     
-    return fetchedData;
+    let jsonData = fetchedData.json();
+    return jsonData;
 }

@@ -18,8 +18,7 @@ function KingdomBuildings() {
     const method = 'GET';
     
     try {
-      let fetchedData = fetchDataGeneral(endpoint, method, token);
-      let buildingsData = fetchedData.json();
+      let buildingsData = fetchDataGeneral(endpoint, method, token);
       setBuildings(buildingsData.buildings);
     } catch (error) {
       console.log(error);
