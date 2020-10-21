@@ -16,13 +16,13 @@ function ResourcesContainer() {
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
     const kingdomId = localStorage.getItem('kingdomId');
     const endpoint = `/kingdom/resource/${kingdomId}`;
     const method = 'GET';
     
     try {
-      let resourcesData = fetchDataGeneral(endpoint, method, token);
+      let resourcesData = fetchDataGeneral(endpoint, method);
+      
       for(let resource of resourcesData.resources) {
         if (resource.type === 'food') {
           setFoodAmount(resource.amount);

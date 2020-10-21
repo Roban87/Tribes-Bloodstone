@@ -35,14 +35,13 @@ function Form({ formType }) {
   const loginUser = () => {
     const endpoint = `/login/`;
     const method = 'POST';
-    const token = localStorage.getItem('token');
     const loginData = {
       username: username,
       password: password,
     };
 
     try {
-      let loginResponse = fetchDataGeneral(endpoint, method, token, loginData);
+      let loginResponse = fetchDataGeneral(endpoint, method, loginData);
 
       if (!loginResponse.token) {
         setErrorMessage(loginResponse.message);
@@ -62,7 +61,6 @@ function Form({ formType }) {
   const registerUser = async () => {
     const endpoint = `/register/`;
     const method = 'POST';
-    const token = localStorage.getItem('token');
     const registData = {
       username: username,
       password: password,
@@ -70,7 +68,7 @@ function Form({ formType }) {
     };
 
     try {
-      let registerResponse = fetchDataGeneral(endpoint, method, token, registData);
+      let registerResponse = fetchDataGeneral(endpoint, method, registData);
 
       registerResponse.message
       ? setErrorMessage(registerResponse.message)

@@ -1,6 +1,7 @@
-export const fetchDataGeneral = async (endpoint, method, token, data) => {
+export const fetchDataGeneral = async (path, method, data) => {
+  const token = localStorage.getItem('token');
 
-    const fetchedData = await fetch(`${process.env.REACT_APP_API_PATH}${endpoint}`, {
+    const fetchedData = await fetch(`${process.env.REACT_APP_BACKEND}${path}`, {
       method: method, 
       headers: {
         'Accept': 'application/json',
@@ -15,6 +16,6 @@ export const fetchDataGeneral = async (endpoint, method, token, data) => {
       return null;
     };
     
-    let jsonData = fetchedData.json();
+    let jsonData = await fetchedData.json();
     return jsonData;
 }

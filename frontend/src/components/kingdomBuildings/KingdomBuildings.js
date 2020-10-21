@@ -12,13 +12,13 @@ function KingdomBuildings() {
   }, []);
 
   async function fetchBuildings() {
-    const token = localStorage.getItem('token');
     const kingdomId = localStorage.getItem('kingdomId');
     const endpoint = `/kingdom/buildings/${kingdomId}`;
     const method = 'GET';
     
     try {
-      let buildingsData = fetchDataGeneral(endpoint, method, token);
+      let buildingsData = fetchDataGeneral(endpoint, method);
+      
       setBuildings(buildingsData.buildings);
     } catch (error) {
       console.log(error);
