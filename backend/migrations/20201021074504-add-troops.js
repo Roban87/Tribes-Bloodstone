@@ -14,7 +14,7 @@ exports.setup = function (options, seedLink) {
   seed = seedLink;
 };
 
-exports.up = function (db) {
+exports.up = function (db, callback) {
   return db.createTable('troops', {
     id: { type: 'int', primaryKey: true, autoIncrement: true },
     level: 'int',
@@ -27,15 +27,16 @@ exports.up = function (db) {
       type: 'int',
       notNull: true,
       foreignKey: {
-        name: 'id',
+        name: 'kingdom_id_fk',
         table: 'kingdoms',
         rules: {
           onDelete: 'CASCADE',
           onUpdate: 'RESTRICT',
         },
+        mapping: 'id',
       },
     },
-  });
+  }, callback);
 };
 
 exports.down = function (db) {
