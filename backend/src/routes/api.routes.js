@@ -13,6 +13,7 @@ router.post('/login', loginController.post);
 router.post('/register', registerController.post);
 router.use(authHandler);
 router.get('/kingdom/buildings/:kingdomId', buildingsController.get);
+router.get('/kingdom/buildings/:kingdomId/:buildingId', buildingsController.getBuilding);
 router.get('/kingdom/resource/:kingdomId', resourceController.get);
 
 export default router;

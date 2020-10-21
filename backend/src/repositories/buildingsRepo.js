@@ -7,4 +7,12 @@ export const buildingsRepo = {
     const queryData = await db.query(buildingsQuery, [kingdomId]);
     return queryData.results;
   },
+  async getSingleBuilding(buildingId) {
+    try {
+      const sql = 'SELECT * FROM buildings WHERE id = ?';
+      return await db.query(sql, buildingId);
+    } catch(err) {
+        throw {status: 500, message: 'Internal server error'};
+    }
+  },
 };

@@ -10,4 +10,14 @@ export const buildingsController = {
       res.status(500).json({error: 'Something went wrong...'});
     }
   },
+  async getBuilding(req, res, next) {
+    const { buildingId } = req.params;
+    const { kingdomId } = req.user;
+    try {
+      const buildingData = await buildingsService.getSingleBuilding(buildingId, kingdomId);
+      res.status(200).json(buildingData);
+    } catch(err) {
+        next(err);
+    }
+  },
 };

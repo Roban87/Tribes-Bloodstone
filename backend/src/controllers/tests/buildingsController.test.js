@@ -60,3 +60,21 @@ describe('GET /api/kingdom/buildings', () => {
       });
   });
 });
+
+describe('GET api/kingdom/buildings/:kindomId/buildingId', () => {
+  it('responds with a JSON containing the building specified by the building id', done => {
+    let spy = jest.spyOn(buildingsRepo, 'getSingleBuilding');
+    spy.mockReturnValue({ results: [database.buildings[0]], fields: [] });
+    request(app)
+      .get('/api/kingdom/buildings/1/1')
+      .set('Accept', 'application/json')
+      .set('Authorization', `Bearer ${token}`)
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err);
+        expect(res.body).toEqual(database.buildings[0]);
+        done();
+      });
+  });
+});

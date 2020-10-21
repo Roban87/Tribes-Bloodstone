@@ -10,7 +10,7 @@ export const loginRepo = {
         LIMIT 1`;
       return await db.query(sql, username);
     } catch(err) {
-      throw {status: 500, message: 'Internal server error'};
+        throw {status: 500, message: 'Internal server error'};
     }
   }
 }
