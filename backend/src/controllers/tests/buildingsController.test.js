@@ -3,7 +3,6 @@ import app from '../../app';
 import { buildingsRepo } from '../../repositories/buildingsRepo';
 import jwt from 'jsonwebtoken';
 import config from '../../config';
-import { buildingsService } from '../../services';
 
 const token = jwt.sign('payload',config.secret);
 
