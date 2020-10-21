@@ -124,21 +124,3 @@ describe('GET request on /api/kingdom/resource', () => {
       });
   });
 });
-
-describe('update resources middleware test', () => {
-
-  test('update resource service test: correct kingdomId', async () => {
-    let spyKingdom = jest.spyOn(kingdomRepo, 'getKingdom');
-    spyKingdom.mockReturnValue({
-      results: [
-        kingdom.kingdom3
-      ]
-    });
-
-    let spy = jest.spyOn(resourceRepo, 'updateResources');
-    spy.mockReturnValue({results: [], fields: 'sheeps'});
-
-    let info = await resourceController.updateResources(2);
-    expect(info).toEqual({results: [], fields: 'sheeps'});
-  });
-});
