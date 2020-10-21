@@ -4,7 +4,7 @@ import { helloController, loginController, buildingsController, registerControll
 import authHandler from '../middlewares/authorization-handler';
 import updateResources from '../middlewares/update-resources';
 
-const router = express.Router({mergeParams: true});
+const router = express.Router();
 
 router.use(cors());
 router.use(express.json());

@@ -1,9 +1,9 @@
-import { resourceController } from '../controllers';
+import { resourceService } from '../services';
 
 export default async (req, res, next) => {
   try {
     if (req.method === 'POST' || req.method === 'PUT') {
-      await resourceController.updateResources(req.user.kingdomId);
+      await resourceService.updateResources(req.user.kingdomId);
     }
     next();
   } catch (error) {

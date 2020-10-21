@@ -12,8 +12,4 @@ export const resourceController = {
     }
   },
 
-  async updateResources(kingdomId) {
-    return await resourceService.updateResources(kingdomId);
-  },
-
 }
