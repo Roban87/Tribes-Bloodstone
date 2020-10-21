@@ -4,7 +4,7 @@ import { buildingsRepo } from '../../repositories/buildingsRepo';
 const database = {
   buildings: [
     {
-      building_id: 1,
+      id: 1,
       type: 'mine',
       level: 1,
       hp: 10,
@@ -12,7 +12,7 @@ const database = {
       finished_at: null,
     },
     {
-      building_id: 2,
+      id: 2,
       type: 'farm',
       level: 1,
       hp: 10,
@@ -20,7 +20,7 @@ const database = {
       finished_at: null,
     },
     {
-      building_id: 3,
+      id: 3,
       type: 'barracks',
       level: 1,
       hp: 10,
@@ -28,7 +28,7 @@ const database = {
       finished_at: null,
     },
     {
-      building_id: 4,
+      id: 4,
       type: 'townhall',
       level: 1,
       hp: 10,

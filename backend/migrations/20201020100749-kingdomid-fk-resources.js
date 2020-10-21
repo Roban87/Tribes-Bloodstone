@@ -14,20 +14,19 @@ exports.setup = function(options, seedLink) {
   seed = seedLink;
 };
 
-exports.up = function (db, callback) {
-  db.createTable('buildings', {
-    id: { type: 'int', primaryKey: true, autoIncrement: true },
-    type: 'string',
-    level: 'int',
-    hp: 'int',
-    started_at: 'timestamp',
-    finished_at: 'timestamp',
-    kingdom_id: 'int'
+exports.up = function(db, callback) {
+  db.addForeignKey('resources', 'kingdoms', 'kingdom_id_resources',
+  {
+    'kingdom_id': 'id'
+  },
+  {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
   }, callback);
 };
 
-exports.down = function (db, callback) {
-  db.dropTable('buildings', callback);
+exports.down = function(db, callback) {
+  db.removeForeignKey('resources', 'kingdom_id_resources', callback);
 };
 
 exports._meta = {
