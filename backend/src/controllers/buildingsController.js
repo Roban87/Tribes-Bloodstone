@@ -12,8 +12,9 @@ export const buildingsController = {
   },
   async getBuilding(req, res, next) {
     const { buildingId } = req.params;
+    const { kingdomId } = req.user;
     try {
-      const buildingData = await buildingsService.getSingleBuilding(buildingId);
+      const buildingData = await buildingsService.getSingleBuilding(buildingId, kingdomId);
       res.status(200).json(buildingData);
     } catch(err) {
         next(err);
