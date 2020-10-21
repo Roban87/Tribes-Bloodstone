@@ -1,10 +1,11 @@
 import request from 'supertest';
 import app from '../../app';
-import { buildingsRepo } from '../../repositories/buildingsRepo';
+import { buildingsRepo, resourceRepo } from '../../repositories';
 import jwt from 'jsonwebtoken';
 import config from '../../config';
 
-const token = jwt.sign('payload',config.secret);
+const token = jwt.sign('payload', config.secret);
+
 
 const database = {
   buildings: [
@@ -57,8 +58,97 @@ describe('GET /api/kingdom/buildings', () => {
         if (err) return done(err);
         expect(res.body).toEqual({buildings: database.buildings});
         done();
-      });
+    });
   });
+});
+
+describe('POST /api/kingdom/buildings -> add new building tests', () => {
+
+  test('missing type -> responds with error', done => {
+    request(app)
+    .post('/api/kingdom/buildings')
+    .set('Accept', 'application/json')
+    .set('Authorization', `Bearer ${token}`)
+    .send({})
+    .expect('Content-Type', /json/)
+    .expect(500)
+    .end((err, res) => {
+      if (err) return done(err);
+      expect(res.body).toEqual({ error: 'Type is required' });
+      done();
+    });
+  });
+
+  test('wrong type -> responds with error', done => {
+    request(app)
+    .post('/api/kingdom/buildings')
+    .set('Accept', 'application/json')
+    .set('Authorization', `Bearer ${token}`)
+    .send({type: 'library'})
+    .expect('Content-Type', /json/)
+    .expect(500)
+    .end((err, res) => {
+      if (err) return done(err);
+      expect(res.body).toEqual({ error: 'Wrong type' });
+      done();
+    });
+  });
+
+  test('not enough money -> responds with error', done => {
+    const spy = jest.spyOn(resourceRepo, 'getGoldAmount');
+    spy.mockReturnValue([{amount: 80}]);
+
+    request(app)
+    .post('/api/kingdom/buildings')
+    .set('Accept', 'application/json')
+    .set('Authorization', `Bearer ${token}`)
+    .send({type: 'farm'})
+    .expect('Content-Type', /json/)
+    .expect(500)
+    .end((err, res) => {
+      if (err) return done(err);
+      expect(res.body).toEqual({ error: 'You don\'t have enough money' });
+      done();
+    });
+  });
+
+  test('good type & enough gold-> responds with new building data', done => {
+    const spyResource = jest.spyOn(resourceRepo, 'getGoldAmount');
+    spyResource.mockReturnValue([{amount: 200}]);
+
+    const spyBuildings = jest.spyOn(buildingsRepo, 'addNewBuilding');
+    spyBuildings.mockReturnValue([{
+      id: 5,
+      type: 'farm',
+      level: 1,
+      hp: 100,
+      started_at: '1603620911',
+      finished_at: '1603620971',
+      kingdom_id: 2
+    }]);
+
+    request(app)
+    .post('/api/kingdom/buildings')
+    .set('Accept', 'application/json')
+    .set('Authorization', `Bearer ${token}`)
+    .send({type: 'farm'})
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .end((err, res) => {
+      if (err) return done(err);
+      expect(res.body).toEqual({
+        id: 5,
+        type: 'farm',
+        level: 1,
+        hp: 100,
+        started_at: '1603620911',
+        finished_at: '1603620971',
+        kingdom_id: 2
+      });
+      done();
+    });
+  });
+
 });
 
 describe('GET api/kingdom/buildings/:kindomId/buildingId', () => {

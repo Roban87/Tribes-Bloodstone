@@ -68,9 +68,9 @@ describe('GET request on /api/kingdom/resource', () => {
 
   it('wrong kingdomId', (done) => {
     let spyKingdom = jest.spyOn(kingdomRepo, 'getKingdom');
-  spyKingdom.mockReturnValue({
-    results: []
-  });
+    spyKingdom.mockReturnValue({
+      results: []
+    });
 
     let spy = jest.spyOn(resourceRepo, 'getResources');
     spy.mockReturnValue({results: [], fields: 'sheeps'})
