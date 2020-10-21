@@ -58,7 +58,7 @@ let kingdom = {
   }
 }
 
-test('correct kingdomId', async () => {
+test('get resource service test: with kingdomId', async () => {
   let spyKingdom = jest.spyOn(kingdomRepo, 'getKingdom');
   spyKingdom.mockReturnValue({
     results: [
@@ -94,4 +94,27 @@ test('correct kingdomId', async () => {
       },
     ]
   );
+});
+
+test('update resource service test: with correct kingdomId', async () => {
+  let spyKingdom = jest.spyOn(kingdomRepo, 'getKingdom');
+  spyKingdom.mockReturnValue({
+    results: [
+      kingdom.kingdom3
+    ]
+  });
+
+  let spy = jest.spyOn(resourceRepo, 'updateResources');
+  spy.mockReturnValue({results: [], fields: 'sheeps'});
+
+  let info = await resourceService.updateResources(3);
+  expect(info).toEqual({results: [], fields: 'sheeps'});
+});
+
+test('update resource service test: with kingdomId', async () => {
+  let spy = jest.spyOn(resourceRepo, 'updateResources');
+  spy.mockReturnValue({results: [], fields: 'sheeps'});
+
+  let info = await resourceService.updateResources(56);
+  expect(info).toEqual({results: [], fields: 'sheeps'});
 });

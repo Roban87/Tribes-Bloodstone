@@ -3,8 +3,9 @@ import app from '../../app';
 import { resourceRepo, kingdomRepo } from '../../repositories';
 import jwt from 'jsonwebtoken';
 import config from '../../config';
+import { resourceController } from '../resourceController';
 
-const token = jwt.sign('payload',config.secret);
+const token = jwt.sign('payload', config.secret);
 
 const database = {
   resource1: {
@@ -57,6 +58,7 @@ describe('GET request on /api/kingdom/resource', () => {
     request(app)
       .get(`/api/kingdom/resource/`)
       .set('Authorization', `Bearer ${token}`)
+      .set('user', {})
       .expect(404)
       .end((err, res) => {
         if (err) return done(err);
@@ -76,6 +78,7 @@ describe('GET request on /api/kingdom/resource', () => {
     request(app)
       .get('/api/kingdom/resource/23')
       .set('Authorization', `Bearer ${token}`)
+      .set('user', {"kingdomId": 23})
       .expect(404)
       .end((err, res) => {
         if (err) return done(err);
@@ -97,6 +100,7 @@ describe('GET request on /api/kingdom/resource', () => {
     request(app)
       .get('/api/kingdom/resource/3')
       .set('Authorization', `Bearer ${token}`)
+      .set('user', {"kingdomId": 3})
       .expect(200)
       .expect({
         "resources": [
@@ -119,5 +123,4 @@ describe('GET request on /api/kingdom/resource', () => {
         done();
       });
   });
-
 });

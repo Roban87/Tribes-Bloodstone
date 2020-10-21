@@ -13,4 +13,13 @@ export const resourceService = {
     return resources;
   },
 
+  async updateResources(kingdomId) {
+    let kingdom = await kingdomRepo.getKingdom(kingdomId);
+    if (kingdom.results.length === 0 ) {
+      throw { message: 'Bad Request', status: 404 };
+    }
+
+    return await resourceRepo.updateResources(kingdomId);
+  }
+
 }
