@@ -5,6 +5,8 @@ import { kingdomRepo } from '../repositories';
 
 export const kingdomUpdateNameService = {
   emptyNameValidator(kingdomname) {
+      console.log('something');
+      
     if (kingdomname === undefined) {
       throw {
         message: 'Name is required.',

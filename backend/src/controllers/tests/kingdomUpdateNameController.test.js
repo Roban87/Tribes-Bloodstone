@@ -1,15 +1,14 @@
-import { kingdomRepo } from '../../repositories';
-import { buildingsRepo } from '../../repositories';
-import { resourceRepo } from '../../repositories';
-import { troopsRepo } from '../../repositories';
 import request from 'supertest';
 import app from '../../app';
 import jwt from 'jsonwebtoken';
 import config from '../../config';
+import { kingdomRepo } from '../../repositories';
+import { buildingsRepo } from '../../repositories';
+import { resourceRepo } from '../../repositories';
+import { troopsRepo } from '../../repositories';
+import { resourceService } from '../../services';
 
-const token = jwt.sign({id: 1, kingdomId: 1},config.secret);
-console.log(config.secret);
-
+const token = jwt.sign({id: 1, kingdomId: 1}, config.secret);
 
 const kingdomDB = [
   {
@@ -66,24 +65,27 @@ const troopsDB = [
 ];
 
 describe('PUT /api/kingdom', () => {
-  it('without name respons with error', done => {
-    request(app)
-      .put('/api/kingdom')
-      .set('Accept', 'application/json')
-      .set('Authorization', `Bearer ${token}`)
-      .expect('Content-Type', /json/)
-      .send({})
-      .expect(400)
-      .end((err) => {
-        if (err) return done(err);
-        done();
-      });
+    let spyUpdate = jest.spyOn(resourceService, 'updateResources');
+    spyUpdate.mockReturnValue({});
+    
+    it('without name respons with error', done => {
+      request(app)
+        .put('/api/kingdom')
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${token}`)
+        .send({})
+        .expect('Content-Type', /json/)
+        .expect(400)
+        .end((err, res) => {
+          if (err) return done(err);
+          done();
+        });
+    });
   });
-});
 
 
 describe('PUT /api/kingdom', () => {
-    let spyUpdate = jest.spyOn(kingdomRepo, 'updateName');
+    let spyUpdate = jest.spyOn(resourceService, 'updateResources');
     spyUpdate.mockReturnValue({});
     let spyKingdom = jest.spyOn(kingdomRepo, 'getKingdom');
     spyKingdom.mockReturnValue({
@@ -96,6 +98,8 @@ describe('PUT /api/kingdom', () => {
     spyResources.mockReturnValue({ results: resourcesDB, fields: 'somedata' });
     let spyTroops = jest.spyOn(troopsRepo, 'getTroops');
     spyTroops.mockReturnValue({ results: troopsDB, fields: 'somedata' });
+    let spyUpdateKingdom = jest.spyOn(kingdomRepo, 'updateName');
+    spyUpdateKingdom.mockReturnValue({});
     it('with good kingdomname select the kingdom informations', done => {
       request(app)
         .put('/api/kingdom')
@@ -104,7 +108,7 @@ describe('PUT /api/kingdom', () => {
         .expect('Content-Type', /json/)
         .send({ name: 'futys' })
         .expect(200)
-        .end((err) => {
+        .end((err, res) => {
           if (err) return done(err);
           done();
         });

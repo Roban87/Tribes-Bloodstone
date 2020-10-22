@@ -4,6 +4,8 @@ export const kingdomUpdateNameController = {
   async put(req, res, next) {
     const { name } = req.body;
     const { kingdomId } = req.user;
+    console.log('kingdomId', kingdomId);
+    
     try {
       const response = await kingdomUpdateNameService.kingdomnameUpdateMainService(
         name,
