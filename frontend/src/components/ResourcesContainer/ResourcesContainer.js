@@ -8,20 +8,20 @@ import coin from '../../assets/big_coins.png';
 import { fetchDataGeneral } from '../../utilities/generalFetch';
 
 function ResourcesContainer() {
-
   const [foodAmount, setFoodAmount] = useState(0);
   const [foodGeneration, setFoodGeneration] = useState(0);
   const [goldAmount, setGoldAmount] = useState(0);
   const [goldGeneration, setGoldGeneration] = useState(0);
   const [errorMessage, setErrorMessage] = useState('');
 
-  useEffect(() => {
+
+  useEffect( async () => {
     const kingdomId = localStorage.getItem('kingdomId');
     const endpoint = `/kingdom/resource/${kingdomId}`;
     const method = 'GET';
     
     try {
-      let resourcesData = fetchDataGeneral(endpoint, method);
+      let resourcesData = await fetchDataGeneral(endpoint, method);
       
       for(let resource of resourcesData.resources) {
         if (resource.type === 'food') {

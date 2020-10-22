@@ -32,8 +32,8 @@ function Form({ formType }) {
     setKingdomName(e.target.value);
   };
 
-  const loginUser = () => {
-    const endpoint = `/login/`;
+  const loginUser = async () => {
+    const endpoint = `/login`;
     const method = 'POST';
     const loginData = {
       username: username,
@@ -41,7 +41,7 @@ function Form({ formType }) {
     };
 
     try {
-      let loginResponse = fetchDataGeneral(endpoint, method, loginData);
+      let loginResponse = await fetchDataGeneral(endpoint, method, loginData);
 
       if (!loginResponse.token) {
         setErrorMessage(loginResponse.message);
@@ -59,7 +59,7 @@ function Form({ formType }) {
   };
 
   const registerUser = async () => {
-    const endpoint = `/register/`;
+    const endpoint = `/register`;
     const method = 'POST';
     const registData = {
       username: username,
@@ -68,7 +68,7 @@ function Form({ formType }) {
     };
 
     try {
-      let registerResponse = fetchDataGeneral(endpoint, method, registData);
+      let registerResponse = await fetchDataGeneral(endpoint, method, registData);
 
       registerResponse.message
       ? setErrorMessage(registerResponse.message)

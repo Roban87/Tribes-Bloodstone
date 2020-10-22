@@ -17,7 +17,7 @@ function KingdomBuildings() {
     const method = 'GET';
     
     try {
-      let buildingsData = fetchDataGeneral(endpoint, method);
+      let buildingsData = await fetchDataGeneral(endpoint, method);
       
       setBuildings(buildingsData.buildings);
     } catch (error) {
