@@ -9,7 +9,7 @@ export const fetchDataGeneral = async (endpoint, method, data = undefined) => {
 
   if ( endpoint !== '/login' && endpoint !== '/register') {
     const token = localStorage.getItem('token');
-    options.headers['Authorization'] = `Bearer ${token}`
+    options.headers['Authorization'] = `Bearer ${token}`;
   };
 
   if ( data !== undefined) {
