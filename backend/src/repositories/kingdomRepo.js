@@ -12,4 +12,15 @@ export const kingdomRepo = {
       'INSERT INTO kingdoms(kingdomname, user_id) VALUES(?,?);';
     return await db.query(sqlQueryInsertKingdom, [kingdomname, user_id]);
   },
+
+  async getKingdomMap() {
+    try {
+      const kingdomsQuery =
+        'SELECT id AS kingdom_id, kingdomname, population, location FROM kingdoms';
+      const queryData = await db.query(kingdomsQuery);
+      return queryData.results;
+    } catch (error) {
+      throw { status: 500, message: 'Internal server error' };
+    }
+  },
 };
