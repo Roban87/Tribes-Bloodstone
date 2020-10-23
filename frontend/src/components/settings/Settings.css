@@ -1,0 +1,55 @@
+
+html {
+    text-align: left;
+  background-image: none;
+  margin: 30px;
+}
+.submit-container {
+  display: flex;
+  flex-flow: column;
+  justify-content: left;
+  align-items: flex-start;
+  
+  padding-top: 20px;
+  padding-bottom: 100px;
+  position: relative;
+  width: 70%;
+  height: 350px;
+  margin: auto;
+  background-color: rgba(173, 173, 173, 0.7);
+}
+.submit-container h2 {
+  margin: 20px;
+}
+.kingdom-input {
+  font-size: 1.2em;
+  height: 30px;
+  margin: 20px 20px 5px 20px;
+  width: 50%;
+  background: none;
+  border: none;
+  border-bottom: 2px solid rgb(104, 104, 104);
+}
+.kingdom-input:focus {
+  font-size: 1.2em;
+  height: 30px;
+  margin: 20px 20px 5px 20px;
+  width: 50%;
+  background: none;
+  border: none;
+  border-bottom: 2px solid rgb(184, 184, 184);
+}
+.kingdom-input:focus::-webkit-input-placeholder {
+  color: rgb(184, 184, 184);
+}
+.submit-button {
+    width: 150px;
+  color: white;
+  background-color: rgb(42, 99, 255);
+}
+
+.submit-button:hover {
+  color: white;
+  background-color: rgb(117, 117, 117);
+  width: 150px;
+}
