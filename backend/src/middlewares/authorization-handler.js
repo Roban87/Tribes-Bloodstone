@@ -11,10 +11,10 @@ export default (req, res, next) => {
     req.user = decoded;
     next(); 
   } catch(err) {
-      if (err.name === 'JsonWebTokenError') {
-        err.message = 'Invalid token';
-      }
-      err.status = 401;
-      next(err);
+    if (err.name === 'JsonWebTokenError') {
+      err.message = 'Invalid token';
+    }
+    err.status = 401;
+    next(err);
   }
 }

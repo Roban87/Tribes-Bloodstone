@@ -5,49 +5,44 @@ import farm from '../../assets/farm.png';
 import mine from '../../assets/mine.png';
 import bread from '../../assets/big_bread.png';
 import coin from '../../assets/big_coins.png';
+import { fetchDataGeneral } from '../../utilities/generalFetch';
 
 function ResourcesContainer() {
-
   const [foodAmount, setFoodAmount] = useState(0);
   const [foodGeneration, setFoodGeneration] = useState(0);
   const [goldAmount, setGoldAmount] = useState(0);
   const [goldGeneration, setGoldGeneration] = useState(0);
-  const [resourceError, setResourceError] = useState('');
-  const path = process.env.REACT_APP_API_PATH;
+  const [errorMessage, setErrorMessage] = useState('');
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    const kingdom = localStorage.getItem('kingdomId');
 
-    fetch(`${path}/kingdom/resource/${kingdom}`, {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      }
-    })
-      .then(response => response.json())
-      .then(data => {
-        for(let resource of data.resources) {
-          if (resource.type === 'food') {
-            setFoodAmount(resource.amount);
-            setFoodGeneration(resource.generation);
-          } else {
-            setGoldAmount(resource.amount);
-            setGoldGeneration(resource.generation);
-          }
+  useEffect( async () => {
+    const kingdomId = localStorage.getItem('kingdomId');
+    const endpoint = `/kingdom/resource/${kingdomId}`;
+    const method = 'GET';
+    
+    try {
+      let resourcesData = await fetchDataGeneral(endpoint, method);
+      
+      for(let resource of resourcesData.resources) {
+        if (resource.type === 'food') {
+          setFoodAmount(resource.amount);
+          setFoodGeneration(resource.generation);
+        } else {
+          setGoldAmount(resource.amount);
+          setGoldGeneration(resource.generation);
         }
-      })
-      .catch(error => setResourceError('Can\'t load resources. Please refresh the page!'));
+      }
+    } catch (error) {
+      setErrorMessage('Can\'t load resources. Please refresh the page!')
+    }
   }, []);
 
   return (
     <div className="resources-container">
       {
-        resourceError !== '' ? 
-        <p>{resourceError}</p> :
-        <div className="resources-container"> 
+        errorMessage ? 
+        (<p>{errorMessage}</p>) :
+        (<div className="resources-container"> 
           <Resource 
             building={farm} 
             altBuilding={"Farm icon"} 
@@ -64,7 +59,7 @@ function ResourcesContainer() {
             altResource={'Coins Icon'}
             generation={goldGeneration}
           />
-        </div>
+        </div>)
       }
     </div>
   );
