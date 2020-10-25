@@ -2,7 +2,7 @@ import mysql from 'mysql';
 
 import config from '../config';
 
-export const pool = mysql.createPool({
+const pool = mysql.createPool({
   connectionLimit: 2,
   host: config.mysql.host,
   user: config.mysql.user,
