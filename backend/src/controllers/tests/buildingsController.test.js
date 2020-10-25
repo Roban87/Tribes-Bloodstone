@@ -1,19 +1,12 @@
 import request from 'supertest';
 import app from '../../app';
 import { buildingsRepo, resourceRepo } from '../../repositories';
-<<<<<<< HEAD
 import { resourceService } from '../../services';
-=======
->>>>>>> 83c7ce7... added new addBuilding funtion to buildingsRepo
+import { resourceService } from '../../services';
 import jwt from 'jsonwebtoken';
 import config from '../../config';
 
 const token = jwt.sign('payload', config.secret);
-<<<<<<< HEAD
-=======
-
->>>>>>> 83c7ce7... added new addBuilding funtion to buildingsRepo
-
 const database = {
   buildings: [
     {
@@ -66,14 +59,33 @@ describe('GET /api/kingdom/buildings', () => {
         expect(res.body).toEqual({buildings: database.buildings});
         done();
     });
-<<<<<<< HEAD
-=======
+  });
+});
+
+describe('GET api/kingdom/buildings/:kindomId/buildingId', () => {
+  it('responds with a JSON containing the building specified by the building id', done => {
+    let spy = jest.spyOn(buildingsRepo, 'getSingleBuilding');
+    spy.mockReturnValue({ results: [database.buildings[0]], fields: [] });
+    request(app)
+      .get('/api/kingdom/buildings/1/1')
+      .set('Accept', 'application/json')
+      .set('Authorization', `Bearer ${token}`)
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err);
+        expect(res.body).toEqual(database.buildings[0]);
+        done();
+      });
   });
 });
 
 describe('POST /api/kingdom/buildings -> add new building tests', () => {
 
-  test('missing type -> responds with error', done => {
+  it('missing type -> responds with error', done => {
+    const spyUpdate = jest.spyOn(resourceService, 'updateResources');
+    spyUpdate.mockReturnValue({});
+
     request(app)
     .post('/api/kingdom/buildings')
     .set('Accept', 'application/json')
@@ -88,12 +100,15 @@ describe('POST /api/kingdom/buildings -> add new building tests', () => {
     });
   });
 
-  test('wrong type -> responds with error', done => {
+  it('wrong type -> responds with error', done => {
+    const spyUpdate = jest.spyOn(resourceService, 'updateResources');
+    spyUpdate.mockReturnValue({});
+
     request(app)
     .post('/api/kingdom/buildings')
     .set('Accept', 'application/json')
     .set('Authorization', `Bearer ${token}`)
-    .send({type: 'library'})
+    .send({ type: 'library' })
     .expect('Content-Type', /json/)
     .expect(500)
     .end((err, res) => {
@@ -103,7 +118,10 @@ describe('POST /api/kingdom/buildings -> add new building tests', () => {
     });
   });
 
-  test('not enough money -> responds with error', done => {
+  it('not enough money -> responds with error', done => {
+    const spyUpdate = jest.spyOn(resourceService, 'updateResources');
+    spyUpdate.mockReturnValue({});
+
     const spy = jest.spyOn(resourceRepo, 'getGoldAmount');
     spy.mockReturnValue([{amount: 80}]);
 
@@ -111,7 +129,7 @@ describe('POST /api/kingdom/buildings -> add new building tests', () => {
     .post('/api/kingdom/buildings')
     .set('Accept', 'application/json')
     .set('Authorization', `Bearer ${token}`)
-    .send({type: 'farm'})
+    .send({ type: 'farm' })
     .expect('Content-Type', /json/)
     .expect(500)
     .end((err, res) => {
@@ -121,7 +139,10 @@ describe('POST /api/kingdom/buildings -> add new building tests', () => {
     });
   });
 
-  test('good type & enough gold-> responds with new building data', done => {
+  it('good type & enough gold-> responds with new building data', done => {
+    const spyUpdate = jest.spyOn(resourceService, 'updateResources');
+    spyUpdate.mockReturnValue({});
+
     const spyResource = jest.spyOn(resourceRepo, 'getGoldAmount');
     spyResource.mockReturnValue([{amount: 200}]);
 
@@ -140,7 +161,7 @@ describe('POST /api/kingdom/buildings -> add new building tests', () => {
     .post('/api/kingdom/buildings')
     .set('Accept', 'application/json')
     .set('Authorization', `Bearer ${token}`)
-    .send({type: 'farm'})
+    .send({ type: 'farm' })
     .expect('Content-Type', /json/)
     .expect(200)
     .end((err, res) => {
@@ -156,7 +177,6 @@ describe('POST /api/kingdom/buildings -> add new building tests', () => {
       });
       done();
     });
->>>>>>> 83c7ce7... added new addBuilding funtion to buildingsRepo
   });
 
 });
