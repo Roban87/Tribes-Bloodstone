@@ -31,5 +31,16 @@ export const buildingsController = {
     } catch (error) {
       res.status(500).json({error: error.message});
     }
+  },
+  
+  async put(req, res, next) {
+    const { buildingId } = req.params;
+    const { kingdomId } = req.user;
+    try {
+      const buildingData = await buildingsService.upgradeBuilding(buildingId, kingdomId);
+      res.status(200).json(buildingData);
+    } catch(err) {
+      next(err);
+    }
   }
 };

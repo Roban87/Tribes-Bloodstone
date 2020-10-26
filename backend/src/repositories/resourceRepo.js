@@ -31,7 +31,7 @@ export const resourceRepo = {
     try {
       const sql = `
         UPDATE resources
-        SET generation = generation + ?
+        SET generation = ?
         WHERE kingdom_id = ? 
         AND type = ?;
       `;
@@ -39,6 +39,23 @@ export const resourceRepo = {
     } catch(err) {
       throw {status: 500, message: 'Internal server error'};
     }
+<<<<<<< HEAD
   }, 
 >>>>>>> e06c37d...  added updateResourceRate to resourcesRepo
+=======
+  },
+  async handlePurchase(kingdomId, price) {
+    try {
+      const sql = `
+        UPDATE resources
+        SET amount = amount - ?,
+        WHERE kingdom_id = ?
+        AND type = 'gold';  
+      `
+      return await db.query(sql, [price, kingdomId]);
+    } catch(err) {
+      throw {status: 500, message: 'Internal server error'};
+    }
+  },
+>>>>>>> 46ae50b... added put method to buildingsController
 }

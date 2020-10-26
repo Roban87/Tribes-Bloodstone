@@ -1,5 +1,4 @@
 import { db } from '../data/connection';
-import { resourceRepo } from './resourceRepo';
 
 export const buildingsRepo = {
 
@@ -58,7 +57,7 @@ export const buildingsRepo = {
     }
   },
   
-  async upgradeBuilding(buildingId, hpIncrease, upgradeTime) {
+  async upgradeBuilding(buildingId, hp, upgradeTime) {
     try {
       const sql = `
         UPDATE TABLE buildings 
@@ -66,10 +65,10 @@ export const buildingsRepo = {
         level = level + 1,
         started_at = CURRENT_TIMESTAMP(), 
         finished_at = DATE_ADD(CURRENT_TIMESTAMP(), INTERVAL ? SECOND),
-        hp = hp + ?
+        hp = ?
         WHERE id = ?
         `
-      return await db.query(sql, [upgradeTime, hpIncrease, buildingId])
+      return await db.query(sql, [upgradeTime, hp, buildingId])
     } catch(err) {
       throw {status: 500, message: 'Internal server error'};
     } 

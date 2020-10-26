@@ -1,4 +1,5 @@
 import { buildingsRepo, resourceRepo } from '../repositories';
+import { setRules } from '../helpers/rulesHelper';
 
 export const buildingsService = {
   
@@ -31,4 +32,28 @@ export const buildingsService = {
     return addNewBuildingData[0];
   },
 
+  async upgradeBuilding(buildingId, kingdomId) {
+    const buildings = await buildingsRepo.getBuildings(kingdomId);
+    const townHall = buildings.find((building) => building.name === "townhall");
+    const selectedBuilding = buildings.find((building) => building.id === buildingId);
+    const rules = setRules(selectedBuilding.level);
+    if (selectedBuilding.level == rules.townhall.maxLevel) {
+      throw { message: "Building max level reached", status: 400 }
+    }
+    if (townHall.level <= selectedBuilding.level && selectedBuilding.type !== "townhall") {
+      throw { message: "Townhall level is too low", status: 400 }
+    }
+    const resources = await resourceRepo.getResources(kingdomId);
+    const gold = resources.results.find((resource) => resource.type === "gold");
+    if (gold.amount < rules[selectedBuilding.type].price) {
+      throw { message: "You don't have enough money", status: 400 }
+    }
+    await buildingsRepo.upgradeBuilding(selectedBuilding.id, rules[selectedBuilding.type].hp, rules[selectedBuilding.type].time);
+    if (selectedBuilding.type === 'farm' || selectedBuilding.type === 'mine') {
+      const resource = selectedBuilding.type === 'farm' ? 'food' : 'gold';
+      await resourceRepo.updateResourceRate(kingdomId, resource, rules[selectedBuilding.type].generation);
+    }
+    await resourceRepo.handlePurchase(kingdomId, rules[selectedBuilding.type].price);
+    return await buildingsRepo.getSingleBuilding(buildingId);
+  }
 };
