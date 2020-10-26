@@ -10,7 +10,10 @@ export const registerMapService = {
     }
   },
   async postRegisterMap(kingdomId, location) {
-    this.checkLocation(location);
+    const checker = this.checkLocation(location);
+    if (checker !== undefined) {
+      throw checker;
+    }
     return await kingdomRepo.postRegisterMap(kingdomId, location);
   },
   async getKingdomMap() {
