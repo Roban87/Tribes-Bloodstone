@@ -22,7 +22,7 @@ export const buildingsController = {
     }
   },
 
-  async add(req, res) {
+  async post(req, res) {
     const { kingdomId } = req.user;
     const { type } = req.body;
     try {

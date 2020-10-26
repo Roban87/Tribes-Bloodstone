@@ -3,8 +3,8 @@ import { db } from '../data/connection';
 export const resourceRepo = {
 
   async getResources(kingdomId) {
-      const sqlGetResources = `SELECT type, amount, generation, UNIX_TIMESTAMP(updatedAt) as updatedAt FROM resources WHERE kingdom_id = ?;`;
-      return await db.query(sqlGetResources, kingdomId);
+    const sqlGetResources = `SELECT type, amount, generation, UNIX_TIMESTAMP(updatedAt) as updatedAt FROM resources WHERE kingdom_id = ?;`;
+    return await db.query(sqlGetResources, kingdomId);
   },
 
   async updateResources(kingdomId) {
