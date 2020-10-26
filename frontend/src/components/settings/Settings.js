@@ -1,5 +1,5 @@
-import React from 'react';
-import { useState } from 'react';
+import React from './node_modules/react';
+import { useState } from './node_modules/react';
 import './Settings.css';
 
 function Settings() {
