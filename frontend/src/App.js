@@ -14,7 +14,8 @@ function App() {
         <Switch>
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
-          <Route exact path="/">
+          <Route exact path="/settings" component={Settings} />
+          <Route path="/main">
             <h1>HomePage</h1>
           </Route>
           <Route path="/" component={NotImplemented} />
