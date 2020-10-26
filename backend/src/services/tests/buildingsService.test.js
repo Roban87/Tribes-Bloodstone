@@ -1,5 +1,5 @@
 import { buildingsService } from '../buildingsService';
-import { buildingsRepo } from '../../repositories/buildingsRepo';
+import { buildingsRepo, resourceRepo } from '../../repositories';
 
 const database = {
   buildings: [
@@ -10,7 +10,7 @@ const database = {
       hp: 10,
       started_at: '2020-10-12T12:35:36.000Z',
       finished_at: null,
-      kingdom_id: 1,
+      kingdom_id: 1
     },
     {
       id: 2,
@@ -81,3 +81,61 @@ test('getSingleBuilding throws error message when kingdomId in buildings table d
   expect(thrownError.message).toEqual("Something went wrong...");
   expect(thrownError.status).toEqual(400);
 })
+describe('add new building tests', () => {
+
+  test('missing building type', async () => {
+    try {
+      await buildingsService.addBuilding(undefined, 4);
+    } catch (error) {
+      expect(error).toEqual({ status: 400, message: 'Type is required' });
+    }
+  });
+
+  test('wrong building type', async () => {
+    try {
+      await buildingsService.addBuilding('library', 4);
+    } catch (error) {
+      expect(error).toEqual({ status: 400, message: 'Wrong type' });
+    }
+  });
+
+  test('not enough gold', async () => {
+    const spy = jest.spyOn(resourceRepo, 'getGoldAmount');
+    spy.mockReturnValue([{amount: 80}]);
+
+    try {
+      await buildingsService.addBuilding('farm', 1);
+    } catch (error) {
+      expect(error).toEqual({ status: 400, message: 'You don\'t have enough money'});
+    }
+  });
+
+  test('good type & enough gold', async () => {
+    const spyResource = jest.spyOn(resourceRepo, 'getGoldAmount');
+    spyResource.mockReturnValue([{amount: 200}]);
+
+    const spyBuildings = jest.spyOn(buildingsRepo, 'addNewBuilding');
+    spyBuildings.mockReturnValue([{
+      id: 5,
+      type: 'farm',
+      level: 1,
+      hp: 100,
+      started_at: '1603620911',
+      finished_at: '1603620971',
+      kingdom_id: 2
+    }]);
+
+    let resultInfo = await buildingsService.addBuilding('farm', 2);
+    expect(resultInfo).toEqual({
+      id: 5,
+      type: 'farm',
+      level: 1,
+      hp: 100,
+      started_at: '1603620911',
+      finished_at: '1603620971',
+      kingdom_id: 2
+    });
+  });
+
+
+});

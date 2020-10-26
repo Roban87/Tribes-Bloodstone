@@ -2,7 +2,7 @@ import { buildingsService } from '../services';
 
 export const buildingsController = {
   async get(req, res) {
-    const kingdomId = req.params.kingdomId;
+    const { kingdomId } = req.user;
     try {
       const buildingsData = await buildingsService.getBuildings(kingdomId);
       res.status(200).json({ buildings: buildingsData });
@@ -10,6 +10,7 @@ export const buildingsController = {
       res.status(500).json({error: 'Something went wrong...'});
     }
   },
+  
   async getBuilding(req, res, next) {
     const { buildingId } = req.params;
     const { kingdomId } = req.user;
@@ -20,4 +21,15 @@ export const buildingsController = {
         next(err);
     }
   },
+
+  async post(req, res) {
+    const { kingdomId } = req.user;
+    const { type } = req.body;
+    try {
+      const addBuildingData = await buildingsService.addBuilding(type, kingdomId);
+      res.status(200).json(addBuildingData);
+    } catch (error) {
+      res.status(500).json({error: error.message});
+    }
+  }
 };
