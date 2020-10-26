@@ -55,5 +55,22 @@ export const buildingsRepo = {
       connection.release();
 
     }
-  }
+  },
+  
+  async upgradeBuilding(buildingId, hpIncrease, upgradeTime) {
+    try {
+      const sql = `
+        UPDATE TABLE buildings 
+        SET 
+        level = level + 1,
+        started_at = CURRENT_TIMESTAMP(), 
+        finished_at = DATE_ADD(CURRENT_TIMESTAMP(), INTERVAL ? SECOND),
+        hp = hp + ?
+        WHERE id = ?
+        `
+      return await db.query(sql, [upgradeTime, hpIncrease, buildingId])
+    } catch(err) {
+      throw {status: 500, message: 'Internal server error'};
+    }
+  },
 };
