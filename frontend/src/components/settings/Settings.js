@@ -12,7 +12,7 @@ function Settings() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const fetchData = {
-      name: kingdomname
+      name: kingdomname 
     }
     let token = localStorage.getItem('token');
     let response = await fetch(`${path}/settings`, {
