@@ -45,7 +45,7 @@ exports.up = function(db) {
     function(result) {
       db.changeColumn('buildings', 'finished_at', {
         type: 'timestamp',
-        defaultValue: new String('(CURRENT_TIMESTAMP+100)')
+        defaultValue: null
       })
     },
     function(err) {
