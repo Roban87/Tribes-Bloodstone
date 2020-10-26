@@ -1,4 +1,5 @@
 import { db } from '../data/connection';
+import { resourceRepo } from './resourceRepo';
 
 export const buildingsRepo = {
 
@@ -71,6 +72,6 @@ export const buildingsRepo = {
       return await db.query(sql, [upgradeTime, hpIncrease, buildingId])
     } catch(err) {
       throw {status: 500, message: 'Internal server error'};
-    }
+    } 
   },
 };
