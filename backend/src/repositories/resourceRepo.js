@@ -48,7 +48,7 @@ export const resourceRepo = {
     try {
       const sql = `
         UPDATE resources
-        SET amount = amount - ?,
+        SET amount = amount - ?
         WHERE kingdom_id = ?
         AND type = 'gold';  
       `

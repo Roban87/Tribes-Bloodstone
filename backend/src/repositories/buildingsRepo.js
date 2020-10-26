@@ -60,7 +60,7 @@ export const buildingsRepo = {
   async upgradeBuilding(buildingId, hp, upgradeTime) {
     try {
       const sql = `
-        UPDATE TABLE buildings 
+        UPDATE buildings 
         SET 
         level = level + 1,
         started_at = CURRENT_TIMESTAMP(), 
