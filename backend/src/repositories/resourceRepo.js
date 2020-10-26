@@ -38,7 +38,7 @@ export const resourceRepo = {
     try {
       const sql = `
         UPDATE resources
-        SET generation = generation + ?
+        SET generation = ?
         WHERE kingdom_id = ? 
         AND type = ?;
       `;

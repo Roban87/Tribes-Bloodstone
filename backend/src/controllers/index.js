@@ -5,3 +5,4 @@ export * from './registerController';
 export * from './resourceController';
 export * from './registerMapController';
 export * from './kingdomController';
+export * from './troopsController';

@@ -28,7 +28,7 @@ export const rules = {
       troops: {
         price: 25,
         time: 30,
-        food: 5,
+        food: -5,
         hp: 20,
         attack: 10,
         defense: 5,
@@ -64,7 +64,7 @@ export const rules = {
       troops: {
         price: 25,
         time: 30,
-        food: 5,
+        food: -5,
         hp: 20,
         attack: 10,
         defense: 5,
