@@ -20,7 +20,7 @@ router.use(updateResources);
 router.get('/kingdom/buildings/:kingdomId', buildingsController.get);
 router.get('/kingdom/buildings/:kingdomId/:buildingId', buildingsController.getBuilding);
 router.post('/kingdom/buildings', buildingsController.post);
-router.put('/kingdom/buildings/:kingdomId/:buildingId', buildingsController.put);
+router.put('/kingdom/buildings/:buildingId', buildingsController.put);
 router.get('/kingdom/resource/:kingdomId', resourceController.get);
 router.post('/register/map/:kingdomId', registerMapController.post);
 router.get('/kingdom/map/', registerMapController.get);
