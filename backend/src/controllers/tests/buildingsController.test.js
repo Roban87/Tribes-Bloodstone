@@ -40,6 +40,14 @@ const database = {
       started_at: '2020-10-13T09:34:45.000Z',
       finished_at: null,
     },
+    {
+      id: 5,
+      type: 'mine',
+      level: 1,
+      hp: 10,
+      started_at: '2020-10-12T12:35:36.000Z',
+      finished_at: null,
+    },
   ],
 };
 
@@ -145,6 +153,9 @@ describe('POST /api/kingdom/buildings -> add new building tests', () => {
     const spyResource = jest.spyOn(resourceRepo, 'getGoldAmount');
     spyResource.mockReturnValue([{amount: 200}]);
 
+    const spyResourceRate = jest.spyOn(resourceRepo, 'updateResourceRate');
+    spyResourceRate.mockReturnValue(null);
+
     const spyBuildings = jest.spyOn(buildingsRepo, 'addNewBuilding');
     spyBuildings.mockReturnValue([{
       id: 5,
@@ -177,5 +188,33 @@ describe('POST /api/kingdom/buildings -> add new building tests', () => {
       done();
     });
   });
+});
 
+describe('PUT api/kingdom/buildings/:kingdomId/:buildingId', () => {
+  it('responds with a JSON object containing the updated building specified by the building id', done => {
+    const spy = jest.spyOn(buildingsRepo, 'getBuildings');
+    spy.mockReturnValue(database.buildings);
+    const spy2 = jest.spyOn(resourceRepo, 'getResources');
+    spy2.mockReturnValue({results: [{ amount: 2000, type: 'gold' }]});
+    const spy3 = jest.spyOn(buildingsRepo, 'getSingleBuilding');
+    spy3.mockReturnValue({results: [database.buildings[4]], fields: []});
+    const spy4 = jest.spyOn(buildingsRepo, 'upgradeBuilding');
+    spy4.mockReturnValue(null);
+    const spy5 = jest.spyOn(resourceRepo, 'handlePurchase');
+    spy5.mockReturnValue(null);
+    const spy6 = jest.spyOn(resourceRepo, 'updateResourceRate');
+    spy6.mockReturnValue(null);
+
+    request(app)
+      .get('/api/kingdom/buildings/4/5')
+      .set('Accept', 'application/json')
+      .set('Authorization', `Bearer ${token}`)
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err);
+        expect(res.body).toEqual(database.buildings[4]);
+        done();
+      });
+  });
 });
