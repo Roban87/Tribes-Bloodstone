@@ -16,6 +16,20 @@ export const buildingsService = {
     return buildingData;
   },
 
+  async checkGoldRequirements(kingdomId, price) {
+    const gold = await resourceRepo.getGoldAmount(kingdomId);
+    if (gold[0].amount < price) {
+      throw { message: "You don't have enough money", status: 400 }
+    }
+  },
+
+  async updateResourceRate(kingdomId, buildingType, rules) {
+    if (buildingType === 'farm' || buildingType === 'mine') {
+      const resource = buildingType === 'farm' ? 'food' : 'gold';
+      await resourceRepo.updateResourceRate(kingdomId, resource, rules[buildingType].generation);
+    }
+  },
+
   async addBuilding(type, kingdomId) {
     if (!type) { 
       throw { status: 400, message: 'Type is required' };
@@ -23,14 +37,11 @@ export const buildingsService = {
       throw { status: 400, message: 'Wrong type' };
     }
     const buildRules = rules.build();
-    const kingdomWealth = await resourceRepo.getGoldAmount(kingdomId);
-    if (kingdomWealth[0].amount < buildRules[type].price) {
-      throw { status: 400, message: 'You don\'t have enough money'};
-    }
+   
+    await this.checkGoldRequirements(kingdomId, buildRules[type].price);
 
     const addNewBuildingData = await buildingsRepo.addNewBuilding(type, kingdomId, buildRules[type].price);
-    const resource = type === 'farm' ? 'food' : 'gold';
-    await resourceRepo.updateResourceRate(kingdomId, resource, buildRules[type].generation )
+    await this.updateResourceRate(kingdomId, type, buildRules);
     return addNewBuildingData[0];
   },
 
@@ -47,22 +58,12 @@ export const buildingsService = {
       throw { message: "Townhall level is too low", status: 400 }
     }
 
-    const gold = await resourceRepo.getGoldAmount(kingdomId);
-
-    if (gold[0].amount < upgradeRules[building.type].price) {
-      throw { message: "You don't have enough money", status: 400 }
-    }
-
+    await this.checkGoldRequirements(kingdomId, upgradeRules[building.type].price);
     await buildingsRepo.upgradeBuilding(building.id, upgradeRules[building.type].hp, upgradeRules[building.type].time);
     await resourceRepo.handlePurchase(kingdomId, upgradeRules[building.type].price);
-
-    if (building.type === 'farm' || building.type === 'mine') {
-      const resource = building.type === 'farm' ? 'food' : 'gold';
-      await resourceRepo.updateResourceRate(kingdomId, resource, upgradeRules[building.type].generation);
-    }
-
+    await this.updateResourceRate(kingdomId, building.type, upgradeRules);
+   
     const upgradedBuilding = await buildingsRepo.getSingleBuilding(buildingId);
-    
     return upgradedBuilding.results[0];
   }
 };
