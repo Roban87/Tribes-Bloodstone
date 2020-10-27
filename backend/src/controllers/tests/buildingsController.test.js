@@ -6,7 +6,6 @@ import jwt from 'jsonwebtoken';
 import config from '../../config';
 
 const token = jwt.sign('payload', config.secret);
-
 const database = {
   buildings: [
     {
