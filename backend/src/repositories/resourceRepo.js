@@ -14,7 +14,6 @@ export const resourceRepo = {
     return await db.query(sql, kingdomId);
   },
 
-<<<<<<< HEAD
   async getGoldAmount(kingdomId) {
     const sqlGetGoldAmount = `SELECT amount FROM resources WHERE type = 'gold' AND kingdom_id = ?;`;
     const getGoldAmount = await db.query(sqlGetGoldAmount, [kingdomId]);
@@ -25,25 +24,7 @@ export const resourceRepo = {
     const sqlBuyBuilding = `UPDATE resources SET amount = amount - 100 WHERE type = 'gold' AND kingdom_id = ?;`;
     return await db.query(sqlBuyBuilding, kingdomId);
   },
-  
-=======
-  async updateResourceRate(kingdomId, resourceType, increment) {
-    try {
-      const sql = `
-        UPDATE resources
-        SET generation = ?
-        WHERE kingdom_id = ? 
-        AND type = ?;
-      `;
-      return await db.query(sql, [increment, kingdomId, resourceType]);
-    } catch(err) {
-      throw {status: 500, message: 'Internal server error'};
-    }
-<<<<<<< HEAD
-  }, 
->>>>>>> e06c37d...  added updateResourceRate to resourcesRepo
-=======
-  },
+
   async handlePurchase(kingdomId, price) {
     try {
       const sql = `
@@ -57,5 +38,18 @@ export const resourceRepo = {
       throw {status: 500, message: 'Internal server error'};
     }
   },
->>>>>>> 46ae50b... added put method to buildingsController
+  
+  async updateResourceRate(kingdomId, resourceType, increment) {
+    try {
+      const sql = `
+        UPDATE resources
+        SET generation = generation + ?
+        WHERE kingdom_id = ? 
+        AND type = ?;
+      `;
+      return await db.query(sql, [increment, kingdomId, resourceType]);
+    } catch(err) {
+      throw {status: 500, message: 'Internal server error'};
+    }
+  }, 
 }

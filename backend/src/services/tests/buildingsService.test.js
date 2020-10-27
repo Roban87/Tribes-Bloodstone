@@ -1,11 +1,6 @@
 import { buildingsService } from '../buildingsService';
-<<<<<<< HEAD
 import { buildingsRepo, resourceRepo } from '../../repositories';
 
-=======
-import { buildingsRepo } from '../../repositories/buildingsRepo';
-import { resourceRepo } from '../../repositories/resourceRepo';
->>>>>>> 43e0ca7... added unit tests for upgradeBuilding service
 const database = {
   buildings: [
     {
@@ -121,8 +116,8 @@ test('getSingleBuilding throws error message when kingdomId in buildings table d
   }
   expect(thrownError.message).toEqual("Something went wrong...");
   expect(thrownError.status).toEqual(400);
-})
-<<<<<<< HEAD
+});
+
 describe('add new building tests', () => {
 
   test('missing building type', async () => {
@@ -178,9 +173,7 @@ describe('add new building tests', () => {
       kingdom_id: 2
     });
   });
-
-
-=======
+});
 
 test('upgradeBuilding when upgrading mine returns object with updated building stats', async () => {
   const spy = jest.spyOn(buildingsRepo, 'getBuildings');
@@ -264,5 +257,4 @@ test('upgradeBuilding returns error when not enough money', async () => {
   expect(thrownError.status).toEqual(400);
   expect(buildingsRepo.getBuildings).toHaveBeenCalledWith(4);
   expect(resourceRepo.getResources).toHaveBeenCalledWith(4);
->>>>>>> 43e0ca7... added unit tests for upgradeBuilding service
 });

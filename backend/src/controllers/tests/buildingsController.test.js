@@ -215,4 +215,7 @@ describe('PUT api/kingdom/buildings/:kingdomId/:buildingId', () => {
       });
   });
 });
+<<<<<<< HEAD
 
+=======
+>>>>>>> fb8eead... rebase
