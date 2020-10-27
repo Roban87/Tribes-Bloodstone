@@ -1,0 +1,29 @@
+* {
+  margin: 0px;
+}
+
+.header {
+  min-height: 60px;
+  background: #3cb878;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  font-size: calc(10px + 2vmin);
+  justify-content: flex-end;
+  column-gap: 20px;
+}
+
+.headerMain {
+  position: fixed;
+  left: 10px;
+  font-size: calc(12px + 2vmin);
+  color: white;
+}
+
+.link {
+  right: 10px;
+  position: relative;
+}
