@@ -1,31 +1,27 @@
 import React from 'react';
 import { useState } from 'react';
 import './Settings.css';
+import { fetchDataGeneral } from '../../utilities/generalFetch';
 
 function Settings() {
   const [kingdomname, setKingdomName] = useState('');
-  const path = process.env.REACT_APP_API_PATH;
 
   const onKingdomNameChange = e => {
     setKingdomName(e.target.value);
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const endpoint = '/settings';
+    const method = 'PUT';
     const fetchData = {
       name: kingdomname 
     }
-    let token = localStorage.getItem('token');
-    let response = await fetch(`${path}/settings`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'accepts': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify(fetchData),
-    });
-    let data = await response.json();
-    console.log(data);
+    try {
+      let settingsData = await fetchDataGeneral(endpoint, method, fetchData);
+      console.log(settingsData);
+    } catch (error) {
+      console.log(error);
+    }
     
   };
   return (
