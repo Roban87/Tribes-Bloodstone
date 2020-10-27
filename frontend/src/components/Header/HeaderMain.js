@@ -13,9 +13,8 @@ function HeaderMain({ isLoggedIn }) {
         My Kingdom
       </Link>
     );
-  } else {
-    return <h1 className="headerMain">Tribes of Microtis</h1>;
   }
+  return <h1 className="headerMain">Tribes of Microtis</h1>;
 }
 
 export default HeaderMain;

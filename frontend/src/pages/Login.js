@@ -6,9 +6,9 @@ function Login() {
   return (
     <div className="login-container">
       <h1>Tribes of Microtis</h1>
-      <Form formType={"login"}/>
+      <Form formType="login" />
     </div>
-  )
+  );
 }
 
 export default Login;

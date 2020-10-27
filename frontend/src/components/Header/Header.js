@@ -25,7 +25,7 @@ function Header({ isLoggedIn, loggingOut }) {
   return (
     <div className="header" key="header">
       <HeaderMain isLoggedIn={isLoggedIn} />
-      {currentStatus.map(item => (
+      {currentStatus.map((item) => (
         <Link
           key={item.text}
           to={item.path}

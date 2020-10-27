@@ -6,7 +6,7 @@ function Register() {
   return (
     <div className="register-container">
       <h1>Tribes of Microtis</h1>
-      <Form formType={'register'} />
+      <Form formType="register" />
     </div>
   );
 }

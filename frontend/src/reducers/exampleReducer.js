@@ -1,27 +1,27 @@
 const initialState = {
   sum: 0,
   counts: [],
-  error: ''
-}
+  error: '',
+};
 
-//with if statements
+// with if statements
 const exampleReducer = (state = initialState, action) => {
-  if (action.type === 'ADD_TO_COUNT' ) {
+  if (action.type === 'ADD_TO_COUNT') {
     return {
       ...state,
-      counts: [...state.counts, action.counts]
-    }
+      counts: [...state.counts, action.counts],
+    };
   }
-  if (action.type === 'GET_SUM' ) {
+  if (action.type === 'GET_SUM') {
     return {
       ...state,
-      sum: state.counts.reduce((a, b) => { return a + b})
-    }
+      sum: state.counts.reduce((a, b) => a + b),
+    };
   }
-  if (action.type === 'SET_ERROR' ) {
+  if (action.type === 'SET_ERROR') {
     return {
       ...state,
-      error: action.error
+      error: action.error,
     };
   }
   return state;

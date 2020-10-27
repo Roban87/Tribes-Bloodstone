@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../styles/Form.css';
-import { useState } from 'react';
+
 import { useHistory } from 'react-router-dom';
-import { fetchDataGeneral } from '../utilities/generalFetch';
+import fetchDataGeneral from '../utilities/generalFetch';
 
 function Form({ formType }) {
   const [username, setUsername] = useState('');
@@ -11,21 +11,21 @@ function Form({ formType }) {
   const [kingdomName, setKingdomName] = useState('');
   const history = useHistory();
 
-  const onUsernameChange = e => {
+  const onUsernameChange = (e) => {
     if (errorMessage) {
       setErrorMessage('');
     }
     setUsername(e.target.value);
   };
 
-  const onPasswordChange = e => {
+  const onPasswordChange = (e) => {
     if (errorMessage) {
       setErrorMessage('');
     }
     setPassword(e.target.value);
   };
 
-  const onKingdomNameChange = e => {
+  const onKingdomNameChange = (e) => {
     if (errorMessage) {
       setErrorMessage('');
     }
@@ -33,15 +33,15 @@ function Form({ formType }) {
   };
 
   const loginUser = async () => {
-    const endpoint = `/login`;
+    const endpoint = '/login';
     const method = 'POST';
     const loginData = {
-      username: username,
-      password: password,
+      username,
+      password,
     };
 
     try {
-      let loginResponse = await fetchDataGeneral(endpoint, method, loginData);
+      const loginResponse = await fetchDataGeneral(endpoint, method, loginData);
 
       if (!loginResponse.token) {
         setErrorMessage(loginResponse.message);
@@ -55,30 +55,31 @@ function Form({ formType }) {
     } catch (error) {
       console.log(error);
     }
-      
+    return null;
   };
 
   const registerUser = async () => {
-    const endpoint = `/register`;
+    const endpoint = '/register';
     const method = 'POST';
     const registData = {
-      username: username,
-      password: password,
+      username,
+      password,
       kingdomname: kingdomName.length === 0 ? username : kingdomName,
     };
 
     try {
-      let registerResponse = await fetchDataGeneral(endpoint, method, registData);
+      const registerResponse = await fetchDataGeneral(endpoint, method, registData);
 
-      registerResponse.message
-      ? setErrorMessage(registerResponse.message)
-      : history.push('/login');
+      return registerResponse.message
+        ? setErrorMessage(registerResponse.message)
+        : history.push('/login');
     } catch (error) {
       console.log(error);
     }
+    return null;
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (formType === 'login') {
       if (!username || !password) {
@@ -94,6 +95,7 @@ function Form({ formType }) {
       }
       registerUser();
     }
+    return null;
   };
 
   const kingdomInputStyle = {
@@ -123,7 +125,7 @@ function Form({ formType }) {
         {errorMessage && (
           <div className="error-message">
             <p>{errorMessage}</p>
-            <i className="fas fa-exclamation-triangle"></i>
+            <i className="fas fa-exclamation-triangle" />
           </div>
         )}
         {formType === 'register' ? (

@@ -5,7 +5,7 @@ import farm from '../../assets/farm.png';
 import mine from '../../assets/mine.png';
 import bread from '../../assets/big_bread.png';
 import coin from '../../assets/big_coins.png';
-import { fetchDataGeneral } from '../../utilities/generalFetch';
+import fetchDataGeneral from '../../utilities/generalFetch';
 
 function ResourcesContainer() {
   const [foodAmount, setFoodAmount] = useState(0);
@@ -14,16 +14,14 @@ function ResourcesContainer() {
   const [goldGeneration, setGoldGeneration] = useState(0);
   const [errorMessage, setErrorMessage] = useState('');
 
-
-  useEffect( async () => {
+  useEffect(async () => {
     const kingdomId = localStorage.getItem('kingdomId');
     const endpoint = `/kingdom/resource/${kingdomId}`;
     const method = 'GET';
-    
+
     try {
-      let resourcesData = await fetchDataGeneral(endpoint, method);
-      
-      for(let resource of resourcesData.resources) {
+      const resourcesData = await fetchDataGeneral(endpoint, method);
+      resourcesData.resources.forEach((resource) => {
         if (resource.type === 'food') {
           setFoodAmount(resource.amount);
           setFoodGeneration(resource.generation);
@@ -31,38 +29,38 @@ function ResourcesContainer() {
           setGoldAmount(resource.amount);
           setGoldGeneration(resource.generation);
         }
-      }
+      });
     } catch (error) {
-      setErrorMessage('Can\'t load resources. Please refresh the page!')
+      setErrorMessage("Can't load resources. Please refresh the page!");
     }
   }, []);
 
   return (
     <div className="resources-container">
-      {
-        errorMessage ? 
-        (<p>{errorMessage}</p>) :
-        (<div className="resources-container"> 
-          <Resource 
-            building={farm} 
-            altBuilding={"Farm icon"} 
-            amount={foodAmount} 
+      {errorMessage ? (
+        <p>{errorMessage}</p>
+      ) : (
+        <div className="resources-container">
+          <Resource
+            building={farm}
+            altBuilding="Farm icon"
+            amount={foodAmount}
             resource={bread}
-            altResource={'Bread Icon'}
+            altResource="Bread Icon"
             generation={foodGeneration}
           />
-          <Resource 
-            building={mine} 
-            altBuilding={"Mine Icon"} 
-            amount={goldAmount} 
+          <Resource
+            building={mine}
+            altBuilding="Mine Icon"
+            amount={goldAmount}
             resource={coin}
-            altResource={'Coins Icon'}
+            altResource="Coins Icon"
             generation={goldGeneration}
           />
-        </div>)
-      }
+        </div>
+      )}
     </div>
   );
-};
+}
 
 export default ResourcesContainer;
