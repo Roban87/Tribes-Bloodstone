@@ -2,7 +2,7 @@
 export const exampleActionAdd = (number) => {
   return {
     type: 'ADD_TO_COUNT',
-    count: number
+    counts: number
   }
 };
 

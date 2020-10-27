@@ -9,13 +9,13 @@ const exampleReducer = (state = initialState, action) => {
   if (action.type === 'ADD_TO_COUNT' ) {
     return {
       ...state,
-      counts: [...state.counts, action.count]
+      counts: [...state.counts, action.counts]
     }
   }
   if (action.type === 'GET_SUM' ) {
     return {
       ...state,
-      sum: count.reduce((a, b) => { return a + b})
+      sum: state.counts.reduce((a, b) => { return a + b})
     }
   }
   if (action.type === 'SET_ERROR' ) {
