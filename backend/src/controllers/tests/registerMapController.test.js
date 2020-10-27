@@ -1,6 +1,6 @@
 import request from 'supertest';
 import app from '../../app';
-import { kingdomRepo } from '../../repositories';
+import { kingdomRepo, buildingsRepo, troopsRepo } from '../../repositories';
 import jwt from 'jsonwebtoken';
 import config from '../../config';
 
@@ -77,6 +77,36 @@ const postResponse = {
   },
 };
 
+const buildingsDB = [
+  {
+    id: 1,
+    type: 'gold',
+    level: 1,
+    hp: 5,
+    started_at: null,
+    finished_at: null,
+  },
+  {
+    id: 2,
+    type: 'silver',
+    level: 2,
+    hp: 222,
+    started_at: null,
+    finished_at: null,
+  },
+];
+
+const troopsDB = [
+  {
+    id: 1,
+    level: 1,
+    hp: 1,
+    attack: 1,
+    defence: 1,
+    started_at: null,
+    finished_at: null,
+  },
+];
 describe('GET /api/kingdom/map', () => {
   it('responds with json containing the kingdoms', done => {
     let spy = jest.spyOn(kingdomRepo, 'getKingdomMap');
@@ -97,10 +127,14 @@ describe('GET /api/kingdom/map', () => {
 
 describe('POST /api/register/map/:kingdomId', () => {
   it('responds with json containing the kingdom data', done => {
+    let spyBuildings = jest.spyOn(buildingsRepo, 'getBuildings');
+    spyBuildings.mockReturnValue(buildingsDB);
+    let spyTroops = jest.spyOn(troopsRepo, 'getTroops');
+    spyTroops.mockReturnValue({ results: troopsDB, fields: 'somedata' });
     let spy = jest.spyOn(kingdomRepo, 'postRegisterMap');
     spy.mockReturnValue(postResponse);
     const locationBody = {
-      country_code: 'ENG',
+      countryCode: 'ENG',
     };
     request(app)
       .post('/api/register/map/1')
@@ -125,7 +159,7 @@ describe('POST /api/register/map/:kingdomId', () => {
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
       .expect(422)
-      .end((err) => {
+      .end(err => {
         if (err) return done(err);
         done();
       });

@@ -1,5 +1,5 @@
 import { registerMapService } from '../registerMapService';
-import { kingdomRepo } from '../../repositories/';
+import { kingdomRepo, buildingsRepo, troopsRepo } from '../../repositories/';
 
 const database = {
   kingdoms: [
@@ -79,6 +79,37 @@ const postResponse = {
   },
 };
 
+const buildingsDB = [
+  {
+    id: 1,
+    type: 'gold',
+    level: 1,
+    hp: 5,
+    started_at: null,
+    finished_at: null,
+  },
+  {
+    id: 2,
+    type: 'silver',
+    level: 2,
+    hp: 222,
+    started_at: null,
+    finished_at: null,
+  },
+];
+
+const troopsDB = [
+  {
+    id: 1,
+    level: 1,
+    hp: 1,
+    attack: 1,
+    defence: 1,
+    started_at: null,
+    finished_at: null,
+  },
+];
+
 test('Returns error, missing location', async () => {
   const kingdoms = await registerMapService.checkLocation();
   expect(kingdoms).toEqual({
@@ -88,6 +119,10 @@ test('Returns error, missing location', async () => {
 });
 
 test('Returns kingdom data with location', async () => {
+  let spyBuildings = jest.spyOn(buildingsRepo, 'getBuildings');
+  spyBuildings.mockReturnValue(buildingsDB);
+  let spyTroops = jest.spyOn(troopsRepo, 'getTroops');
+  spyTroops.mockReturnValue({ results: troopsDB, fields: 'somedata' });
   const spy = jest.spyOn(kingdomRepo, 'postRegisterMap');
   spy.mockReturnValue(postResponse);
   const kingdoms = await registerMapService.postRegisterMap(1, 'ENG');
