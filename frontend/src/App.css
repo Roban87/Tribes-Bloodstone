@@ -4,8 +4,11 @@
 }
 
 html{ 
-  background-image: url('./assets/bg3-01.png');
+  background: url('./assets/bg3-01.png') no-repeat center center
+    fixed;
   height: 100vh;
   background-size: cover;
-  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
 }

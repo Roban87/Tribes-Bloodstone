@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register.js';
+import notImplemented from './pages/NotImplemented';
 
 function App() {
   return (
@@ -11,9 +12,10 @@ function App() {
         <Switch>
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
-          <Route path="/main">
+          <Route exact path="/">
             <h1>HomePage</h1>
           </Route>
+          <Route path="/" component={notImplemented} />
         </Switch>
       </div>
     </Router>
