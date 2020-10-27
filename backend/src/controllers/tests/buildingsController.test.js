@@ -153,9 +153,6 @@ describe('POST /api/kingdom/buildings -> add new building tests', () => {
     const spyResource = jest.spyOn(resourceRepo, 'getGoldAmount');
     spyResource.mockReturnValue([{amount: 200}]);
 
-    const spyResourceRate = jest.spyOn(resourceRepo, 'updateResourceRate');
-    spyResourceRate.mockReturnValue(null);
-
     const spyBuildings = jest.spyOn(buildingsRepo, 'addNewBuilding');
     spyBuildings.mockReturnValue([{
       id: 5,
@@ -218,7 +215,3 @@ describe('PUT api/kingdom/buildings/:kingdomId/:buildingId', () => {
       });
   });
 });
-<<<<<<< HEAD
-
-=======
->>>>>>> fb8eead... rebase
