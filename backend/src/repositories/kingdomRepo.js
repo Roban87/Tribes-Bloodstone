@@ -31,9 +31,7 @@ export const kingdomRepo = {
       const resKingdomsIdQuery = `SELECT id FROM kingdoms WHERE id=?;`;
       const resKingdomsNameQuery = `SELECT kingdomname FROM kingdoms WHERE id=?;`;
       const resKingdomsUserQuery = `SELECT user_id FROM kingdoms WHERE id=?;`;
-      const resBuildingsQuery = `SELECT building_id, type, level, hp, started_at, finished_at FROM buildings WHERE kingdom_id=?;`;
       const resResourcesQuery = `SELECT type, amount, generation FROM resources WHERE kingdomId=?;`;
-      const resTroopsQuery = `SELECT id, level, hp, attack, defence, started_at, finished_at FROM troops WHERE kingdom_id=?;`;
       const resLocationQuery = `SELECT location FROM kingdoms WHERE id=?;`;
       const resKingdomsIdData = await db.query(resKingdomsIdQuery, [kingdomId]);
       const resKingdomsNameData = await db.query(resKingdomsNameQuery, [
@@ -42,18 +40,16 @@ export const kingdomRepo = {
       const resKingdomsUserData = await db.query(resKingdomsUserQuery, [
         kingdomId,
       ]);
-      const resBuildingsData = await db.query(resBuildingsQuery, [kingdomId]);
       const resResourcesData = await db.query(resResourcesQuery, [kingdomId]);
-      const resTroopsData = await db.query(resTroopsQuery, [kingdomId]);
       const resLocationData = await db.query(resLocationQuery, [kingdomId]);
 
       const kingdom = {
         id: resKingdomsIdData.results[0].id,
         name: resKingdomsNameData.results[0].kingdomname,
         userId: resKingdomsUserData.results[0].user_id,
-        buildings: resBuildingsData.results,
+        buildings: null,
         resources: resResourcesData.results,
-        troops: resTroopsData.results,
+        troops: null,
         locaion: { country_code: resLocationData.results[0].location },
       };
 
