@@ -9,7 +9,7 @@ const exampleReducer = (state = initialState, action) => {
   if (action.type === 'ADD_TO_COUNT' ) {
     return {
       ...state,
-      counts: [...state.counts, action.payload]
+      counts: [...state.counts, action.count]
     }
   }
   if (action.type === 'GET_SUM' ) {
