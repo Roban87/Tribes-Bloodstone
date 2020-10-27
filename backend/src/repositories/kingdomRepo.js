@@ -27,33 +27,7 @@ export const kingdomRepo = {
     try {
       const registerMapQuery = `UPDATE kingdoms SET location=? WHERE id=?;`;
       const queryData = await db.query(registerMapQuery, [location, kingdomId]);
-
-      const resKingdomsIdQuery = `SELECT id FROM kingdoms WHERE id=?;`;
-      const resKingdomsNameQuery = `SELECT kingdomname FROM kingdoms WHERE id=?;`;
-      const resKingdomsUserQuery = `SELECT user_id FROM kingdoms WHERE id=?;`;
-      const resResourcesQuery = `SELECT type, amount, generation FROM resources WHERE kingdomId=?;`;
-      const resLocationQuery = `SELECT location FROM kingdoms WHERE id=?;`;
-      const resKingdomsIdData = await db.query(resKingdomsIdQuery, [kingdomId]);
-      const resKingdomsNameData = await db.query(resKingdomsNameQuery, [
-        kingdomId,
-      ]);
-      const resKingdomsUserData = await db.query(resKingdomsUserQuery, [
-        kingdomId,
-      ]);
-      const resResourcesData = await db.query(resResourcesQuery, [kingdomId]);
-      const resLocationData = await db.query(resLocationQuery, [kingdomId]);
-
-      const kingdom = {
-        id: resKingdomsIdData.results[0].id,
-        name: resKingdomsNameData.results[0].kingdomname,
-        userId: resKingdomsUserData.results[0].user_id,
-        buildings: null,
-        resources: resResourcesData.results,
-        troops: null,
-        locaion: { country_code: resLocationData.results[0].location },
-      };
-
-      return kingdom;
+      return;
     } catch (error) {
       throw { status: 500, message: 'Internal server error' };
     }

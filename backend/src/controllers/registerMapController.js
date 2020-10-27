@@ -1,14 +1,15 @@
-import { registerMapService } from '../services';
+import { registerMapService, kingdomService } from '../services';
 
 export const registerMapController = {
   async post(req, res, next) {
     const kingdomId = req.params.kingdomId;
     const location = req.body.countryCode;
     try {
-      const kingdomData = await registerMapService.postRegisterMap(
+      const postKingdomData = await registerMapService.postRegisterMap(
         kingdomId,
         location
       );
+      const kingdomData = await kingdomService.selectKingdomInformations(kingdomId);
       res.status(200).json(kingdomData);
     } catch (error) {
       next(error);

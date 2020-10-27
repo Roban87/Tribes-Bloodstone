@@ -15,11 +15,7 @@ export const registerMapService = {
       throw checker;
     }
     const kingdomData = await kingdomRepo.postRegisterMap(kingdomId, location);
-    const buildingsData = await buildingsRepo.getBuildings(kingdomId);
-    const troopsData = await troopsRepo.getTroops(kingdomId);
-    kingdomData.buildings = buildingsData;
-    kingdomData.troops = troopsData;
-    return kingdomData;
+    return;
   },
   async getKingdomMap() {
     return await kingdomRepo.getKingdomMap();

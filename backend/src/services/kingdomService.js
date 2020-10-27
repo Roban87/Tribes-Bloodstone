@@ -20,8 +20,8 @@ export const kingdomService = {
       userId: kingdomTable.results[0].user_id,
       buildings: buildingsWithKingdomId,
       resources: resourceWithKingdomId.results,
-      troops: troopsWithKingdomId.results,
-      location: kingdomTable.results[0].location,
+      troops: troopsWithKingdomId,
+      location: {country_code: kingdomTable.results[0].location},
     };
   },
   async kingdomnameUpdateMainService(kingdomname, kingdomId) {

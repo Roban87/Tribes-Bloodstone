@@ -1,6 +1,11 @@
 import request from 'supertest';
 import app from '../../app';
-import { kingdomRepo, buildingsRepo, troopsRepo } from '../../repositories';
+import {
+  kingdomRepo,
+  buildingsRepo,
+  troopsRepo,
+  resourceRepo,
+} from '../../repositories';
 import jwt from 'jsonwebtoken';
 import config from '../../config';
 
@@ -45,20 +50,22 @@ const postResponse = {
       type: 'townhall',
       level: 1,
       hp: 1,
-      started_at: 12345789,
-      finished_at: 12399999,
+      started_at: null,
+      finished_at: null,
     },
   ],
   resources: [
     {
-      type: 'food',
-      amount: 1,
+      type: 'nothing',
+      amount: 5,
       generation: 1,
+      updatedAt: 1603281789,
     },
     {
-      type: 'gold',
-      amount: 1,
+      type: 'somethin',
+      amount: 2,
       generation: 1,
+      updatedAt: 1603284687,
     },
   ],
   troops: [
@@ -68,8 +75,8 @@ const postResponse = {
       hp: 1,
       attack: 1,
       defence: 1,
-      started_at: 12345789,
-      finished_at: 12399999,
+      started_at: null,
+      finished_at: null,
     },
   ],
   location: {
@@ -80,17 +87,9 @@ const postResponse = {
 const buildingsDB = [
   {
     id: 1,
-    type: 'gold',
+    type: 'townhall',
     level: 1,
-    hp: 5,
-    started_at: null,
-    finished_at: null,
-  },
-  {
-    id: 2,
-    type: 'silver',
-    level: 2,
-    hp: 222,
+    hp: 1,
     started_at: null,
     finished_at: null,
   },
@@ -107,6 +106,32 @@ const troopsDB = [
     finished_at: null,
   },
 ];
+
+const resourcesDB = [
+  {
+    type: 'nothing',
+    amount: 5,
+    generation: 1,
+    updatedAt: 1603281789,
+  },
+  {
+    type: 'somethin',
+    amount: 2,
+    generation: 1,
+    updatedAt: 1603284687,
+  },
+];
+
+const kingdomDB = [
+  {
+    id: 1,
+    kingdomname: 'London',
+    population: 100,
+    user_id: 1,
+    location: 'ENG',
+  },
+];
+
 describe('GET /api/kingdom/map', () => {
   it('responds with json containing the kingdoms', done => {
     let spy = jest.spyOn(kingdomRepo, 'getKingdomMap');
@@ -127,12 +152,19 @@ describe('GET /api/kingdom/map', () => {
 
 describe('POST /api/register/map/:kingdomId', () => {
   it('responds with json containing the kingdom data', done => {
+    let spyKingdom = jest.spyOn(kingdomRepo, 'getKingdom');
+    spyKingdom.mockReturnValue({
+      results: kingdomDB,
+      fields: 'somedata',
+    });
     let spyBuildings = jest.spyOn(buildingsRepo, 'getBuildings');
     spyBuildings.mockReturnValue(buildingsDB);
+    let spyResources = jest.spyOn(resourceRepo, 'getResources');
+    spyResources.mockReturnValue({ results: resourcesDB, fields: 'somedata' });
     let spyTroops = jest.spyOn(troopsRepo, 'getTroops');
-    spyTroops.mockReturnValue({ results: troopsDB, fields: 'somedata' });
+    spyTroops.mockReturnValue(troopsDB);
     let spy = jest.spyOn(kingdomRepo, 'postRegisterMap');
-    spy.mockReturnValue(postResponse);
+    spy.mockReturnValue({});
     const locationBody = {
       countryCode: 'ENG',
     };
