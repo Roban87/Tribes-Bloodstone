@@ -12,6 +12,7 @@ router.use(express.json());
 router.get('/hello', helloController.get);
 router.post('/login', loginController.post);
 router.post('/register', registerController.post);
+router.post('/register/map/:kingdomId', registerMapController.post);
 
 router.use(authHandler);
 router.use(updateResources);

@@ -73,7 +73,7 @@ test('select kingdom informations', async () => {
     let spyResources = jest.spyOn(resourceRepo, 'getResources');
     spyResources.mockReturnValue({ results: resourcesDB, fields: 'somedata' });
     let spyTroops = jest.spyOn(troopsRepo, 'getTroops');
-    spyTroops.mockReturnValue({ results: troopsDB, fields: 'somedata' });
+    spyTroops.mockReturnValue( troopsDB );
     let result = await kingdomService.selectKingdomInformations('futys');
   expect(result).toEqual({
         "id": 1,
@@ -122,6 +122,6 @@ test('select kingdom informations', async () => {
                 "finished_at": null
             }
         ],
-        "location": null
+        "location": {"country_code": null}
   });
 });
