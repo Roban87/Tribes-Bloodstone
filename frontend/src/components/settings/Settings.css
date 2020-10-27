@@ -1,9 +1,10 @@
 
-html {
-    text-align: left;
+.settings-container {
+  text-align: left;
   background-image: none;
   margin: 30px;
 }
+
 .submit-container {
   display: flex;
   flex-flow: column;
@@ -16,7 +17,7 @@ html {
   width: 70%;
   height: 350px;
   margin: auto;
-  background-color: rgba(173, 173, 173, 0.7);
+  background-color: rgba(173, 173, 173, 0.9);
 }
 .submit-container h2 {
   margin: 20px;
@@ -43,7 +44,7 @@ html {
   color: rgb(184, 184, 184);
 }
 .submit-button {
-    width: 150px;
+  width: 150px;
   color: white;
   background-color: rgb(42, 99, 255);
 }
@@ -52,4 +53,15 @@ html {
   color: white;
   background-color: rgb(117, 117, 117);
   width: 150px;
+}
+.error-message {
+  color: rgb(221,67,48);
+  font-weight: bold;
+  width: 90%;
+  margin: 0px 20px;
+  height: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
