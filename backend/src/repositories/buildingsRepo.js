@@ -31,11 +31,7 @@ export const buildingsRepo = {
 
   async addNewBuilding(type, kingdomId) {
     const sqlBuyBuilding = `UPDATE resources SET amount = amount - 100 WHERE type = 'gold' AND kingdom_id = ?;`;
-<<<<<<< HEAD
     const addBuildingQuery = `INSERT INTO buildings (type, kingdom_id, finished_at) VALUES (?, ?, TIMESTAMPADD(MINUTE, 1, CURRENT_TIMESTAMP));`;
-=======
-    const addBuildingQuery = `INSERT INTO buildings (type, kingdom_id) VALUES (?, ?)`;
->>>>>>> 83c7ce7... added new addBuilding funtion to buildingsRepo
     const getNewBuildingQuery = `SELECT id, type, level, hp, UNIX_TIMESTAMP(started_at) AS started_at, UNIX_TIMESTAMP(finished_at) AS finished_at FROM buildings WHERE id=LAST_INSERT_ID() AND kingdom_id=?;`;
 
     const connection = await db.connection();

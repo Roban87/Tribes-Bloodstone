@@ -2,7 +2,6 @@ import request from 'supertest';
 import app from '../../app';
 import { buildingsRepo, resourceRepo } from '../../repositories';
 import { resourceService } from '../../services';
-import { resourceService } from '../../services';
 import jwt from 'jsonwebtoken';
 import config from '../../config';
 
