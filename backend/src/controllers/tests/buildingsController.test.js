@@ -153,6 +153,9 @@ describe('POST /api/kingdom/buildings -> add new building tests', () => {
     const spyResource = jest.spyOn(resourceRepo, 'getGoldAmount');
     spyResource.mockReturnValue([{amount: 200}]);
 
+    const spyResourceRate = jest.spyOn(resourceRepo, 'updateResourceRate');
+    spyResourceRate.mockReturnValue(null);
+
     const spyBuildings = jest.spyOn(buildingsRepo, 'addNewBuilding');
     spyBuildings.mockReturnValue([{
       id: 5,
@@ -189,18 +192,18 @@ describe('POST /api/kingdom/buildings -> add new building tests', () => {
 
 describe('PUT api/kingdom/buildings/:kingdomId/:buildingId', () => {
   it('responds with a JSON object containing the updated building specified by the building id', done => {
-    const spy = jest.spyOn(buildingsRepo, 'getBuildings');
-    spy.mockReturnValue(database.buildings);
-    const spy2 = jest.spyOn(resourceRepo, 'getResources');
-    spy2.mockReturnValue({results: [{ amount: 2000, type: 'gold' }]});
-    const spy3 = jest.spyOn(buildingsRepo, 'getSingleBuilding');
-    spy3.mockReturnValue({results: [database.buildings[4]], fields: []});
-    const spy4 = jest.spyOn(buildingsRepo, 'upgradeBuilding');
-    spy4.mockReturnValue(null);
-    const spy5 = jest.spyOn(resourceRepo, 'handlePurchase');
-    spy5.mockReturnValue(null);
-    const spy6 = jest.spyOn(resourceRepo, 'updateResourceRate');
-    spy6.mockReturnValue(null);
+    const spyGetBuildings = jest.spyOn(buildingsRepo, 'getBuildings');
+    spyGetBuildings.mockReturnValue(database.buildings);
+    const spyGetResources = jest.spyOn(resourceRepo, 'getResources');
+    spyGetResources.mockReturnValue({results: [{ amount: 2000, type: 'gold' }]});
+    const spySingleBuilding = jest.spyOn(buildingsRepo, 'getSingleBuilding');
+    spySingleBuilding.mockReturnValue({results: [database.buildings[4]], fields: []});
+    const spyUpgradeBuilding = jest.spyOn(buildingsRepo, 'upgradeBuilding');
+    spyUpgradeBuilding.mockReturnValue(null);
+    const spyPurchase = jest.spyOn(resourceRepo, 'handlePurchase');
+    spyPurchase.mockReturnValue(null);
+    const spyResourceRate = jest.spyOn(resourceRepo, 'updateResourceRate');
+    spyResourceRate.mockReturnValue(null);
 
     request(app)
       .get('/api/kingdom/buildings/4/5')

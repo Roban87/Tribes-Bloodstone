@@ -1,5 +1,5 @@
 import { buildingsRepo, resourceRepo } from '../repositories';
-import { setRules } from '../helpers/rulesHelper';
+import { rules } from '../utils/rules';
 
 export const buildingsService = {
   
@@ -22,13 +22,15 @@ export const buildingsService = {
     } else if (type !== 'farm' &&  type !== 'mine') {
       throw { status: 400, message: 'Wrong type' };
     }
-
+    const buildRules = rules.build();
     const kingdomWealth = await resourceRepo.getGoldAmount(kingdomId);
-    if (kingdomWealth[0].amount < 100) {
+    if (kingdomWealth[0].amount < buildRules[type].price) {
       throw { status: 400, message: 'You don\'t have enough money'};
     }
 
-    const addNewBuildingData = await buildingsRepo.addNewBuilding(type, kingdomId);
+    const addNewBuildingData = await buildingsRepo.addNewBuilding(type, kingdomId, buildRules[type].price);
+    const resource = type === 'farm' ? 'food' : 'gold';
+    await resourceRepo.updateResourceRate(kingdomId, resource, buildRules[type].generation )
     return addNewBuildingData[0];
   },
 
@@ -36,28 +38,27 @@ export const buildingsService = {
     const allBuildings = await buildingsRepo.getBuildings(kingdomId);
     const townHall = allBuildings.filter((building) => building.type === "townhall")[0];
     const building = allBuildings.filter((building) => building.id == buildingId)[0];
-    const rules = setRules(building.level);
+    const upgradeRules = rules.upgrade();
 
-    if (building.level == rules.townhall.maxLevel) {
+    if (building.level == upgradeRules.townhall.maxLevel) {
       throw { message: "Building max level reached", status: 400 }
     }
     if (townHall.level <= building.level && building.type !== "townhall") {
       throw { message: "Townhall level is too low", status: 400 }
     }
 
-    const resources = await resourceRepo.getResources(kingdomId);
-    const gold = resources.results.filter((resource) => resource.type === "gold")[0];
+    const gold = await resourceRepo.getGoldAmount(kingdomId);
 
-    if (gold.amount < rules[building.type].price) {
+    if (gold[0].amount < upgradeRules[building.type].price) {
       throw { message: "You don't have enough money", status: 400 }
     }
 
-    await buildingsRepo.upgradeBuilding(building.id, rules[building.type].hp, rules[building.type].time);
-    await resourceRepo.handlePurchase(kingdomId, rules[building.type].price);
+    await buildingsRepo.upgradeBuilding(building.id, upgradeRules[building.type].hp, upgradeRules[building.type].time);
+    await resourceRepo.handlePurchase(kingdomId, upgradeRules[building.type].price);
 
     if (building.type === 'farm' || building.type === 'mine') {
       const resource = building.type === 'farm' ? 'food' : 'gold';
-      await resourceRepo.updateResourceRate(kingdomId, resource, rules[building.type].generation);
+      await resourceRepo.updateResourceRate(kingdomId, resource, upgradeRules[building.type].generation);
     }
 
     const upgradedBuilding = await buildingsRepo.getSingleBuilding(buildingId);

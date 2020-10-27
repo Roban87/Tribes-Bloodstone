@@ -70,12 +70,12 @@ const database = {
 };
 
 beforeEach(() => {
-  const spy4 = jest.spyOn(buildingsRepo, 'upgradeBuilding');
-  spy4.mockReturnValue(null);
-  const spy5 = jest.spyOn(resourceRepo, 'handlePurchase');
-  spy5.mockReturnValue(null);
-  const spy6 = jest.spyOn(resourceRepo, 'updateResourceRate');
-  spy6.mockReturnValue(null);
+  const spyUpgradeBuilding = jest.spyOn(buildingsRepo, 'upgradeBuilding');
+  spyUpgradeBuilding.mockReturnValue(null);
+  const spyPurchase = jest.spyOn(resourceRepo, 'handlePurchase');
+  spyPurchase.mockReturnValue(null);
+  const spyResourceRate = jest.spyOn(resourceRepo, 'updateResourceRate');
+  spyResourceRate.mockReturnValue(null);
 });
 
 test('Returns buildings of a given kingdom', async () => {
@@ -176,38 +176,38 @@ describe('add new building tests', () => {
 });
 
 test('upgradeBuilding when upgrading mine returns object with updated building stats', async () => {
-  const spy = jest.spyOn(buildingsRepo, 'getBuildings');
-  spy.mockReturnValue(database.buildings);
-  const spy2 = jest.spyOn(resourceRepo, 'getResources');
-  spy2.mockReturnValue({results: [{ amount: 2000, type: 'gold' }]});
-  const spy3 = jest.spyOn(buildingsRepo, 'getSingleBuilding');
-  spy3.mockReturnValue({results: [database.buildings[4]], fields: []});
+  const spyGetBuildings = jest.spyOn(buildingsRepo, 'getBuildings');
+  spyGetBuildings.mockReturnValue(database.buildings);
+  const spyGoldAmount = jest.spyOn(resourceRepo, 'getGoldAmount');
+  spyGoldAmount.mockReturnValue([{ amount: 2000 }]);
+  const spySingleBuilding = jest.spyOn(buildingsRepo, 'getSingleBuilding');
+  spySingleBuilding.mockReturnValue({results: [database.buildings[4]], fields: []});
 
   const building = await buildingsService.upgradeBuilding(5, 4);
   expect(building).toEqual(database.buildings[4]);
   expect(buildingsRepo.getBuildings).toHaveBeenCalledWith(4);
-  expect(resourceRepo.getResources).toHaveBeenCalledWith(4);
-  expect(buildingsRepo.upgradeBuilding).toHaveBeenCalledWith(5, 200, 120);
-  expect(resourceRepo.handlePurchase).toHaveBeenCalledWith(4, 200);
-  expect(resourceRepo.updateResourceRate).toHaveBeenCalledWith(4, 'gold', 10);
+  expect(resourceRepo.getGoldAmount).toHaveBeenCalledWith(4);
+  expect(buildingsRepo.upgradeBuilding).toHaveBeenCalledWith(5, 100, 60);
+  expect(resourceRepo.handlePurchase).toHaveBeenCalledWith(4, 100);
+  expect(resourceRepo.updateResourceRate).toHaveBeenCalledWith(4, 'gold', 5);
   expect(buildingsRepo.getSingleBuilding).toHaveBeenCalledWith(5);
 });
 
 test('upgradeBuilding when upgrading farm returns object with updated building stats', async () => {
   const spy = jest.spyOn(buildingsRepo, 'getBuildings');
   spy.mockReturnValue(database.buildings);
-  const spy2 = jest.spyOn(resourceRepo, 'getResources');
-  spy2.mockReturnValue({results: [{ amount: 2000, type: 'gold' }]});
-  const spy3 = jest.spyOn(buildingsRepo, 'getSingleBuilding');
-  spy3.mockReturnValue({results: [database.buildings[1]], fields: []});
+  const spyGoldAmount = jest.spyOn(resourceRepo, 'getGoldAmount');
+  spyGoldAmount.mockReturnValue([{ amount: 2000 }]);
+  const spySingleBuilding = jest.spyOn(buildingsRepo, 'getSingleBuilding');
+  spySingleBuilding.mockReturnValue({results: [database.buildings[1]], fields: []});
 
   const building = await buildingsService.upgradeBuilding(2, 2);
   expect(building).toEqual(database.buildings[1]);
   expect(buildingsRepo.getBuildings).toHaveBeenCalledWith(2);
-  expect(resourceRepo.getResources).toHaveBeenCalledWith(2);
-  expect(buildingsRepo.upgradeBuilding).toHaveBeenCalledWith(2, 200, 120);
-  expect(resourceRepo.handlePurchase).toHaveBeenCalledWith(2, 200);
-  expect(resourceRepo.updateResourceRate).toHaveBeenCalledWith(2, 'food', 10);
+  expect(resourceRepo.getGoldAmount).toHaveBeenCalledWith(2);
+  expect(buildingsRepo.upgradeBuilding).toHaveBeenCalledWith(5, 100, 60);
+  expect(resourceRepo.handlePurchase).toHaveBeenCalledWith(2, 100);
+  expect(resourceRepo.updateResourceRate).toHaveBeenCalledWith(2, 'food', 5);
   expect(buildingsRepo.getSingleBuilding).toHaveBeenCalledWith(2);
 });
 
@@ -244,8 +244,8 @@ test('upgradeBuilding returns error when townhall level is lower than building',
 test('upgradeBuilding returns error when not enough money', async () => {
   const spy = jest.spyOn(buildingsRepo, 'getBuildings');
   spy.mockReturnValue(database.buildings);
-  const spy2 = jest.spyOn(resourceRepo, 'getResources');
-  spy2.mockReturnValue({results: [{ amount: 50, type: 'gold' }]});
+  const spyGoldAmount = jest.spyOn(resourceRepo, 'getGoldAmount');
+  spyGoldAmount.mockReturnValue([{amount: 50 }]);
 
   let thrownError = {};
   try {
@@ -256,5 +256,5 @@ test('upgradeBuilding returns error when not enough money', async () => {
   expect(thrownError.message).toEqual("You don't have enough money");
   expect(thrownError.status).toEqual(400);
   expect(buildingsRepo.getBuildings).toHaveBeenCalledWith(4);
-  expect(resourceRepo.getResources).toHaveBeenCalledWith(4);
+  expect(resourceRepo.getGoldAmount).toHaveBeenCalledWith(4);
 });

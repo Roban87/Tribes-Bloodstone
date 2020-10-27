@@ -65,7 +65,7 @@ export const buildingsRepo = {
         level = level + 1,
         started_at = CURRENT_TIMESTAMP(), 
         finished_at = DATE_ADD(CURRENT_TIMESTAMP(), INTERVAL ? SECOND),
-        hp = ?
+        hp = hp + ?
         WHERE id = ?
         `
       return await db.query(sql, [upgradeTime, hp, buildingId])

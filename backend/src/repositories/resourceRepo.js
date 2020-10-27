@@ -20,11 +20,6 @@ export const resourceRepo = {
     return getGoldAmount.results;
   },
 
-  async buyBuilding(kingdomId) {
-    const sqlBuyBuilding = `UPDATE resources SET amount = amount - 100 WHERE type = 'gold' AND kingdom_id = ?;`;
-    return await db.query(sqlBuyBuilding, kingdomId);
-  },
-
   async handlePurchase(kingdomId, price) {
     try {
       const sql = `
