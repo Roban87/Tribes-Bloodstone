@@ -2,5 +2,5 @@
 // Sync object
 module.exports = {
   verbose: true,
-  setupFiles: ["<rootDir>/env-setup.js"], 
+  setupFiles: ['<rootDir>/env-setup.js'],
 };
