@@ -1,4 +1,4 @@
-import { resourceService } from '../services/';
+import { resourceService } from '../services';
 
 export const resourceController = {
 
@@ -6,10 +6,10 @@ export const resourceController = {
     const { kingdomId } = req.user;
     try {
       const resources = await resourceService.getResources(kingdomId);
-      res.status(200).json({ resources: resources});
+      res.status(200).json({ resources });
     } catch (error) {
       next(error);
     }
   },
 
-}
+};

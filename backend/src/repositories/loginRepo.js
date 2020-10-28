@@ -9,8 +9,8 @@ export const loginRepo = {
         ORDER BY kingdoms.id ASC
         LIMIT 1`;
       return await db.query(sql, username);
-    } catch(err) {
-        throw {status: 500, message: 'Internal server error'};
+    } catch (err) {
+      throw { status: 500, message: 'Internal server error' };
     }
-  }
-}
+  },
+};

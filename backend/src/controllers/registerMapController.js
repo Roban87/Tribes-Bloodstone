@@ -2,12 +2,12 @@ import { registerMapService, kingdomService } from '../services';
 
 export const registerMapController = {
   async post(req, res, next) {
-    const kingdomId = req.params.kingdomId;
+    const { kingdomId } = req.params;
     const location = req.body.countryCode;
     try {
-      const postKingdomData = await registerMapService.postRegisterMap(
+      await registerMapService.postRegisterMap(
         kingdomId,
-        location
+        location,
       );
       const kingdomData = await kingdomService.selectKingdomInformations(kingdomId);
       res.status(200).json(kingdomData);

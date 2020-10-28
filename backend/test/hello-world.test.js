@@ -2,7 +2,7 @@ import request from 'supertest';
 
 import app from '../src/app';
 
-test('should respond with 200 - OK', done => {
+test('should respond with 200 - OK', (done) => {
   request(app)
     .get('/api/hello')
     .set('Accept', 'application/json')

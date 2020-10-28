@@ -1,4 +1,9 @@
-import { buildingsRepo, resourceRepo, troopsRepo, kingdomRepo } from '../repositories';
+import {
+  buildingsRepo,
+  resourceRepo,
+  troopsRepo,
+  kingdomRepo,
+} from '../repositories';
 
 export const kingdomService = {
   emptyNameValidator(kingdomname) {
@@ -21,12 +26,12 @@ export const kingdomService = {
       buildings: buildingsWithKingdomId,
       resources: resourceWithKingdomId.results,
       troops: troopsWithKingdomId,
-      location: {country_code: kingdomTable.results[0].location},
+      location: { country_code: kingdomTable.results[0].location },
     };
   },
   async kingdomnameUpdateMainService(kingdomname, kingdomId) {
     this.emptyNameValidator(kingdomname);
-    await kingdomRepo.updateName(kingdomname, kingdomId)
+    await kingdomRepo.updateName(kingdomname, kingdomId);
     return await this.selectKingdomInformations(kingdomId);
   },
 };

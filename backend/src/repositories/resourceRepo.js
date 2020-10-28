@@ -3,7 +3,7 @@ import { db } from '../data/connection';
 export const resourceRepo = {
 
   async getResources(kingdomId) {
-    const sqlGetResources = `SELECT type, amount, generation, UNIX_TIMESTAMP(updatedAt) as updatedAt FROM resources WHERE kingdom_id = ?;`;
+    const sqlGetResources = 'SELECT type, amount, generation, UNIX_TIMESTAMP(updatedAt) as updatedAt FROM resources WHERE kingdom_id = ?;';
     return await db.query(sqlGetResources, kingdomId);
   },
 
@@ -15,7 +15,7 @@ export const resourceRepo = {
   },
 
   async getGoldAmount(kingdomId) {
-    const sqlGetGoldAmount = `SELECT amount FROM resources WHERE type = 'gold' AND kingdom_id = ?;`;
+    const sqlGetGoldAmount = 'SELECT amount FROM resources WHERE type = \'gold\' AND kingdom_id = ?;';
     const getGoldAmount = await db.query(sqlGetGoldAmount, [kingdomId]);
     return getGoldAmount.results;
   },
@@ -27,13 +27,13 @@ export const resourceRepo = {
         SET amount = amount - ?
         WHERE kingdom_id = ?
         AND type = 'gold';  
-      `
+      `;
       return await db.query(sql, [price, kingdomId]);
-    } catch(err) {
-      throw {status: 500, message: 'Internal server error'};
+    } catch (err) {
+      throw { status: 500, message: 'Internal server error' };
     }
   },
-  
+
   async updateResourceRate(kingdomId, resourceType, increment) {
     try {
       const sql = `
@@ -43,8 +43,8 @@ export const resourceRepo = {
         AND type = ?;
       `;
       return await db.query(sql, [increment, kingdomId, resourceType]);
-    } catch(err) {
-      throw {status: 500, message: 'Internal server error'};
+    } catch (err) {
+      throw { status: 500, message: 'Internal server error' };
     }
-  }, 
-}
+  },
+};

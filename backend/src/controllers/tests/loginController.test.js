@@ -4,32 +4,32 @@ import { loginRepo } from '../../repositories/loginRepo';
 
 const database = {
   user1: {
-    username: "marci",
+    username: 'marci',
     password: '$2b$10$0BkmlcSgF4Vs8IxPqt8S/uKQDkBS3kNbCXCX0htPDcz0B/7605DFi',
     id: 1,
     kingdomId: 1,
   },
   user2: {
-    username: "zoli",
+    username: 'zoli',
     password: '$2b$10$sWmdFqL87flO56Op4g79Eu/wTomkp7DVuU2rvb/MsunQAZSUsjxNu',
     id: 2,
     kingdomId: 2,
   },
   user3: {
-    username: "peti",
+    username: 'peti',
     password: '$2b$10$f0kByEGrCZ.78E.KVmONOOoskilCU8z7ctyGvwSKEqg715hIEy22u',
     id: 3,
     kingdomId: 3,
-  }
-}
+  },
+};
 
 describe('POST /api/login', () => {
   it('responds with json that holds token', (done) => {
-    let spy = jest.spyOn(loginRepo, 'getUser');
-    spy.mockReturnValue({results: [database.user1], fields: 'somedata'})
+    const spy = jest.spyOn(loginRepo, 'getUser');
+    spy.mockReturnValue({ results: [database.user1], fields: 'somedata' });
     request(app)
       .post('/api/login')
-      .send({username: 'marci', password: 'password'})
+      .send({ username: 'marci', password: 'password' })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(200)
@@ -38,9 +38,9 @@ describe('POST /api/login', () => {
           throw new Error('Missing or bad token');
         }
       })
-      .end((err, res) => {
+      .end((err) => {
         if (err) return done(err);
-        done();
+        return done();
       });
   });
 });
@@ -52,9 +52,9 @@ describe('POST /api/login', () => {
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(400)
-      .end((err, res) => {
+      .end((err) => {
         if (err) return done(err);
-        done();
+        return done();
       });
   });
 });
@@ -64,12 +64,12 @@ describe('POST /api/login', () => {
     request(app)
       .post('/api/login')
       .set('Accept', 'application/json')
-      .send({username: "marci"})
+      .send({ username: 'marci' })
       .expect('Content-Type', /json/)
       .expect(400)
-      .end((err, res) => {
+      .end((err) => {
         if (err) return done(err);
-        done();
+        return done();
       });
   });
 });
@@ -79,46 +79,46 @@ describe('POST /api/login', () => {
     request(app)
       .post('/api/login')
       .set('Accept', 'application/json')
-      .send({password: "password"})
+      .send({ password: 'password' })
       .expect('Content-Type', /json/)
       .expect(400)
-      .end((err, res) => {
+      .end((err) => {
         if (err) return done(err);
-        done();
+        return done();
       });
   });
 });
 
 describe('POST /api/login', () => {
   it('bad username responds with error', (done) => {
-    let spy = jest.spyOn(loginRepo, 'getUser');
-    spy.mockReturnValue({results: [], fields: 'somedata'})
+    const spy = jest.spyOn(loginRepo, 'getUser');
+    spy.mockReturnValue({ results: [], fields: 'somedata' });
     request(app)
       .post('/api/login')
       .set('Accept', 'application/json')
-      .send({username: "badusername", password: "password"})
+      .send({ username: 'badusername', password: 'password' })
       .expect('Content-Type', /json/)
       .expect(400)
-      .end((err, res) => {
+      .end((err) => {
         if (err) return done(err);
-        done();
+        return done();
       });
   });
 });
 
 describe('POST /api/login', () => {
   it('bad password responds with error', (done) => {
-    let spy = jest.spyOn(loginRepo, 'getUser');
-    spy.mockReturnValue({results: [database.user1], fields: 'somedata'})
+    const spy = jest.spyOn(loginRepo, 'getUser');
+    spy.mockReturnValue({ results: [database.user1], fields: 'somedata' });
     request(app)
       .post('/api/login')
       .set('Accept', 'application/json')
-      .send({username: "marci", password: "badpassword"})
+      .send({ username: 'marci', password: 'badpassword' })
       .expect('Content-Type', /json/)
       .expect(400)
-      .end((err, res) => {
+      .end((err) => {
         if (err) return done(err);
-        done();
+        return done();
       });
   });
 });

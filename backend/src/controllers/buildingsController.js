@@ -7,18 +7,18 @@ export const buildingsController = {
       const buildingsData = await buildingsService.getBuildings(kingdomId);
       res.status(200).json({ buildings: buildingsData });
     } catch (error) {
-      res.status(500).json({error: 'Something went wrong...'});
+      res.status(500).json({ error: 'Something went wrong...' });
     }
   },
-  
+
   async getBuilding(req, res, next) {
     const { buildingId } = req.params;
     const { kingdomId } = req.user;
     try {
       const buildingData = await buildingsService.getSingleBuilding(buildingId, kingdomId);
       res.status(200).json(buildingData);
-    } catch(err) {
-        next(err);
+    } catch (err) {
+      next(err);
     }
   },
 
@@ -29,18 +29,18 @@ export const buildingsController = {
       const addBuildingData = await buildingsService.addBuilding(type, kingdomId);
       res.status(200).json(addBuildingData);
     } catch (error) {
-      res.status(500).json({error: error.message});
+      res.status(500).json({ error: error.message });
     }
   },
-  
+
   async put(req, res, next) {
     const { buildingId } = req.params;
     const { kingdomId } = req.user;
     try {
       const buildingData = await buildingsService.upgradeBuilding(buildingId, kingdomId);
       res.status(200).json(buildingData);
-    } catch(err) {
+    } catch (err) {
       next(err);
     }
-  }
+  },
 };

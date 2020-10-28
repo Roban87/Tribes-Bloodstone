@@ -1,11 +1,13 @@
 import request from 'supertest';
-import app from '../../app';
 import jwt from 'jsonwebtoken';
+import app from '../../app';
 import config from '../../config';
 import { resourceService } from '../../services';
-import { kingdomRepo, buildingsRepo, resourceRepo, troopsRepo } from '../../repositories';
+import {
+  kingdomRepo, buildingsRepo, resourceRepo, troopsRepo,
+} from '../../repositories';
 
-const token = jwt.sign({id: 1, kingdomId: 1}, config.secret);
+const token = jwt.sign({ id: 1, kingdomId: 1 }, config.secret);
 
 const kingdomDB = [
   {
@@ -14,7 +16,7 @@ const kingdomDB = [
     population: null,
     location: null,
     user_id: 1,
-  }
+  },
 ];
 
 const buildingsDB = [
@@ -62,52 +64,51 @@ const troopsDB = [
 ];
 
 describe('PUT /api/kingdom', () => {
-    let spyUpdate = jest.spyOn(resourceService, 'updateResources');
-    spyUpdate.mockReturnValue({});
-    
-    it('without name respons with error', done => {
-      request(app)
-        .put('/api/kingdom')
-        .set('Accept', 'application/json')
-        .set('Authorization', `Bearer ${token}`)
-        .send({})
-        .expect('Content-Type', /json/)
-        .expect(400)
-        .end((err, res) => {
-          if (err) return done(err);
-          done();
-        });
-    });
-  });
+  const spyUpdate = jest.spyOn(resourceService, 'updateResources');
+  spyUpdate.mockReturnValue({});
 
+  it('without name respons with error', (done) => {
+    request(app)
+      .put('/api/kingdom')
+      .set('Accept', 'application/json')
+      .set('Authorization', `Bearer ${token}`)
+      .send({})
+      .expect('Content-Type', /json/)
+      .expect(400)
+      .end((err) => {
+        if (err) return done(err);
+        return done();
+      });
+  });
+});
 
 describe('PUT /api/kingdom', () => {
-    let spyUpdate = jest.spyOn(resourceService, 'updateResources');
-    spyUpdate.mockReturnValue({});
-    let spyKingdom = jest.spyOn(kingdomRepo, 'getKingdom');
-    spyKingdom.mockReturnValue({
-      results: kingdomDB,
-      fields: 'somedata',
-    });
-    let spyBuildings = jest.spyOn(buildingsRepo, 'getBuildings');
-    spyBuildings.mockReturnValue( buildingsDB );
-    let spyResources = jest.spyOn(resourceRepo, 'getResources');
-    spyResources.mockReturnValue({ results: resourcesDB, fields: 'somedata' });
-    let spyTroops = jest.spyOn(troopsRepo, 'getTroops');
-    spyTroops.mockReturnValue({ results: troopsDB, fields: 'somedata' });
-    let spyUpdateKingdom = jest.spyOn(kingdomRepo, 'updateName');
-    spyUpdateKingdom.mockReturnValue({});
-    it('with good kingdomname select the kingdom informations', done => {
-      request(app)
-        .put('/api/kingdom')
-        .set('Accept', 'application/json')
-        .set('Authorization', `Bearer ${token}`)
-        .expect('Content-Type', /json/)
-        .send({ name: 'futys' })
-        .expect(200)
-        .end((err, res) => {
-          if (err) return done(err);
-          done();
-        });
-    });
+  const spyUpdate = jest.spyOn(resourceService, 'updateResources');
+  spyUpdate.mockReturnValue({});
+  const spyKingdom = jest.spyOn(kingdomRepo, 'getKingdom');
+  spyKingdom.mockReturnValue({
+    results: kingdomDB,
+    fields: 'somedata',
   });
+  const spyBuildings = jest.spyOn(buildingsRepo, 'getBuildings');
+  spyBuildings.mockReturnValue(buildingsDB);
+  const spyResources = jest.spyOn(resourceRepo, 'getResources');
+  spyResources.mockReturnValue({ results: resourcesDB, fields: 'somedata' });
+  const spyTroops = jest.spyOn(troopsRepo, 'getTroops');
+  spyTroops.mockReturnValue({ results: troopsDB, fields: 'somedata' });
+  const spyUpdateKingdom = jest.spyOn(kingdomRepo, 'updateName');
+  spyUpdateKingdom.mockReturnValue({});
+  it('with good kingdomname select the kingdom informations', (done) => {
+    request(app)
+      .put('/api/kingdom')
+      .set('Accept', 'application/json')
+      .set('Authorization', `Bearer ${token}`)
+      .expect('Content-Type', /json/)
+      .send({ name: 'futys' })
+      .expect(200)
+      .end((err) => {
+        if (err) return done(err);
+        return done();
+      });
+  });
+});

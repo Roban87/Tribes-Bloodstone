@@ -1,8 +1,8 @@
 import request from 'supertest';
+import jwt from 'jsonwebtoken';
 import app from '../../app';
 import { buildingsRepo, resourceRepo } from '../../repositories';
 import { resourceService } from '../../services';
-import jwt from 'jsonwebtoken';
 import config from '../../config';
 
 const token = jwt.sign('payload', config.secret);
@@ -52,9 +52,9 @@ const database = {
 };
 
 describe('GET /api/kingdom/buildings', () => {
-  it('responds with json containing the buildings of the kingdom', done => {
-    let spy = jest.spyOn(buildingsRepo, 'getBuildings');
-    spy.mockReturnValue( database.buildings );
+  it('responds with json containing the buildings of the kingdom', (done) => {
+    const spy = jest.spyOn(buildingsRepo, 'getBuildings');
+    spy.mockReturnValue(database.buildings);
     request(app)
       .get('/api/kingdom/buildings/1')
       .set('Accept', 'application/json')
@@ -63,15 +63,15 @@ describe('GET /api/kingdom/buildings', () => {
       .expect(200)
       .end((err, res) => {
         if (err) return done(err);
-        expect(res.body).toEqual({buildings: database.buildings});
-        done();
-    });
+        expect(res.body).toEqual({ buildings: database.buildings });
+        return done();
+      });
   });
 });
 
 describe('GET api/kingdom/buildings/:kindomId/buildingId', () => {
-  it('responds with a JSON containing the building specified by the building id', done => {
-    let spy = jest.spyOn(buildingsRepo, 'getSingleBuilding');
+  it('responds with a JSON containing the building specified by the building id', (done) => {
+    const spy = jest.spyOn(buildingsRepo, 'getSingleBuilding');
     spy.mockReturnValue({ results: [database.buildings[0]], fields: [] });
     request(app)
       .get('/api/kingdom/buildings/1/1')
@@ -82,76 +82,75 @@ describe('GET api/kingdom/buildings/:kindomId/buildingId', () => {
       .end((err, res) => {
         if (err) return done(err);
         expect(res.body).toEqual(database.buildings[0]);
-        done();
+        return done();
       });
   });
 });
 
 describe('POST /api/kingdom/buildings -> add new building tests', () => {
-
-  it('missing type -> responds with error', done => {
+  it('missing type -> responds with error', (done) => {
     const spyUpdate = jest.spyOn(resourceService, 'updateResources');
     spyUpdate.mockReturnValue({});
 
     request(app)
-    .post('/api/kingdom/buildings')
-    .set('Accept', 'application/json')
-    .set('Authorization', `Bearer ${token}`)
-    .send({})
-    .expect('Content-Type', /json/)
-    .expect(500)
-    .end((err, res) => {
-      if (err) return done(err);
-      expect(res.body).toEqual({ error: 'Type is required' });
-      done();
-    });
+      .post('/api/kingdom/buildings')
+      .set('Accept', 'application/json')
+      .set('Authorization', `Bearer ${token}`)
+      .send({})
+      .expect('Content-Type', /json/)
+      .expect(500)
+      .end((err, res) => {
+        if (err) return done(err);
+        expect(res.body).toEqual({ error: 'Type is required' });
+        return done();
+      });
   });
 
-  it('wrong type -> responds with error', done => {
+  it('wrong type -> responds with error', (done) => {
     const spyUpdate = jest.spyOn(resourceService, 'updateResources');
     spyUpdate.mockReturnValue({});
 
     request(app)
-    .post('/api/kingdom/buildings')
-    .set('Accept', 'application/json')
-    .set('Authorization', `Bearer ${token}`)
-    .send({ type: 'library' })
-    .expect('Content-Type', /json/)
-    .expect(500)
-    .end((err, res) => {
-      if (err) return done(err);
-      expect(res.body).toEqual({ error: 'Wrong type' });
-      done();
-    });
+      .post('/api/kingdom/buildings')
+      .set('Accept', 'application/json')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ type: 'library' })
+      .expect('Content-Type', /json/)
+      .expect(500)
+      .end((err, res) => {
+        if (err) return done(err);
+        expect(res.body).toEqual({ error: 'Wrong type' });
+        return done();
+      });
   });
 
-  it('not enough money -> responds with error', done => {
+  it('not enough money -> responds with error', (done) => {
     const spyUpdate = jest.spyOn(resourceService, 'updateResources');
     spyUpdate.mockReturnValue({});
 
     const spy = jest.spyOn(resourceRepo, 'getGoldAmount');
-    spy.mockReturnValue([{amount: 80}]);
+    spy.mockReturnValue([{ amount: 80 }]);
 
     request(app)
-    .post('/api/kingdom/buildings')
-    .set('Accept', 'application/json')
-    .set('Authorization', `Bearer ${token}`)
-    .send({ type: 'farm' })
-    .expect('Content-Type', /json/)
-    .expect(500)
-    .end((err, res) => {
-      if (err) return done(err);
-      expect(res.body).toEqual({ error: 'You don\'t have enough money' });
-      done();
-    });
+      .post('/api/kingdom/buildings')
+      .set('Accept', 'application/json')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ type: 'farm' })
+      .expect('Content-Type', /json/)
+      .expect(500)
+      .end((err, res) => {
+        if (err) return done(err);
+        expect(res.body).toEqual({ error: 'You don\'t have enough money' });
+        return done();
+      });
   });
 
-  it('good type & enough gold-> responds with new building data', done => {
+  it('good type & enough gold-> responds with new building data', (done) => {
     const spyUpdate = jest.spyOn(resourceService, 'updateResources');
     spyUpdate.mockReturnValue({});
 
     const spyResource = jest.spyOn(resourceRepo, 'getGoldAmount');
-    spyResource.mockReturnValue([{amount: 200}]);
+    spyResource.mockReturnValue([{ amount: 200 }]);
 
     const spyResourceRate = jest.spyOn(resourceRepo, 'updateResourceRate');
     spyResourceRate.mockReturnValue(null);
@@ -164,40 +163,40 @@ describe('POST /api/kingdom/buildings -> add new building tests', () => {
       hp: 100,
       started_at: '1603620911',
       finished_at: '1603620971',
-      kingdom_id: 2
+      kingdom_id: 2,
     }]);
 
     request(app)
-    .post('/api/kingdom/buildings')
-    .set('Accept', 'application/json')
-    .set('Authorization', `Bearer ${token}`)
-    .send({ type: 'farm' })
-    .expect('Content-Type', /json/)
-    .expect(200)
-    .end((err, res) => {
-      if (err) return done(err);
-      expect(res.body).toEqual({
-        id: 5,
-        type: 'farm',
-        level: 1,
-        hp: 100,
-        started_at: '1603620911',
-        finished_at: '1603620971',
-        kingdom_id: 2
+      .post('/api/kingdom/buildings')
+      .set('Accept', 'application/json')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ type: 'farm' })
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err);
+        expect(res.body).toEqual({
+          id: 5,
+          type: 'farm',
+          level: 1,
+          hp: 100,
+          started_at: '1603620911',
+          finished_at: '1603620971',
+          kingdom_id: 2,
+        });
+        return done();
       });
-      done();
-    });
   });
 });
 
 describe('PUT api/kingdom/buildings/:kingdomId/:buildingId', () => {
-  it('responds with a JSON object containing the updated building specified by the building id', done => {
+  it('responds with a JSON object containing the updated building specified by the building id', (done) => {
     const spy = jest.spyOn(buildingsRepo, 'getBuildings');
     spy.mockReturnValue(database.buildings);
     const spy2 = jest.spyOn(resourceRepo, 'getResources');
-    spy2.mockReturnValue({results: [{ amount: 2000, type: 'gold' }]});
+    spy2.mockReturnValue({ results: [{ amount: 2000, type: 'gold' }] });
     const spy3 = jest.spyOn(buildingsRepo, 'getSingleBuilding');
-    spy3.mockReturnValue({results: [database.buildings[4]], fields: []});
+    spy3.mockReturnValue({ results: [database.buildings[4]], fields: [] });
     const spy4 = jest.spyOn(buildingsRepo, 'upgradeBuilding');
     spy4.mockReturnValue(null);
     const spy5 = jest.spyOn(resourceRepo, 'handlePurchase');
@@ -214,7 +213,7 @@ describe('PUT api/kingdom/buildings/:kingdomId/:buildingId', () => {
       .end((err, res) => {
         if (err) return done(err);
         expect(res.body).toEqual(database.buildings[4]);
-        done();
+        return done();
       });
   });
 });

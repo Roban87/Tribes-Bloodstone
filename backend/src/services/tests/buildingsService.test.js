@@ -10,7 +10,7 @@ const database = {
       hp: 10,
       started_at: '2020-10-12T12:35:36.000Z',
       finished_at: null,
-      kingdom_id: 1
+      kingdom_id: 1,
     },
     {
       id: 2,
@@ -48,7 +48,7 @@ const database = {
       finished_at: null,
       kingdom_id: 4,
     },
-    {  
+    {
       id: 6,
       type: 'mine',
       level: 10,
@@ -57,7 +57,7 @@ const database = {
       finished_at: null,
       kingdom_id: 4,
     },
-    {  
+    {
       id: 7,
       type: 'mine',
       level: 8,
@@ -82,44 +82,43 @@ test('Returns buildings of a given kingdom', async () => {
   const spy = jest.spyOn(buildingsRepo, 'getBuildings');
   spy.mockReturnValue(database);
   const buildings = await buildingsService.getBuildings(1, 1);
-  expect(buildings).toEqual({buildings: database.buildings});
+  expect(buildings).toEqual({ buildings: database.buildings });
 });
 
 test('getSingleBuilding Returns data from a single building', async () => {
   const spy = jest.spyOn(buildingsRepo, 'getSingleBuilding');
-  spy.mockReturnValue({results: [database.buildings[0]], fields: []});
+  spy.mockReturnValue({ results: [database.buildings[0]], fields: [] });
   const building = await buildingsService.getSingleBuilding(1, 1);
   expect(building).toEqual(database.buildings[0]);
-})
+});
 
 test('getSingleBuilding throws error message when no building was found', async () => {
   const spy = jest.spyOn(buildingsRepo, 'getSingleBuilding');
-  spy.mockReturnValue({results: [], fields: []});
+  spy.mockReturnValue({ results: [], fields: [] });
   let thrownError = {};
   try {
     await buildingsService.getSingleBuilding(1);
-  } catch(err) {
-      thrownError = err;
+  } catch (err) {
+    thrownError = err;
   }
-  expect(thrownError.message).toEqual("Something went wrong...");
+  expect(thrownError.message).toEqual('Something went wrong...');
   expect(thrownError.status).toEqual(400);
-})
+});
 
 test('getSingleBuilding throws error message when kingdomId in buildings table does not match with kingdomId from token', async () => {
   const spy = jest.spyOn(buildingsRepo, 'getSingleBuilding');
-  spy.mockReturnValue({results: [database.buildings[0]], fields: []});
+  spy.mockReturnValue({ results: [database.buildings[0]], fields: [] });
   let thrownError = {};
   try {
     await buildingsService.getSingleBuilding(1, 2);
-  } catch(err) {
-      thrownError = err;
+  } catch (err) {
+    thrownError = err;
   }
-  expect(thrownError.message).toEqual("Something went wrong...");
+  expect(thrownError.message).toEqual('Something went wrong...');
   expect(thrownError.status).toEqual(400);
 });
 
 describe('add new building tests', () => {
-
   test('missing building type', async () => {
     try {
       await buildingsService.addBuilding(undefined, 4);
@@ -138,18 +137,18 @@ describe('add new building tests', () => {
 
   test('not enough gold', async () => {
     const spy = jest.spyOn(resourceRepo, 'getGoldAmount');
-    spy.mockReturnValue([{amount: 80}]);
+    spy.mockReturnValue([{ amount: 80 }]);
 
     try {
       await buildingsService.addBuilding('farm', 1);
     } catch (error) {
-      expect(error).toEqual({ status: 400, message: 'You don\'t have enough money'});
+      expect(error).toEqual({ status: 400, message: 'You don\'t have enough money' });
     }
   });
 
   test('good type & enough gold', async () => {
     const spyResource = jest.spyOn(resourceRepo, 'getGoldAmount');
-    spyResource.mockReturnValue([{amount: 200}]);
+    spyResource.mockReturnValue([{ amount: 200 }]);
 
     const spyBuildings = jest.spyOn(buildingsRepo, 'addNewBuilding');
     spyBuildings.mockReturnValue([{
@@ -159,10 +158,10 @@ describe('add new building tests', () => {
       hp: 100,
       started_at: '1603620911',
       finished_at: '1603620971',
-      kingdom_id: 2
+      kingdom_id: 2,
     }]);
 
-    let resultInfo = await buildingsService.addBuilding('farm', 2);
+    const resultInfo = await buildingsService.addBuilding('farm', 2);
     expect(resultInfo).toEqual({
       id: 5,
       type: 'farm',
@@ -170,7 +169,7 @@ describe('add new building tests', () => {
       hp: 100,
       started_at: '1603620911',
       finished_at: '1603620971',
-      kingdom_id: 2
+      kingdom_id: 2,
     });
   });
 });
@@ -181,7 +180,7 @@ test('upgradeBuilding when upgrading mine returns object with updated building s
   const spyGoldAmount = jest.spyOn(resourceRepo, 'getGoldAmount');
   spyGoldAmount.mockReturnValue([{ amount: 2000 }]);
   const spySingleBuilding = jest.spyOn(buildingsRepo, 'getSingleBuilding');
-  spySingleBuilding.mockReturnValue({results: [database.buildings[4]], fields: []});
+  spySingleBuilding.mockReturnValue({ results: [database.buildings[4]], fields: [] });
 
   const building = await buildingsService.upgradeBuilding(5, 4);
   expect(building).toEqual(database.buildings[4]);
@@ -199,7 +198,7 @@ test('upgradeBuilding when upgrading farm returns object with updated building s
   const spyGoldAmount = jest.spyOn(resourceRepo, 'getGoldAmount');
   spyGoldAmount.mockReturnValue([{ amount: 2000 }]);
   const spySingleBuilding = jest.spyOn(buildingsRepo, 'getSingleBuilding');
-  spySingleBuilding.mockReturnValue({results: [database.buildings[1]], fields: []});
+  spySingleBuilding.mockReturnValue({ results: [database.buildings[1]], fields: [] });
 
   const building = await buildingsService.upgradeBuilding(2, 2);
   expect(building).toEqual(database.buildings[1]);
@@ -218,10 +217,10 @@ test('upgradeBuilding returns error when building max level reached', async () =
   let thrownError = {};
   try {
     await buildingsService.upgradeBuilding(6, 4);
-  } catch(err) {
+  } catch (err) {
     thrownError = err;
   }
-  expect(thrownError.message).toEqual("Building max level reached");
+  expect(thrownError.message).toEqual('Building max level reached');
   expect(thrownError.status).toEqual(400);
   expect(buildingsRepo.getBuildings).toHaveBeenCalledWith(4);
 });
@@ -229,14 +228,14 @@ test('upgradeBuilding returns error when building max level reached', async () =
 test('upgradeBuilding returns error when townhall level is lower than building', async () => {
   const spy = jest.spyOn(buildingsRepo, 'getBuildings');
   spy.mockReturnValue(database.buildings);
-  
+
   let thrownError = {};
   try {
     await buildingsService.upgradeBuilding(7, 4);
-  } catch(err) {
+  } catch (err) {
     thrownError = err;
   }
-  expect(thrownError.message).toEqual("Townhall level is too low");
+  expect(thrownError.message).toEqual('Townhall level is too low');
   expect(thrownError.status).toEqual(400);
   expect(buildingsRepo.getBuildings).toHaveBeenCalledWith(4);
 });
@@ -245,12 +244,12 @@ test('upgradeBuilding returns error when not enough money', async () => {
   const spy = jest.spyOn(buildingsRepo, 'getBuildings');
   spy.mockReturnValue(database.buildings);
   const spyGoldAmount = jest.spyOn(resourceRepo, 'getGoldAmount');
-  spyGoldAmount.mockReturnValue([{amount: 50 }]);
+  spyGoldAmount.mockReturnValue([{ amount: 50 }]);
 
   let thrownError = {};
   try {
     await buildingsService.upgradeBuilding(5, 4);
-  } catch(err) {
+  } catch (err) {
     thrownError = err;
   }
   expect(thrownError.message).toEqual("You don't have enough money");
