@@ -29,6 +29,7 @@ function Settings() {
         setErrorMessage('Needs minimum 3 character for kingdomname');
       }
     } catch (error) {
+      setErrorMessage(error.message);
       console.log(error);
       
     }
