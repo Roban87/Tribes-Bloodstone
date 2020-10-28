@@ -4,9 +4,7 @@ export const exampleActionAdd = (number) => ({
   counts: number,
 });
 
-export const exampleActionSum = () => ({
-  type: 'GET_SUM',
-});
+export const exampleActionSum = () => ({ type: 'GET_SUM' });
 
 export const setErrorMessage = (message) => ({
   type: 'SET_ERROR',
@@ -17,7 +15,8 @@ export const setErrorMessage = (message) => ({
 export const exampleActionWithThunk = () => (dispatch) => {
   fetch('url')
     .then((response) => {
-      dispatch(exampleActionAdd(response.number));
+      const number = response.data;
+      dispatch(exampleActionAdd(number));
       dispatch(exampleActionSum());
     })
     .catch((error) => {

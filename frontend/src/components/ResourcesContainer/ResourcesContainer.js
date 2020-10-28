@@ -1,38 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getResourcesFetch } from '../../actions/resourcesAction';
 import Resource from '../Resource/Resource';
 import './Resources.css';
 import farm from '../../assets/farm.png';
 import mine from '../../assets/mine.png';
 import bread from '../../assets/big_bread.png';
 import coin from '../../assets/big_coins.png';
-import fetchDataGeneral from '../../utilities/generalFetch';
 
-function ResourcesContainer() {
-  const [foodAmount, setFoodAmount] = useState(0);
-  const [foodGeneration, setFoodGeneration] = useState(0);
-  const [goldAmount, setGoldAmount] = useState(0);
-  const [goldGeneration, setGoldGeneration] = useState(0);
-  const [errorMessage, setErrorMessage] = useState('');
+function ResourcesContainer(props) {
+  const {
+    foodAmount,
+    foodGeneration,
+    goldAmount,
+    goldGeneration,
+    errorMessage,
+    getResources,
+  } = props;
 
-  useEffect(async () => {
-    const kingdomId = localStorage.getItem('kingdomId');
-    const endpoint = `/kingdom/resource/${kingdomId}`;
-    const method = 'GET';
-
-    try {
-      const resourcesData = await fetchDataGeneral(endpoint, method);
-      resourcesData.resources.forEach((resource) => {
-        if (resource.type === 'food') {
-          setFoodAmount(resource.amount);
-          setFoodGeneration(resource.generation);
-        } else {
-          setGoldAmount(resource.amount);
-          setGoldGeneration(resource.generation);
-        }
-      });
-    } catch (error) {
-      setErrorMessage("Can't load resources. Please refresh the page!");
-    }
+  useEffect(() => {
+    getResources();
   }, []);
 
   return (
@@ -63,4 +51,25 @@ function ResourcesContainer() {
   );
 }
 
-export default ResourcesContainer;
+ResourcesContainer.propTypes = {
+  foodAmount: PropTypes.number.isRequired,
+  foodGeneration: PropTypes.number.isRequired,
+  goldAmount: PropTypes.number.isRequired,
+  goldGeneration: PropTypes.number.isRequired,
+  errorMessage: PropTypes.string.isRequired,
+  getResources: PropTypes.func.isRequired,
+};
+
+export const mapStateToProps = ({ resources }) => ({
+  foodAmount: resources.foodAmount,
+  foodGeneration: resources.foodGeneration,
+  goldAmount: resources.goldAmount,
+  goldGeneration: resources.goldGeneration,
+  errorMessage: resources.errorMessage,
+});
+
+export const mapDispatchToProps = (dispatch) => ({
+  getResources: () => dispatch(getResourcesFetch()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ResourcesContainer);
