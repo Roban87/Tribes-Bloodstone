@@ -1,4 +1,4 @@
-import { troopsService } from '../services/';
+import { troopsService } from '../services';
 
 export const troopsController = {
 
@@ -8,7 +8,7 @@ export const troopsController = {
       const newTroop = await troopsService.addTroop(kingdomId);
       res.status(200).json(newTroop);
     } catch (error) {
-        next(error);
+      next(error);
     }
   },
-}
+};
