@@ -6,3 +6,4 @@ logs/
 yarn-error.log
 dist
 coverage
+.eslintcache

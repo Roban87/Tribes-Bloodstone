@@ -27,7 +27,7 @@ const logger = createLogger({
         filename: 'logs/error.log',
         level: 'error',
       }),
-      { handleRejections: true }
+      { handleRejections: true },
     ),
     new transports.File({
       ...options.file,
@@ -38,7 +38,7 @@ const logger = createLogger({
 
 /* istanbul ignore next */
 logger.stream = {
-  write: message => logger.info(message),
+  write: (message) => logger.info(message),
 };
 
 /* istanbul ignore next */
@@ -46,7 +46,7 @@ if (process.env.NODE_ENV !== 'production') {
   logger.add(
     Object.assign(new transports.Console(options.console), {
       handleRejections: true,
-    })
+    }),
   );
 }
 

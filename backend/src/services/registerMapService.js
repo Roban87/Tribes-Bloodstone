@@ -1,4 +1,4 @@
-import { buildingsRepo, kingdomRepo, troopsRepo } from '../repositories';
+import { kingdomRepo } from '../repositories';
 
 export const registerMapService = {
   checkLocation(location) {
@@ -8,14 +8,15 @@ export const registerMapService = {
         status: 422,
       };
     }
+    return undefined;
   },
+
   async postRegisterMap(kingdomId, location) {
     const checker = this.checkLocation(location);
     if (checker !== undefined) {
       throw checker;
     }
-    const kingdomData = await kingdomRepo.postRegisterMap(kingdomId, location);
-    return;
+    await kingdomRepo.postRegisterMap(kingdomId, location);
   },
   async getKingdomMap() {
     return await kingdomRepo.getKingdomMap();

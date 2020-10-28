@@ -7,7 +7,7 @@ export const kingdomController = {
     try {
       const response = await kingdomService.kingdomnameUpdateMainService(
         name,
-        kingdomId
+        kingdomId,
       );
       res.json(response);
     } catch (error) {

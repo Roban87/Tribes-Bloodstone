@@ -6,16 +6,14 @@ export const kingdomRepo = {
     return await db.query(sqlQueryListOfKingdom, [kingdomId]);
   },
 
-  async insertNewKingdom(kingdomname, user_id) {
-    const sqlQueryInsertKingdom =
-      'INSERT INTO kingdoms(kingdomname, user_id) VALUES(?,?);';
-    return await db.query(sqlQueryInsertKingdom, [kingdomname, user_id]);
+  async insertNewKingdom(kingdomname, userId) {
+    const sqlQueryInsertKingdom = 'INSERT INTO kingdoms(kingdomname, user_id) VALUES(?,?);';
+    return await db.query(sqlQueryInsertKingdom, [kingdomname, userId]);
   },
 
   async getKingdomMap() {
     try {
-      const kingdomsQuery =
-        'SELECT id AS kingdom_id, kingdomname, population, location FROM kingdoms';
+      const kingdomsQuery = 'SELECT id AS kingdom_id, kingdomname, population, location FROM kingdoms';
       const queryData = await db.query(kingdomsQuery);
       return queryData.results;
     } catch (error) {
@@ -25,15 +23,15 @@ export const kingdomRepo = {
 
   async postRegisterMap(kingdomId, location) {
     try {
-      const registerMapQuery = `UPDATE kingdoms SET location=? WHERE id=?;`;
-      const queryData = await db.query(registerMapQuery, [location, kingdomId]);
+      const registerMapQuery = 'UPDATE kingdoms SET location=? WHERE id=?;';
+      await db.query(registerMapQuery, [location, kingdomId]);
       return;
     } catch (error) {
       throw { status: 500, message: 'Internal server error' };
     }
   },
-  async updateName(kingdomname, kingdom_id) {
+  async updateName(kingdomname, kingdomId) {
     const sqlQuery = 'UPDATE kingdoms SET kingdomname=? WHERE id=?;';
-    return await db.query(sqlQuery, [kingdomname, kingdom_id]);
+    return await db.query(sqlQuery, [kingdomname, kingdomId]);
   },
 };

@@ -17,7 +17,7 @@ const database = {
 test('missing username and password', () => {
   const errorMessage = registerValidator.validateUsernameAndPassword(
     undefined,
-    undefined
+    undefined,
   );
   expect(errorMessage).toEqual({
     message: 'Username and password is required.',
@@ -28,7 +28,7 @@ test('missing username and password', () => {
 test('missing username', () => {
   const errorMessage = registerValidator.validateUsernameAndPassword(
     undefined,
-    !undefined
+    !undefined,
   );
   expect(errorMessage).toEqual({
     message: 'Username is required.',
@@ -39,7 +39,7 @@ test('missing username', () => {
 test('missing password', () => {
   const errorMessage = registerValidator.validateUsernameAndPassword(
     !undefined,
-    undefined
+    undefined,
   );
   expect(errorMessage).toEqual({
     message: 'Password is required.',
@@ -49,7 +49,7 @@ test('missing password', () => {
 test('password must be 8 caracter check', () => {
   const errorMessage = registerValidator.validateUsernameAndPassword(
     !undefined,
-    '1234567'
+    '1234567',
   );
   expect(errorMessage).toEqual({
     message: 'Password must be 8 characters.',
@@ -58,9 +58,9 @@ test('password must be 8 caracter check', () => {
 });
 
 test('username already exist check', async () => {
-  let spy = jest.spyOn(userRepo, 'getUserByUsername');
+  const spy = jest.spyOn(userRepo, 'getUserByUsername');
   spy.mockReturnValue({ results: [database.user1], fields: 'somedata' });
-  let result = await registerValidator.userNameTaken('kornel');
+  const result = await registerValidator.userNameTaken('kornel');
   expect(result).toEqual({
     status: 400,
     message: 'Username is already taken.',
@@ -68,11 +68,11 @@ test('username already exist check', async () => {
 });
 
 test('successfull registration without kingdomname', async () => {
-  let spySelectUser = jest.spyOn(userRepo, 'getUserByUsername');
-  let spyInsertNew = jest.spyOn(registerValidator, 'insertNewUser');
+  const spySelectUser = jest.spyOn(userRepo, 'getUserByUsername');
+  const spyInsertNew = jest.spyOn(registerValidator, 'insertNewUser');
   spySelectUser.mockReturnValue({ results: [], fields: 'somedata' });
   spyInsertNew.mockReturnValue({ userId: 1, username: 'kornel', kingdomId: 1 });
-  let result = await registerValidator.registUser('kornel', 'asdasdasd');
+  const result = await registerValidator.registUser('kornel', 'asdasdasd');
   expect(result).toStrictEqual({
     userId: 1,
     username: 'kornel',
@@ -80,14 +80,14 @@ test('successfull registration without kingdomname', async () => {
   });
 });
 test('successfull registration with kingdomname', async () => {
-  let spySelectUser = jest.spyOn(userRepo, 'getUserByUsername');
-  let spyInsertNew = jest.spyOn(registerValidator, 'insertNewUser');
+  const spySelectUser = jest.spyOn(userRepo, 'getUserByUsername');
+  const spyInsertNew = jest.spyOn(registerValidator, 'insertNewUser');
   spySelectUser.mockReturnValue({ results: [], fields: 'somedata' });
   spyInsertNew.mockReturnValue({ userId: 1, username: 'kornel', kingdomId: 1 });
-  let result = await registerValidator.registUser(
+  const result = await registerValidator.registUser(
     'kornel',
     'asdasdasd',
-    'KORNELKINGDOM'
+    'KORNELKINGDOM',
   );
   expect(result).toStrictEqual({
     userId: 1,

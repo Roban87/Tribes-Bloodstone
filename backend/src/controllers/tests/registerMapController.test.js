@@ -1,4 +1,5 @@
 import request from 'supertest';
+import jwt from 'jsonwebtoken';
 import app from '../../app';
 import {
   kingdomRepo,
@@ -6,7 +7,6 @@ import {
   troopsRepo,
   resourceRepo,
 } from '../../repositories';
-import jwt from 'jsonwebtoken';
 import config from '../../config';
 
 const token = jwt.sign('payload', config.secret);
@@ -133,8 +133,8 @@ const kingdomDB = [
 ];
 
 describe('GET /api/kingdom/map', () => {
-  it('responds with json containing the kingdoms', done => {
-    let spy = jest.spyOn(kingdomRepo, 'getKingdomMap');
+  it('responds with json containing the kingdoms', (done) => {
+    const spy = jest.spyOn(kingdomRepo, 'getKingdomMap');
     spy.mockReturnValue(database.kingdoms);
     request(app)
       .get('/api/kingdom/map')
@@ -145,25 +145,25 @@ describe('GET /api/kingdom/map', () => {
       .end((err, res) => {
         if (err) return done(err);
         expect(res.body).toEqual({ kingdoms: database.kingdoms });
-        done();
+        return done();
       });
   });
 });
 
 describe('POST /api/register/map/:kingdomId', () => {
-  it('responds with json containing the kingdom data', done => {
-    let spyKingdom = jest.spyOn(kingdomRepo, 'getKingdom');
+  it('responds with json containing the kingdom data', (done) => {
+    const spyKingdom = jest.spyOn(kingdomRepo, 'getKingdom');
     spyKingdom.mockReturnValue({
       results: kingdomDB,
       fields: 'somedata',
     });
-    let spyBuildings = jest.spyOn(buildingsRepo, 'getBuildings');
+    const spyBuildings = jest.spyOn(buildingsRepo, 'getBuildings');
     spyBuildings.mockReturnValue(buildingsDB);
-    let spyResources = jest.spyOn(resourceRepo, 'getResources');
+    const spyResources = jest.spyOn(resourceRepo, 'getResources');
     spyResources.mockReturnValue({ results: resourcesDB, fields: 'somedata' });
-    let spyTroops = jest.spyOn(troopsRepo, 'getTroops');
+    const spyTroops = jest.spyOn(troopsRepo, 'getTroops');
     spyTroops.mockReturnValue(troopsDB);
-    let spy = jest.spyOn(kingdomRepo, 'postRegisterMap');
+    const spy = jest.spyOn(kingdomRepo, 'postRegisterMap');
     spy.mockReturnValue({});
     const locationBody = {
       countryCode: 'ENG',
@@ -178,22 +178,22 @@ describe('POST /api/register/map/:kingdomId', () => {
       .end((err, res) => {
         if (err) return done(err);
         expect(res.body).toEqual(postResponse);
-        done();
+        return done();
       });
   });
 });
 
 describe('POST /api/register/map/:kingdomId', () => {
-  it('responds error message', done => {
+  it('responds error message', (done) => {
     request(app)
       .post('/api/register/map/1')
       .set('Accept', 'application/json')
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
       .expect(422)
-      .end(err => {
+      .end((err) => {
         if (err) return done(err);
-        done();
+        return done();
       });
   });
 });

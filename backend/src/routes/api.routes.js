@@ -1,8 +1,17 @@
 import express from 'express';
-const cors = require('cors');
-import { helloController, loginController, buildingsController, registerController, resourceController, registerMapController, kingdomController } from '../controllers';
+import {
+  helloController,
+  loginController,
+  buildingsController,
+  registerController,
+  resourceController,
+  registerMapController,
+  kingdomController,
+} from '../controllers';
 import authHandler from '../middlewares/authorization-handler';
 import updateResources from '../middlewares/update-resources';
+
+const cors = require('cors');
 
 const router = express.Router();
 

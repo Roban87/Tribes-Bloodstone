@@ -1,6 +1,6 @@
 export const rules = {
   upgrade() {
-    return { 
+    return {
       townhall: {
         maxLevel: 10,
         storageLimit: 20,
@@ -33,10 +33,10 @@ export const rules = {
         attack: 10,
         defense: 5,
       },
-    }
+    };
   },
   build() {
-    return { 
+    return {
       townhall: {
         maxLevel: 10,
         storageLimit: 20,
@@ -69,6 +69,6 @@ export const rules = {
         attack: 10,
         defense: 5,
       },
-    }
-  }  
+    };
+  },
 };
