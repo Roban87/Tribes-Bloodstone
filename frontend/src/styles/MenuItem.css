@@ -1,0 +1,55 @@
+.menuImage {
+  width: 4em;
+  height: 4em;
+  background-size: cover;
+  border-radius: 50%;
+}
+
+.menuItem {
+  width: 25%;
+  margin: 0;
+  padding: 10px 0;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.menuItem:hover {
+  animation: pulse 1.3s infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.menuText {
+  color: white;
+}
+
+.menuItem:hover {
+  background-color: #2323236c;
+}
+
+.menuImage.Buildings {
+  background-image: url('../assets/menu/buildings.jpg');
+}
+.menuImage.Troops {
+  background-image: url('../assets/menu/troops.jpg');
+}
+.menuImage.Battle {
+  background-image: url('../assets/menu/map.jpg');
+}
+.menuImage.Leaderboard {
+  background-image: url('../assets/menu/leaderboard.jpg');
+}
