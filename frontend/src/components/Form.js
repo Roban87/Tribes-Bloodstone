@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import '../styles/Form.css';
-
 import { useHistory } from 'react-router-dom';
 import fetchDataGeneral from '../utilities/generalFetch';
 
@@ -68,7 +67,11 @@ function Form({ formType }) {
     };
 
     try {
-      const registerResponse = await fetchDataGeneral(endpoint, method, registData);
+      const registerResponse = await fetchDataGeneral(
+        endpoint,
+        method,
+        registData,
+      );
 
       return registerResponse.message
         ? setErrorMessage(registerResponse.message)

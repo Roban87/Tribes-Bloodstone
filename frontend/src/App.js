@@ -5,6 +5,7 @@ import Header from './components/Header/Header';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import NotImplemented from './pages/NotImplemented';
+import Settings from './components/settings/Settings';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('token'));
@@ -20,6 +21,7 @@ function App() {
         <Switch>
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
+          <Route exact path="/settings" component={Settings} />
           <Route exact path={['/', '/kingdom']}>
             <h1>HomePage</h1>
           </Route>
