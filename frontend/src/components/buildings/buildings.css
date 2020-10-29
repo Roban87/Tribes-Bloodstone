@@ -3,8 +3,8 @@
   background-size: cover;
   overflow: hidden;
   cursor: pointer;
-  width: 120px;
-  height: 120px;
+  width: 9vw;
+  height: 9vw;
   border: none;
 }
 
@@ -13,8 +13,8 @@
   background-size: cover;
   overflow: hidden;
   cursor: pointer;
-  width: 120px;
-  height: 120px;
+  width: 9vw;
+  height: 9vw;
   border: none;
 }
 
@@ -23,8 +23,8 @@
   background-size: cover;
   overflow: hidden;
   cursor: pointer;
-  width: 120px;
-  height: 120px;
+  width: 9vw;
+  height: 9vw;
   border: none;
 }
 
@@ -33,13 +33,22 @@
   background-size: cover;
   overflow: hidden;
   cursor: pointer;
-  width: 120px;
-  height: 120px;
+  width: 9vw;
+  height: 9vw;
   border: none;
 }
 
 .building-buttons {
-  margin: 10px auto;
+  margin: 9px auto;
+  box-shadow: none;
+}
+
+.building-buttons:focus {
+  box-shadow: none;
+}
+
+.building-buttons:hover {
+  background-color: none;
 }
 
 p::first-letter {
@@ -50,10 +59,12 @@ p {
   width: fit-content;
   margin: 0px auto;
   color: #727374;
+  font-size: 1vw;
 }
 
 .building {
-  margin: 10px 20px;
+  width: 14vw;
+  margin-bottom: .8vw;
   display: flex;
   flex-direction: column;
   justify-content: center;

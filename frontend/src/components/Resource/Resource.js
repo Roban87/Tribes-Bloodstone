@@ -16,7 +16,7 @@ function Resource(props) {
 
   return (
     <div className="resource-container">
-      <img className="building" src={building} alt={altBuilding} />
+      <img className="building-img" src={building} alt={altBuilding} />
 
       <div>
         <div className="resource-amount">
