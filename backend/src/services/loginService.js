@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import { loginRepo } from '../repositories/loginRepo';
+import { loginRepo } from '../repositories';
 import config from '../config';
 
 export const loginService = {

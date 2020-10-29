@@ -213,7 +213,6 @@ test('upgradeBuilding when upgrading farm returns object with updated building s
 test('upgradeBuilding returns error when building max level reached', async () => {
   const spy = jest.spyOn(buildingsRepo, 'getBuildings');
   spy.mockReturnValue(database.buildings);
-
   let thrownError = {};
   try {
     await buildingsService.upgradeBuilding(6, 4);
