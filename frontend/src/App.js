@@ -7,7 +7,6 @@ import Register from './pages/Register';
 import NotImplemented from './pages/NotImplemented';
 import Main from './pages/Main';
 import Settings from './components/settings/Settings';
-import Main from './pages/Main';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('token'));

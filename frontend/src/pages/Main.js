@@ -7,6 +7,7 @@ import '../styles/Main.css';
 import ResourcesContainer from '../components/ResourcesContainer/ResourcesContainer';
 import KingdomBuildings from '../components/kingdomBuildings/KingdomBuildings';
 import BuildingDetails from '../components/BuildingDetails/BuildingDetails';
+import Menu from '../components/Menu/Menu';
 
 function Main(props) {
   const {
@@ -19,7 +20,7 @@ function Main(props) {
 
   return (
     <div className="main-container">
-      <div className="menu-container" />
+      <div className="menu-container"><Menu /></div>
       <ResourcesContainer className="resources-container" />
 
       <div className="content-container">
