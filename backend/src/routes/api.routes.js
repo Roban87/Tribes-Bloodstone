@@ -8,6 +8,7 @@ import {
   registerMapController,
   kingdomController,
   troopsController,
+  rulesController,
 } from '../controllers';
 import authHandler from '../middlewares/authorization-handler';
 import updateResources from '../middlewares/update-resources';
@@ -38,5 +39,6 @@ router.get('/kingdom/troops', troopsController.get);
 
 router.put('/kingdom', kingdomController.put);
 router.post('/register/map/:kingdomId', registerMapController.post);
+router.get('/rules', rulesController.get);
 
 export default router;
