@@ -1,10 +1,10 @@
-import KingdomBuildings from '../kingdomBuildings/KingdomBuildings';
+import Buildings from '../buildings/Buildings';
 
 const MenuComponents = [
   {
     name: 'Buildings',
     link: '/buildings',
-    component: KingdomBuildings,
+    component: Buildings,
   },
   {
     name: 'Troops',
