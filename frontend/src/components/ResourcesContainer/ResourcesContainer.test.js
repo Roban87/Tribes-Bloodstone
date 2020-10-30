@@ -21,7 +21,7 @@ afterEach(() => {
 
 it('Componenet loaded with data', () => {
   const store = mockStore({
-    resourcesReducer: {
+    resources: {
       foodAmount: 200,
       foodGeneration: 5,
       goldAmount: 500,
@@ -47,7 +47,7 @@ it('Componenet loaded with data', () => {
 
 it('compoenent laded with error message', () => {
   const store = mockStore({
-    resourcesReducer: {
+    resources: {
       foodAmount: 0,
       foodGeneration: 0,
       goldAmount: 0,
