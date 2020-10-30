@@ -2,7 +2,7 @@ import { db } from '../data/connection';
 
 export const troopsRepo = {
   async getTroops(kingdomId) {
-    const sqlQuery = 'SELECT id, level, hp, attack, defence, started_at, finished_at FROM troops WHERE kingdom_id=?';
+    const sqlQuery = 'SELECT id, level, hp, attack, defence, started_at AS startedAt, finished_at AS finishedAt FROM troops WHERE kingdom_id=?';
     const troopsData = await db.query(sqlQuery, [kingdomId]);
     return troopsData.results;
   },
@@ -19,7 +19,7 @@ export const troopsRepo = {
   },
   async getSingleTroop(kingdomId, troopId) {
     try {
-      const sqlQuery = 'SELECT id, level, hp, attack, defence, started_at, finished_at FROM troops WHERE kingdom_id = ? AND id = ?';
+      const sqlQuery = 'SELECT id, level, hp, attack, defence, started_at AS startedAt, finished_at AS finishedAt FROM troops WHERE kingdom_id = ? AND id = ?';
       return await db.query(sqlQuery, [kingdomId, troopId]);
     } catch (err) {
       throw { message: 'Internal server error', status: 500 };

@@ -1,5 +1,5 @@
 import { loginService } from '../loginService';
-import { loginRepo } from '../../repositories/loginRepo';
+import { userRepo } from '../../repositories';
 
 const database = {
   user1: {
@@ -39,7 +39,7 @@ test('missing password', async () => {
 
 test('bad username', async () => {
   let thrownError;
-  const spy = jest.spyOn(loginRepo, 'getUser');
+  const spy = jest.spyOn(userRepo, 'getUser');
   spy.mockReturnValue({ results: [], fields: 'somedata' });
   try {
     await loginService.getToken('username', 'password');
@@ -51,7 +51,7 @@ test('bad username', async () => {
 
 test('bad password', async () => {
   let thrownError;
-  const spy = jest.spyOn(loginRepo, 'getUser');
+  const spy = jest.spyOn(userRepo, 'getUser');
   spy.mockReturnValue({ results: [database.user1], fields: 'somedata' });
   try {
     await loginService.getToken('marci', 'badpassword');
@@ -62,7 +62,7 @@ test('bad password', async () => {
 });
 
 test('succesful login', async () => {
-  const spy = jest.spyOn(loginRepo, 'getUser');
+  const spy = jest.spyOn(userRepo, 'getUser');
   spy.mockReturnValue({ results: [database.user1], fields: 'somedata' });
   const token = await loginService.getToken('marci', 'password');
   expect(token).toMatch(/^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/);

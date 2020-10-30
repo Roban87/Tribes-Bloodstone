@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import { loginRepo } from '../repositories';
+import { userRepo } from '../repositories';
 import config from '../config';
 
 export const loginService = {
@@ -19,7 +19,7 @@ export const loginService = {
     if (inputError) {
       throw inputError;
     }
-    const userData = await loginRepo.getUser(username);
+    const userData = await userRepo.getUser(username);
     if (userData.results.length === 0
       || !bcrypt.compareSync(password, userData.results[0].password)) {
       throw { message: 'Username or password is incorrect', status: 400 };

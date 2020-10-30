@@ -2,7 +2,7 @@
   width: inherit;
   display: grid;
   grid-template-columns: repeat(5 1fr);
-  grid-template-rows: repeat(3 1fr);
+  grid-template-rows: repeat(5 1fr);
 }
 
 .image-div {
@@ -28,6 +28,7 @@
   grid-column: 2 / 6;
   grid-row: 1 / 2;
   margin-top: 1vw;
+  margin-bottom: 30px;
 }
 
 .building-description p {
@@ -40,13 +41,32 @@
   letter-spacing: .12em;
 }
 
-p img {
+.building-description>p img {
   height: 1em;
 }
 
+.upgrade-error-message {
+  grid-row: 2 / 3;
+  grid-column: 2 / 6;
+  justify-self: center;
+  align-self: center;
+  text-align: center;
+}
+.upgrade-building-container {
+  grid-row: 3 / 4;
+  grid-column: 2 / 6;
+  height: 120px;
+  width: 370px;
+  justify-self: center;
+
+}
 .addTroop-button {
   grid-column: 2 / 6;
+<<<<<<< HEAD
   grid-row: 2 / 4;
+=======
+  grid-row: 4 / 5;
+>>>>>>> 2d33e43... started work on UpgradeBuilding component
   margin: 1.5vw auto;
   padding: .8vw;
   width: 21vw;

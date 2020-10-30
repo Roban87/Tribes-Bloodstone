@@ -1,5 +1,5 @@
 import fetchDataGeneral from '../utilities/generalFetch';
-import setErrorMessage from './errorActions';
+import { setBuildingsError } from './errorActions';
 
 export function setBuildingsAsync() {
   return ((dispatch) => {
@@ -8,15 +8,16 @@ export function setBuildingsAsync() {
       .then((results) => {
         dispatch({ type: 'SET_BUILDINGS', payload: results.buildings });
       })
-      .catch((err) => dispatch(setErrorMessage(err.message)));
+      .catch((err) => dispatch(setBuildingsError(err.message)));
   });
 }
 
 export function selectBuildingAsync(buildingId) {
   return (dispatch) => {
     const endpoint = `/kingdom/buildings/${buildingId}`;
+    dispatch({ type: 'BUILDINGS_LOADING' });
     fetchDataGeneral(endpoint, 'GET')
       .then((result) => dispatch({ type: 'SELECT_BUILDING', payload: result }))
-      .catch((err) => dispatch(setErrorMessage(err.message)));
+      .catch((err) => dispatch(setBuildingsError(err.message)));
   };
 }

@@ -1,5 +1,5 @@
 import fetchDataGeneral from '../utilities/generalFetch';
-import setErrorMessage from './errorActions';
+import { setRulesError } from './errorActions';
 
 export const setRules = (rules) => ({
   type: 'SET_RULES',
@@ -11,6 +11,6 @@ export function setRulesAsync() {
     const endpoint = '/rules';
     fetchDataGeneral(endpoint, 'GET')
       .then((results) => { dispatch({ type: 'SET_RULES', payload: results }); })
-      .catch((err) => dispatch(setErrorMessage(err.message)));
+      .catch((err) => dispatch(setRulesError(err.message)));
   });
 }

@@ -60,12 +60,12 @@ ResourcesContainer.propTypes = {
   getResources: PropTypes.func.isRequired,
 };
 
-export const mapStateToProps = ({ resources }) => ({
-  foodAmount: resources.foodAmount,
-  foodGeneration: resources.foodGeneration,
-  goldAmount: resources.goldAmount,
-  goldGeneration: resources.goldGeneration,
-  errorMessage: resources.errorMessage,
+export const mapStateToProps = (state) => ({
+  foodAmount: state.resources.foodAmount,
+  foodGeneration: state.resources.foodGeneration,
+  goldAmount: state.resources.goldAmount,
+  goldGeneration: state.resources.goldGeneration,
+  errorMessage: state.error.resourceError,
 });
 
 export const mapDispatchToProps = (dispatch) => ({

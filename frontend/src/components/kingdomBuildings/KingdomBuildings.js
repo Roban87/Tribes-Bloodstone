@@ -11,6 +11,7 @@ import fetchDataGeneral from '../../utilities/generalFetch';
 function KingdomBuildings(props) {
   const { buildings, errorMessage } = props;
   const dispatch = useDispatch();
+<<<<<<< HEAD
 
   async function onClickHandle(event) {
     event.preventDefault();
@@ -33,6 +34,8 @@ function KingdomBuildings(props) {
     }
   }
 
+=======
+>>>>>>> 2d33e43... started work on UpgradeBuilding component
   useEffect(() => {
     dispatch(setBuildingsAsync());
   }, [dispatch]);
@@ -56,7 +59,7 @@ function KingdomBuildings(props) {
 }
 
 const mapStateToProps = (state) => ({
-  buildings: state.buildings,
+  buildings: state.buildings.buildings,
   errorMessage: state.error.message,
 });
 

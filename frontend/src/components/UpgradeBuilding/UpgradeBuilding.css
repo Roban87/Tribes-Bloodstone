@@ -1,0 +1,51 @@
+.upgrade-button {
+  position: static;
+  margin: auto;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  width: 100%;
+  background-color: rgb(16,150,139);
+  color: white;
+  border-radius: 20px;
+  box-shadow: 0px 5px #999;
+}
+.upgrade-button:hover {
+  background-color:  rgb(13, 129, 120);
+}
+.upgrade-button:active {
+  box-shadow: 0px 3px #666;
+  transform: translateY(2px);
+}
+.upgrade-button * {
+  user-select: none;
+}
+.upgrade-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-column: 1 / 2;
+  height: 100%;
+}
+.upgrade-icon img {
+  width: 70%;
+}
+
+.upgrade-details {
+  grid-column: 2 / 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  justify-self: center;
+  align-self: center;
+  text-align: left;
+  height: 80%;
+  width: 90%;
+}
+
+.upgrade-details p {
+  text-align: left;
+  font-size: 1.5em;
+  color: white;
+  margin: 0;
+}

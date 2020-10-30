@@ -24,6 +24,11 @@ const fetchDataGeneral = async (endpoint, method, data = undefined) => {
   }
 
   const jsonData = await fetchedData.json();
+  if (fetchedData.status !== 200) {
+    console.log(fetchedData);
+    throw new Error(jsonData.message);
+  }
+
   return jsonData;
 };
 
