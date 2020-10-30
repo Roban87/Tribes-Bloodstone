@@ -18,8 +18,8 @@
   border: none;
 }
 
-.barracks {
-  background: url(../../assets/buildings/barracks.svg) no-repeat center top;
+.academy {
+  background: url(../../assets/buildings/academy.svg) no-repeat center top;
   background-size: cover;
   overflow: hidden;
   cursor: pointer;
@@ -58,4 +58,8 @@ p {
   flex-direction: column;
   justify-content: center;
   align-content: center;
+}
+
+.building button {
+  position: static;
 }
