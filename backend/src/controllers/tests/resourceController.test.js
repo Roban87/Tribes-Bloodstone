@@ -52,18 +52,6 @@ const kingdom = {
 };
 
 describe('GET request on /api/kingdom/resource', () => {
-  it('missing kingdomId', (done) => {
-    request(app)
-      .get('/api/kingdom/resource/')
-      .set('Authorization', `Bearer ${token}`)
-      .set('user', {})
-      .expect(404)
-      .end((err) => {
-        if (err) return done(err);
-        return done();
-      });
-  });
-
   it('wrong kingdomId', (done) => {
     const spyKingdom = jest.spyOn(kingdomRepo, 'getKingdom');
     spyKingdom.mockReturnValue({
@@ -74,7 +62,7 @@ describe('GET request on /api/kingdom/resource', () => {
     spy.mockReturnValue({ results: [], fields: 'sheeps' });
 
     request(app)
-      .get('/api/kingdom/resource/23')
+      .get('/api/kingdom/resource')
       .set('Authorization', `Bearer ${token}`)
       .set('user', { kingdomId: 23 })
       .expect(404)
@@ -96,7 +84,7 @@ describe('GET request on /api/kingdom/resource', () => {
     spy.mockReturnValue({ results: [database.resource1, database.resource2], fields: 'sheeps' });
 
     request(app)
-      .get('/api/kingdom/resource/3')
+      .get('/api/kingdom/resource')
       .set('Authorization', `Bearer ${token}`)
       .set('user', { kingdomId: 3 })
       .expect(200)

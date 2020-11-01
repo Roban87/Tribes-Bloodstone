@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './Resource.css';
 
 function Resource(props) {
@@ -10,6 +11,7 @@ function Resource(props) {
     resource,
     altResource,
   } = props;
+
   const resGeneration = generation > 0 ? 'increase' : 'decrease';
 
   return (
@@ -27,5 +29,14 @@ function Resource(props) {
     </div>
   );
 }
+
+Resource.propTypes = {
+  generation: PropTypes.number.isRequired,
+  building: PropTypes.string.isRequired,
+  altBuilding: PropTypes.string.isRequired,
+  amount: PropTypes.number.isRequired,
+  resource: PropTypes.string.isRequired,
+  altResource: PropTypes.string.isRequired,
+};
 
 export default Resource;
