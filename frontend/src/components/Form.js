@@ -75,7 +75,7 @@ function Form({ formType }) {
 
       return registerResponse.message
         ? setErrorMessage(registerResponse.message)
-        : history.push('/login');
+        : history.push('/register/map');
     } catch (error) {
       console.log(error);
     }
