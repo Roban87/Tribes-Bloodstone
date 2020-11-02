@@ -7,7 +7,7 @@ import '../../styles/Menu.css';
 function Menu() {
   //   console.log(MenuComponents[0].component);
   return (
-    <nav className="Menu">
+    <nav className="menu-container">
       {MenuComponents.map((menuItem) => (
         <MenuItem
           key={menuItem.name}

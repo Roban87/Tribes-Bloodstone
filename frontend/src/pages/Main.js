@@ -20,7 +20,7 @@ function Main(props) {
 
   return (
     <div className="main-container">
-      <div className="menu-container"><Menu /></div>
+      <Menu className="menu-container" />
       <ResourcesContainer className="resources-container" />
 
       <div className="content-container">

@@ -6,9 +6,10 @@
 }
 
 .menuItem {
-  width: 25%;
+  min-width: 25%;
   margin: 0;
-  padding: max(30px, 5%) 0;
+  padding-bottom: 50px;
+  padding-top: 50px;
   text-decoration: none;
   display: flex;
   flex-direction: column;
