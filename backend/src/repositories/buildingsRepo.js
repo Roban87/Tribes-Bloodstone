@@ -28,15 +28,15 @@ export const buildingsRepo = {
     return newBuildingData.results;
   },
 
-  async addNewBuilding(type, kingdomId) {
-    const sqlBuyBuilding = 'UPDATE resources SET amount = amount - 100 WHERE type = \'gold\' AND kingdom_id = ?;';
+  async addNewBuilding(type, kingdomId, price) {
+    const sqlBuyBuilding = 'UPDATE resources SET amount = amount - ? WHERE type = \'gold\' AND kingdom_id = ?;';
     const addBuildingQuery = 'INSERT INTO buildings (type, kingdom_id, finished_at) VALUES (?, ?, TIMESTAMPADD(MINUTE, 1, CURRENT_TIMESTAMP));';
     const getNewBuildingQuery = 'SELECT id, type, level, hp, UNIX_TIMESTAMP(started_at) AS started_at, UNIX_TIMESTAMP(finished_at) AS finished_at FROM buildings WHERE id=LAST_INSERT_ID() AND kingdom_id=?;';
 
     const connection = await db.connection();
 
     try {
-      await connection.query(sqlBuyBuilding, [kingdomId]);
+      await connection.query(sqlBuyBuilding, [price, kingdomId]);
       await connection.query(addBuildingQuery, [type, kingdomId]);
       const newBuildingData = await connection.query(getNewBuildingQuery, [kingdomId]);
 
