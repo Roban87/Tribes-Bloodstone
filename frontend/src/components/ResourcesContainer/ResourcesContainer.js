@@ -21,7 +21,7 @@ function ResourcesContainer(props) {
 
   useEffect(() => {
     getResources();
-  }, []);
+  }, [getResources]);
 
   return (
     <div className="resources-container">
