@@ -169,7 +169,8 @@ describe('POST /api/register/map/', () => {
     const spy = jest.spyOn(kingdomRepo, 'postRegisterMap');
     spy.mockReturnValue({});
     const locationBody = {
-      countryCode: 'ENG',
+      id: '1',
+      location: { countryCode: 'ENG' },
     };
     request(app)
       .post('/api/register/map/')
@@ -190,10 +191,15 @@ describe('POST /api/register/map/', () => {
   it('responds error message', (done) => {
     const spyUpdate = jest.spyOn(resourceService, 'updateResources');
     spyUpdate.mockReturnValue({});
+    const locationBody = {
+      id: '1',
+      location: '',
+    };
     request(app)
       .post('/api/register/map/')
       .set('Accept', 'application/json')
       .set('Authorization', `Bearer ${token}`)
+      .send(locationBody)
       .expect('Content-Type', /json/)
       .expect(422)
       .end((err) => {

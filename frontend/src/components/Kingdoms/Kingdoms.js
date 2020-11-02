@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
+import PropTypes from 'prop-types';
 import Map from '../Map/MapChart';
 import fetchDataGeneral from '../../utilities/generalFetch';
 
-function Kingdoms() {
+function Kingdoms(props) {
   const [content, setContent] = useState('');
   const [kingdoms, setKingdoms] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
   const [selectedKingdom, setSelectedKingdom] = useState('');
   const history = useHistory();
+  const { kingdomId } = props;
 
   useEffect(() => {
     async function fetchKingdoms() {
@@ -35,7 +37,11 @@ function Kingdoms() {
       };
       const endpoint = '/register/map/';
       const method = 'POST';
-      const data = selectedLocation;
+      const data = {
+        location: selectedLocation,
+        id: kingdomId,
+      };
+      console.log(data);
       await fetchDataGeneral(endpoint, method, data);
       history.push('/login');
     } catch (error) {
@@ -71,5 +77,9 @@ function Kingdoms() {
     </div>
   );
 }
+
+Kingdoms.propTypes = {
+  kingdomId: PropTypes.number.isRequired,
+};
 
 export default Kingdoms;
