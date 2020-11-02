@@ -1,19 +1,19 @@
 .menuImage {
-  width: 4em;
-  height: 4em;
+  width: 5em;
+  height: 5em;
   background-size: cover;
   border-radius: 50%;
 }
 
 .menuItem {
-  min-width: 25%;
+  width: 25%;
   margin: 0;
-  padding: 10px 0;
+  padding: max(30px, 5%) 0;
   text-decoration: none;
   display: flex;
   flex-direction: column;
+  gap: 5px;
   align-items: center;
-  justify-content: center;
   overflow: hidden;
 }
 
