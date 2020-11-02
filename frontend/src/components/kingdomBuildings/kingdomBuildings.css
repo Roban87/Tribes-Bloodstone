@@ -4,3 +4,7 @@
   height: inherit;
   flex-wrap: wrap;
 }
+
+.add-buttons-container {
+  display: flex;
+}

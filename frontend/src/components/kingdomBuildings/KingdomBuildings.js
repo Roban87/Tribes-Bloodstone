@@ -46,7 +46,7 @@ function KingdomBuildings(props) {
         )) }
       </div>
 
-      <div>
+      <div className="add-buttons-container">
         <AddBuildingButton type="farm" onClick={onClickHandle} />
         <AddBuildingButton type="mine" onClick={onClickHandle} />
         <AddBuildingButton type="academy" onClick={onClickHandle} />

@@ -1,8 +1,13 @@
 .resources-container {
-  padding: .7vw 1.2vw;
+  padding: .5vw 1vw;
+  display: flex;
+  overflow: hidden;
+}
+
+.resources-container > div:first-of-type {
   display: flex;
   flex-direction: column;
-  justify-items: center;
+  align-content: flex-start;
   justify-content: space-evenly;
   overflow: hidden;
 }

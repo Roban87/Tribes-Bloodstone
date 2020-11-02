@@ -77,10 +77,6 @@ function BuildingDetails(props) {
                     create troop level
                     {building.level}
                   </p>
-                  <p style={{ fontWeight: 'bold' }}>
-                    PLACEHOLDER
-                    {building.level}
-                  </p>
                   <p>
                     200
                     <img src={coinIcon} alt="coin-icon" />
