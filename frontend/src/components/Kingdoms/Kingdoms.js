@@ -52,18 +52,18 @@ function Kingdoms(props) {
 
   return (
     <div className="map-container">
-      <h2>Please select a location for your kingdom</h2>
+      <h2 className="map-select-header">Please select a location for your kingdom</h2>
       <div className="submit">
-        <h2>
+        <h2 className="map-select-header">
           Your selection is:&nbsp;
           {selectedKingdom}
         </h2>
-        <button type="button" onClick={submitKingdom}>
+        <button className="map-select-button" type="button" onClick={submitKingdom}>
           Submit
         </button>
       </div>
       {errorMessage ? (
-        <h2>{errorMessage}</h2>
+        <h2 className="map-select-header">{errorMessage}</h2>
       ) : (
         <div>
           <Map

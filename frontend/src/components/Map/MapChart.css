@@ -1,11 +1,6 @@
-html {
-  font-family: system-ui, sans-serif;
-  font-size: 1.25rem;
-}
-
 body {
   margin: 0;
-  padding: 0 1.5rem;
+  padding: 0;
   align-content: center;
   justify-content: center;
 }
@@ -27,8 +22,9 @@ svg {
   border-radius: 10%;
 }
 
-h2 {
+.map-select-header {
   margin: 0;
+  color: white;
 }
 
 .submit {
@@ -41,7 +37,7 @@ h2 {
   margin-bottom: 50px;
 }
 
-button {
+.map-select-button {
   margin: auto 0px;
   color: white;
   font-size: 18px;
@@ -54,16 +50,16 @@ button {
   box-shadow: 0px 0px 8px #999;
 }
 
-button:hover {
+.map-select-button:hover {
   background-color: rgb(91, 151, 38);
   cursor: pointer;
 }
 
-button:focus {
+.map-select-buttonbutton:focus {
   outline: none;
 }
 
-button:active {
+.map-select-buttonbutton:active {
   box-shadow: 0px 0px 12px rgb(175, 175, 175);
   transform: translateY(2px);
   transform: translateX(1px);
