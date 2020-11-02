@@ -1,4 +1,5 @@
 import fetchDataGeneral from '../utilities/generalFetch';
+import { setLoginError } from './errorActions';
 
 export const loginStartedAction = () => ({
   type: 'LOGIN_STARTED',
@@ -19,16 +20,13 @@ export const loginFetchAsync = (userName, password) => {
   };
 
   return async (dispatch) => {
+    dispatch(loginStartedAction());
     try {
       const loginResponse = await fetchDataGeneral(endpoint, method, loginData);
-
-      if (!loginResponse.token) {
-        return dispatch(loginErrorAction(loginResponse.message));
-      }
-
+      window.localStorage.token = loginResponse.token;
       return dispatch(loginSuccessAction(loginResponse.token, userName));
     } catch (error) {
-
+      return dispatch(setLoginError(error.message));
     }
   };
 };

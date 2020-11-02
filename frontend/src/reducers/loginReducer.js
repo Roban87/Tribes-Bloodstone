@@ -5,10 +5,6 @@ const initialState = {
 };
 
 const loginReducer = (state = initialState, action) => {
-  if (action.type === 'LOGIN_STARTED') {
-    return initialState;
-  }
-
   if (action.type === 'LOGIN_SUCCESS') {
     return {
       ...state,
