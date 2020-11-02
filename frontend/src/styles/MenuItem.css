@@ -6,7 +6,7 @@
 }
 
 .menuItem {
-  width: 25%;
+  min-width: 25%;
   margin: 0;
   padding: 10px 0;
   text-decoration: none;
