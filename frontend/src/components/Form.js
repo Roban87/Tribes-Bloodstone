@@ -50,7 +50,7 @@ function Form({ formType }) {
       window.localStorage.token = loginResponse.token;
       setPassword('');
       setUsername('');
-      history.push('/main');
+      history.push('/kingdom');
     } catch (error) {
       console.log(error);
     }

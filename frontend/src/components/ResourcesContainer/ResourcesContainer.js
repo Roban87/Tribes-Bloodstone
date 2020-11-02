@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getResourcesFetch } from '../../actions/resourcesAction';
 import Resource from '../Resource/Resource';
-import './Resources.css';
+import './ResourcesContainer.css';
 import farm from '../../assets/farm.png';
 import mine from '../../assets/mine.png';
 import bread from '../../assets/big_bread.png';
@@ -21,14 +21,14 @@ function ResourcesContainer(props) {
 
   useEffect(() => {
     getResources();
-  }, []);
+  }, [getResources]);
 
   return (
     <div className="resources-container">
       {errorMessage ? (
         <p>{errorMessage}</p>
       ) : (
-        <div className="resources-container">
+        <div>
           <Resource
             building={farm}
             altBuilding="Farm icon"

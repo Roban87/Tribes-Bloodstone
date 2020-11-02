@@ -3,7 +3,7 @@
 }
 
 .header {
-  min-height: 60px;
+  height: 60px;
   background: #3cb878;
   position: sticky;
   top: 0;

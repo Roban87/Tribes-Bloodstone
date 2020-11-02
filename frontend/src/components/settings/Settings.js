@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import './Settings.css';
 import { useHistory } from 'react-router-dom';
 import fetchDataGeneral from '../../utilities/generalFetch';
@@ -22,16 +21,14 @@ function Settings() {
     };
     if (kingdomname.length >= 3) {
       try {
-        const settingsData = await fetchDataGeneral(
+        await fetchDataGeneral(
           endpoint,
           method,
           fetchData,
         );
-        console.log(settingsData);
         history.push('/kingdom');
       } catch (error) {
         setErrorMessage(error.message);
-        console.log(error);
       }
     } else {
       setErrorMessage('The kingdomname needs to be longer than 3 characters');

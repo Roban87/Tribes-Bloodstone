@@ -1,0 +1,52 @@
+* {
+  padding: 0; 
+  margin: 0;
+}
+
+.main-container {
+  width: 90%;
+  height: calc(100vh - 8vh - 60px);
+  margin: 0 auto;
+  padding: 4vh;
+  display: grid;
+  gap: 2vh 5vh;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(12, calc((100vh - 30vh - 60px) / 12));
+}
+
+.menu-container {
+  background-color: rgba(255, 255, 255, .8);
+  grid-area: 1 / 1 / 4 / 6;
+}
+
+.resources-container {
+  background-color: rgba(255, 255, 255, .8);
+  grid-area: 1 / 6 / 4 / 8;
+}
+
+.content-container {
+  background-color: rgba(255, 255, 255, .8);
+  grid-area: 4 / 1 / 13 / 8;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.content-container::-webkit-scrollbar {
+  width: .6vw;
+}
+
+.content-container::-webkit-scrollbar-thumb {
+  background-color: rgb(153, 153, 153);
+}
+
+.content-container > div:first-of-type {
+  padding: 1.2vw;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.construction-log-container {
+  background-color: rgba(255, 255, 255, .8);
+  grid-area: 1 / 8 / 13 / 11;
+}

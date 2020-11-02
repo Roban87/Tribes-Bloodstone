@@ -1,6 +1,6 @@
 .buildings {
   display: flex;
-  background-color: #cacccd;
-  width: fit-content;
-  height: fit-content;
+  width: inherit;
+  height: inherit;
+  flex-wrap: wrap;
 }

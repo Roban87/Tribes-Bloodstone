@@ -1,14 +1,12 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Route } from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
-import BuildingDetails from '../BuildingDetails/BuildingDetails';
 import Buildings from '../buildings/Buildings';
 import './kingdomBuildings.css';
 import { setBuildingsAsync } from '../../actions/buildingsActions';
 
 function KingdomBuildings(props) {
-  const { buildings, errorMessage, match } = props;
+  const { buildings, errorMessage } = props;
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,7 +21,6 @@ function KingdomBuildings(props) {
           <Buildings key={building.id} building={building} />
         )) }
       </div>
-      <Route exact path={`${match.url}/:id`} component={BuildingDetails} />
     </div>
   );
 }

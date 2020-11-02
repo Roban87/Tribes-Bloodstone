@@ -4,8 +4,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from './components/Header/Header';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Main from './pages/Main';
 import NotImplemented from './pages/NotImplemented';
+import Main from './pages/Main';
 import Settings from './components/settings/Settings';
 
 function App() {
@@ -23,10 +23,7 @@ function App() {
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/settings" component={Settings} />
-          <Route exact path={['/']}>
-            <h1>HomePage</h1>
-          </Route>
-          <Route path="/kingdom/" component={Main} />
+          <Route path="/kingdom" component={Main} />
           <Route path="/">
             <NotImplemented isLoggedIn={isLoggedIn} loggingOut={loggingOut} />
           </Route>

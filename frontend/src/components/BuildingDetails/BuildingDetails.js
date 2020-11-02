@@ -49,49 +49,49 @@ function BuildingDetails(props) {
     <div>
       { building.type && (
         <div className="details-container">
+
           <div className="image-div">
             <img
               className="building-image"
               src={require(`../../assets/buildings/${building.type}.png`)}
-              style={{ width: '200px' }}
               alt="building"
             />
             <h2>
               {capitalizeName(building.type)}
               <br />
-              Level
+              {'Level '}
               {building.level}
             </h2>
           </div>
-          <div className="building-details">
-            <div className="building-description">
-              {parser(buildingDetails[building.type])}
-            </div>
+
+          <div className="building-description">
+            {parser(buildingDetails[building.type])}
           </div>
-          { building.type === 'academy' ? (
-            <div className="addTroop-button">
-              <div className="troop-icon">
-                <img src={addTroopIcon} alt="troop-icon" />
+
+          { building.type === 'academy'
+            ? (
+              <div className="addTroop-button">
+                <img src={addTroopIcon} className="troop-icon" alt="troop-icon" />
+                <div className="addTroop-details">
+                  <p>
+                    create troop level
+                    {building.level}
+                  </p>
+                  <p style={{ fontWeight: 'bold' }}>
+                    PLACEHOLDER
+                    {building.level}
+                  </p>
+                  <p>
+                    200
+                    <img src={coinIcon} alt="coin-icon" />
+                    {' '}
+                    1:00
+                  </p>
+                </div>
               </div>
-              <div className="addTroop-details">
-                <p>
-                  create troop level
-                  {building.level}
-                </p>
-                <p style={{ fontWeight: 'bold' }}>
-                  PLACEHOLDER
-                  {building.level}
-                </p>
-                <p>
-                  200
-                  <img src={coinIcon} alt="coin-icon" />
-                  {' '}
-                  1:00
-                </p>
-              </div>
-            </div>
-          )
+            )
             : null}
+
           {/* <UpgradeBuilding buildingObject={ building } />
           { building.type === "barracks" ? <BuyTroops level={ building.level } /> : null } */}
         </div>
