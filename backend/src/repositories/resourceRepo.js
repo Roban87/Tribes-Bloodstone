@@ -7,6 +7,11 @@ export const resourceRepo = {
     return await db.query(sqlGetResources, kingdomId);
   },
 
+  async insertResource(kingdomId, type, amount) {
+    const sqlInsertResource = 'INSERT INTO resources(kingdom_id, type, amount) VALUES(?,?,?);';
+    return await db.query(sqlInsertResource, [kingdomId, type, amount]);
+  },
+
   async updateResources(kingdomId) {
     const sql = `UPDATE resources 
                 SET amount=amount + (FLOOR(((UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(updatedAt)) / 60 )) * generation ) 
