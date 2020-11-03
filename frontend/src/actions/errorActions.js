@@ -11,3 +11,5 @@ export const setResourceError = (errorMessage) => ({ type: 'RESOURCE_ERROR', pay
 export const setAddBuildingError = (errorMessage) => ({ type: 'ADD_BUILDING_ERROR', payload: errorMessage });
 
 export const removeAddBuildingError = () => ({ type: 'REMOVE_ADD_BUILDING_ERROR' });
+
+export const setTroopsError = (errorMessage) => ({ type: 'TROOPS_ERROR', payload: errorMessage });
