@@ -1,8 +1,8 @@
 import fetchDataGeneral from '../utilities/generalFetch';
 
-export const setRecourcesAction = (resourcesArray) => ({
+export const setRecourcesAction = (resources) => ({
   type: 'SET_RESOURCES',
-  resourcesArray,
+  resources,
 });
 
 export const setErrorMessageAction = (error) => ({
@@ -17,7 +17,19 @@ export const getResourcesFetch = () => {
   return async (dispatch) => {
     try {
       const result = await fetchDataGeneral(endpoint, method);
-      return dispatch(setRecourcesAction(result.resources));
+
+      const payload = {};
+      for (let i = 0; i < result.resources.length; i += 1) {
+        if (result.resources[i].type === 'food') {
+          payload.foodAmount = result.resources[i].amount;
+          payload.foodGeneration = result.resources[i].generation;
+        } else {
+          payload.goldAmount = result.resources[i].amount;
+          payload.goldGeneration = result.resources[i].generation;
+        }
+      }
+
+      return dispatch(setRecourcesAction(payload));
     } catch (error) {
       return dispatch(setErrorMessageAction('Can\'t load resources. Please refresh the page!'));
     }
