@@ -10,8 +10,8 @@ export default (err, req, res, next) => {
   res.status(err.status || 500);
   res.json({
     message:
-      req.app.get('env') === 'development'
-        ? err.message
-        : 'Unknown error happened',
+      err.status === 500
+        ? 'Unknown error happened'
+        : err.message,
   });
 };

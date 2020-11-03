@@ -22,14 +22,14 @@ export const buildingsController = {
     }
   },
 
-  async post(req, res) {
+  async post(req, res, next) {
     const { kingdomId } = req.user;
     const { type } = req.body;
     try {
       const addBuildingData = await buildingsService.addBuilding(type, kingdomId);
       res.status(200).json(addBuildingData);
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      next(error);
     }
   },
 

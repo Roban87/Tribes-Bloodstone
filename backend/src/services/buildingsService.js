@@ -49,7 +49,7 @@ export const buildingsService = {
   async upgradeBuilding(buildingId, kingdomId) {
     const allBuildings = await buildingsRepo.getBuildings(kingdomId);
     const townHall = allBuildings.filter((building) => building.type === 'townhall')[0];
-    const building = allBuildings.filter((building2) => building2.id === buildingId)[0];
+    const building = allBuildings.filter((building2) => building2.id === Number(buildingId))[0];
     const upgradeRules = rules.upgrade();
 
     if (building.level === upgradeRules.townhall.maxLevel) {

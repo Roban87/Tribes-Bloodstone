@@ -26,8 +26,10 @@ it('Componenet loaded with data', () => {
       foodGeneration: 5,
       goldAmount: 500,
       goldGeneration: 10,
-      errorMessage: '',
       getResources: jest.fn(),
+    },
+    error: {
+      resourceError: '',
     },
   });
 
@@ -52,8 +54,10 @@ it('compoenent laded with error message', () => {
       foodGeneration: 0,
       goldAmount: 0,
       goldGeneration: 0,
-      errorMessage: 'Can\'t load resources. Please refresh the page!',
       getResources: jest.fn(),
+    },
+    error: {
+      resourceError: 'Can\'t load resources. Please refresh the page!',
     },
   });
 

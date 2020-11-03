@@ -1,13 +1,9 @@
 import fetchDataGeneral from '../utilities/generalFetch';
+import { setResourceError } from './errorActions';
 
-export const setRecourcesAction = (resources) => ({
+export const setResourcesAction = (resources) => ({
   type: 'SET_RESOURCES',
   resources,
-});
-
-export const setErrorMessageAction = (error) => ({
-  type: 'SET_ERROR',
-  error,
 });
 
 export const getResourcesFetch = () => {
@@ -29,9 +25,9 @@ export const getResourcesFetch = () => {
         }
       }
 
-      return dispatch(setRecourcesAction(payload));
+      return dispatch(setResourcesAction(payload));
     } catch (error) {
-      return dispatch(setErrorMessageAction('Can\'t load resources. Please refresh the page!'));
+      return dispatch(setResourceError('Can\'t load resources. Please refresh the page!'));
     }
   };
 };

@@ -4,8 +4,9 @@ import React, { useEffect } from 'react';
 import parser from 'html-react-parser';
 import './BuildingDetails.css';
 import PropTypes from 'prop-types';
-import { useDispatch, connect } from 'react-redux';
-import { selectBuildingAsync } from '../../actions/buildingsActions';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeUpgradeError } from '../../actions/errorActions';
+import UpgradeBuilding from '../UpgradeBuilding/UpgradeBuilding';
 
 const attackIcon = require('../../assets/icons/attack1.png');
 const defenseIcon = require('../../assets/icons/defence1.png');
@@ -15,9 +16,12 @@ const levelIcon = require('../../assets/icons/level.png');
 const coinIcon = require('../../assets/icons/coin.png');
 const addTroopIcon = require('../../assets/icons/addTroop.png');
 
-function BuildingDetails(props) {
-  const { match, building } = props;
+export default function BuildingDetails(props) {
+  const { match } = props;
   const { id } = match.params;
+  const building = useSelector((state) => (
+    state.buildings.buildings.filter((item) => item.id === Number(id))[0]));
+  const upgradeError = useSelector((state) => state.error.upgradeError);
   const dispatch = useDispatch();
   const buildingDetails = {
     academy: `
@@ -37,9 +41,9 @@ function BuildingDetails(props) {
     <p>Every level increases the starting level of new buildings by 1 <img src="${levelIcon}" /></p>`,
   };
 
-  useEffect(() => {
-    dispatch(selectBuildingAsync(id));
-  }, [id, dispatch]);
+  useEffect(() => () => {
+    dispatch(removeUpgradeError());
+  }, [dispatch, id]);
 
   function capitalizeName(name) {
     return name[0].toUpperCase() + name.slice(1);
@@ -47,7 +51,7 @@ function BuildingDetails(props) {
 
   return (
     <div>
-      { building.type && (
+      { building !== undefined ? (
         <div className="details-container">
 
           <div className="image-div">
@@ -87,11 +91,13 @@ function BuildingDetails(props) {
               </div>
             )
             : null}
-
-          {/* <UpgradeBuilding buildingObject={ building } />
-          { building.type === "barracks" ? <BuyTroops level={ building.level } /> : null } */}
+          {upgradeError ? <p className="upgrade-error-message" style={{ color: 'red' }}>{upgradeError}</p>
+            : null}
+          <div className="upgrade-building-container">
+            <UpgradeBuilding building={building} />
+          </div>
         </div>
-      )}
+      ) : null}
     </div>
   );
 }
@@ -102,29 +108,4 @@ BuildingDetails.propTypes = {
       id: PropTypes.string.isRequired,
     }),
   }).isRequired,
-  building: PropTypes.shape({
-    id: PropTypes.number,
-    type: PropTypes.string,
-    level: PropTypes.number,
-    hp: PropTypes.number,
-    startedAt: PropTypes.string,
-    finishedAt: PropTypes.string,
-    kingdomId: PropTypes.number,
-  }),
 };
-
-BuildingDetails.defaultProps = {
-  building: {
-    id: undefined,
-    type: undefined,
-    level: undefined,
-    hp: undefined,
-    startedAt: undefined,
-    finishedAt: undefined,
-    kingdomId: undefined,
-  },
-};
-
-const mapStateToProps = (state) => ({ building: state.currentBuilding });
-
-export default connect(mapStateToProps)(BuildingDetails);

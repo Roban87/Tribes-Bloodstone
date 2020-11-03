@@ -1,6 +1,6 @@
 import request from 'supertest';
 import app from '../../app';
-import { loginRepo } from '../../repositories/loginRepo';
+import { userRepo } from '../../repositories';
 
 const database = {
   user1: {
@@ -25,7 +25,7 @@ const database = {
 
 describe('POST /api/login', () => {
   it('responds with json that holds token', (done) => {
-    const spy = jest.spyOn(loginRepo, 'getUser');
+    const spy = jest.spyOn(userRepo, 'getUser');
     spy.mockReturnValue({ results: [database.user1], fields: 'somedata' });
     request(app)
       .post('/api/login')
@@ -91,7 +91,7 @@ describe('POST /api/login', () => {
 
 describe('POST /api/login', () => {
   it('bad username responds with error', (done) => {
-    const spy = jest.spyOn(loginRepo, 'getUser');
+    const spy = jest.spyOn(userRepo, 'getUser');
     spy.mockReturnValue({ results: [], fields: 'somedata' });
     request(app)
       .post('/api/login')
@@ -108,7 +108,7 @@ describe('POST /api/login', () => {
 
 describe('POST /api/login', () => {
   it('bad password responds with error', (done) => {
-    const spy = jest.spyOn(loginRepo, 'getUser');
+    const spy = jest.spyOn(userRepo, 'getUser');
     spy.mockReturnValue({ results: [database.user1], fields: 'somedata' });
     request(app)
       .post('/api/login')

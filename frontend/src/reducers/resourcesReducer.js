@@ -3,7 +3,6 @@ const initialState = {
   foodGeneration: 0,
   goldAmount: 0,
   goldGeneration: 0,
-  errorMessage: '',
 };
 
 const resourcesReducer = (state = initialState, action) => {
@@ -14,12 +13,6 @@ const resourcesReducer = (state = initialState, action) => {
       foodGeneration: action.resources.foodGeneration,
       goldAmount: action.resources.goldAmount,
       goldGeneration: action.resources.goldGeneration,
-    };
-  }
-  if (action.type === 'SET_ERROR') {
-    return {
-      ...state,
-      errorMessage: action.error,
     };
   }
   return state;

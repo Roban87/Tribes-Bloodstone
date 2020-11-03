@@ -5,11 +5,12 @@ import Buildings from '../buildings/Buildings';
 import AddBuildingButton from '../AddBuildingButton/AddBuildingButton';
 import './kingdomBuildings.css';
 import { setBuildingsAsync } from '../../actions/buildingsActions';
-import setErrorMessage from '../../actions/errorActions';
+import { setAddBuildingError, removeAddBuildingError } from '../../actions/errorActions';
+import { getResourcesFetch } from '../../actions/resourcesAction';
 import fetchDataGeneral from '../../utilities/generalFetch';
 
 function KingdomBuildings(props) {
-  const { buildings, errorMessage } = props;
+  const { buildings, setBuildingsError, addBuildingError } = props;
   const dispatch = useDispatch();
 
   async function onClickHandle(event) {
@@ -22,31 +23,32 @@ function KingdomBuildings(props) {
     };
 
     try {
-      const addBuildingResponse = await fetchDataGeneral(endpoint, method, typeData);
-
-      if (addBuildingResponse.error) {
-        dispatch(setErrorMessage(addBuildingResponse.error));
-      }
-      dispatch(setBuildingsAsync());
+      await fetchDataGeneral(endpoint, method, typeData);
     } catch (error) {
-      dispatch(setErrorMessage('Can\'t buy building. Try it later'));
+      dispatch(setAddBuildingError(error.message));
     }
+    dispatch(setBuildingsAsync());
+    dispatch(getResourcesFetch());
   }
 
   useEffect(() => {
     dispatch(setBuildingsAsync());
+    return () => {
+      dispatch(removeAddBuildingError());
+    };
   }, [dispatch]);
 
   return (
     <div>
       <div className="buildings">
-        {errorMessage ? <h2>{errorMessage}</h2> : null}
+        {setBuildingsError ? <h2>{setBuildingsError}</h2> : null}
         {buildings.length && buildings.map((building) => (
           <Buildings key={building.id} building={building} />
         )) }
       </div>
 
       <div className="add-buttons-container">
+        {addBuildingError ? <h2 className="add-building-error-message">{addBuildingError}</h2> : null}
         <AddBuildingButton type="farm" onClick={onClickHandle} />
         <AddBuildingButton type="mine" onClick={onClickHandle} />
         <AddBuildingButton type="academy" onClick={onClickHandle} />
@@ -56,8 +58,9 @@ function KingdomBuildings(props) {
 }
 
 const mapStateToProps = (state) => ({
-  buildings: state.buildings,
-  errorMessage: state.error.message,
+  buildings: state.buildings.buildings,
+  setBuildingsError: state.error.buildingsError,
+  addBuildingError: state.error.addBuildingError,
 });
 
 KingdomBuildings.propTypes = {
@@ -71,12 +74,14 @@ KingdomBuildings.propTypes = {
       finishedAt: PropTypes.string,
     }),
   ),
-  errorMessage: PropTypes.string,
+  setBuildingsError: PropTypes.string,
+  addBuildingError: PropTypes.string,
 };
 
 KingdomBuildings.defaultProps = {
   buildings: [],
-  errorMessage: '',
+  setBuildingsError: '',
+  addBuildingError: '',
 };
 
 export default connect(mapStateToProps)(KingdomBuildings);

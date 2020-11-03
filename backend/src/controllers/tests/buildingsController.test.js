@@ -98,10 +98,10 @@ describe('POST /api/kingdom/buildings -> add new building tests', () => {
       .set('Authorization', `Bearer ${token}`)
       .send({})
       .expect('Content-Type', /json/)
-      .expect(500)
+      .expect(400)
       .end((err, res) => {
         if (err) return done(err);
-        expect(res.body).toEqual({ error: 'Type is required' });
+        expect(res.body).toEqual({ message: 'Type is required' });
         return done();
       });
   });
@@ -116,10 +116,10 @@ describe('POST /api/kingdom/buildings -> add new building tests', () => {
       .set('Authorization', `Bearer ${token}`)
       .send({ type: 'library' })
       .expect('Content-Type', /json/)
-      .expect(500)
+      .expect(400)
       .end((err, res) => {
         if (err) return done(err);
-        expect(res.body).toEqual({ error: 'Wrong type' });
+        expect(res.body).toEqual({ message: 'Wrong type' });
         return done();
       });
   });
@@ -137,10 +137,10 @@ describe('POST /api/kingdom/buildings -> add new building tests', () => {
       .set('Authorization', `Bearer ${token}`)
       .send({ type: 'farm' })
       .expect('Content-Type', /json/)
-      .expect(500)
+      .expect(400)
       .end((err, res) => {
         if (err) return done(err);
-        expect(res.body).toEqual({ error: 'You don\'t have enough money' });
+        expect(res.body).toEqual({ message: 'You don\'t have enough money' });
         return done();
       });
   });

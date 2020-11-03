@@ -2,6 +2,7 @@ import request from 'supertest';
 import jwt from 'jsonwebtoken';
 import app from '../../app';
 import { resourceRepo, kingdomRepo } from '../../repositories';
+import { resourceService } from '../../services';
 import config from '../../config';
 
 const token = jwt.sign('payload', config.secret);
@@ -79,6 +80,8 @@ describe('GET request on /api/kingdom/resource', () => {
         kingdom.kingdom3,
       ],
     });
+    const spyResource = jest.spyOn(resourceService, 'updateResources');
+    spyResource.mockReturnValue(null);
 
     const spy = jest.spyOn(resourceRepo, 'getResources');
     spy.mockReturnValue({ results: [database.resource1, database.resource2], fields: 'sheeps' });
