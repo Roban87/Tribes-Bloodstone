@@ -8,8 +8,9 @@ import {
   resourceRepo,
 } from '../../repositories';
 import config from '../../config';
+import { resourceService } from '../../services';
 
-const token = jwt.sign('payload', config.secret);
+const token = jwt.sign({ id: 1, kingdomId: 1 }, config.secret);
 
 const database = {
   kingdoms: [
@@ -150,8 +151,10 @@ describe('GET /api/kingdom/map', () => {
   });
 });
 
-describe('POST /api/register/map/:kingdomId', () => {
+describe('POST /api/register/map/', () => {
   it('responds with json containing the kingdom data', (done) => {
+    const spyUpdate = jest.spyOn(resourceService, 'updateResources');
+    spyUpdate.mockReturnValue({});
     const spyKingdom = jest.spyOn(kingdomRepo, 'getKingdom');
     spyKingdom.mockReturnValue({
       results: kingdomDB,
@@ -166,10 +169,11 @@ describe('POST /api/register/map/:kingdomId', () => {
     const spy = jest.spyOn(kingdomRepo, 'postRegisterMap');
     spy.mockReturnValue({});
     const locationBody = {
-      countryCode: 'ENG',
+      id: '1',
+      location: { countryCode: 'ENG' },
     };
     request(app)
-      .post('/api/register/map/1')
+      .post('/api/register/map/')
       .send(locationBody)
       .set('Accept', 'application/json')
       .set('Authorization', `Bearer ${token}`)
@@ -183,12 +187,19 @@ describe('POST /api/register/map/:kingdomId', () => {
   });
 });
 
-describe('POST /api/register/map/:kingdomId', () => {
+describe('POST /api/register/map/', () => {
   it('responds error message', (done) => {
+    const spyUpdate = jest.spyOn(resourceService, 'updateResources');
+    spyUpdate.mockReturnValue({});
+    const locationBody = {
+      id: '1',
+      location: '',
+    };
     request(app)
-      .post('/api/register/map/1')
+      .post('/api/register/map/')
       .set('Accept', 'application/json')
       .set('Authorization', `Bearer ${token}`)
+      .send(locationBody)
       .expect('Content-Type', /json/)
       .expect(422)
       .end((err) => {

@@ -72,10 +72,12 @@ function Form({ formType }) {
         method,
         registData,
       );
-
       return registerResponse.message
         ? setErrorMessage(registerResponse.message)
-        : history.push('/login');
+        : history.push({
+          pathname: '/register/map',
+          kingdomId: registerResponse.kingdomId,
+        });
     } catch (error) {
       console.log(error);
     }

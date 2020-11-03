@@ -2,8 +2,8 @@ import { registerMapService, kingdomService } from '../services';
 
 export const registerMapController = {
   async post(req, res, next) {
-    const { kingdomId } = req.params;
-    const location = req.body.countryCode;
+    const kingdomId = req.body.id;
+    const location = req.body.location.countryCode;
     try {
       await registerMapService.postRegisterMap(
         kingdomId,
