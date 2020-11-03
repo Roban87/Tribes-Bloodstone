@@ -33,7 +33,7 @@ export const buildingsService = {
   async addBuilding(type, kingdomId) {
     if (!type) {
       throw { status: 400, message: 'Type is required' };
-    } else if (type !== 'farm' && type !== 'mine') {
+    } else if (type !== 'farm' && type !== 'mine' && type !== 'academy') {
       throw { status: 400, message: 'Wrong type' };
     }
     const buildRules = rules.build();

@@ -10,10 +10,10 @@ const resourcesReducer = (state = initialState, action) => {
   if (action.type === 'SET_RESOURCES') {
     return {
       ...state,
-      foodAmount: action.resourcesArray[0].amount,
-      foodGeneration: action.resourcesArray[0].generation,
-      goldAmount: action.resourcesArray[1].amount,
-      goldGeneration: action.resourcesArray[1].generation,
+      foodAmount: action.resources.foodAmount,
+      foodGeneration: action.resources.foodGeneration,
+      goldAmount: action.resources.goldAmount,
+      goldGeneration: action.resources.goldGeneration,
     };
   }
   if (action.type === 'SET_ERROR') {

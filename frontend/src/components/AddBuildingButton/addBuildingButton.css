@@ -1,0 +1,53 @@
+.add-building-button {
+  width: 14vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+button {
+  box-shadow: none;
+  position: static;
+  margin: 10px auto;
+}
+
+.addmine {
+  background: url(../../assets/buildings/addmine.svg) no-repeat center top;
+  background-size: cover;
+  overflow: hidden;
+  cursor: pointer;
+  width: 9vw;
+  height: 9vw;
+  border: none;
+}
+
+.addfarm {
+  background: url(../../assets/buildings/addfarm.svg) no-repeat center top;
+  background-size: cover;
+  overflow: hidden;
+  cursor: pointer;
+  width: 9vw;
+  height: 9vw;
+  border: none;
+}
+
+.addacademy {
+  background: url(../../assets/buildings/addacademy.svg) no-repeat center top;
+  background-size: cover;
+  overflow: hidden;
+  cursor: pointer;
+  width: 9vw;
+  height: 9vw;
+  border: none;
+}
+
+p::first-letter {
+  text-transform: uppercase;
+}
+
+p {
+  width: fit-content;
+  margin: 0px auto;
+  color: #727374;
+}
