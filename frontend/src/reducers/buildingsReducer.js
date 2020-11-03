@@ -4,7 +4,7 @@ const initialState = {
   upgradeLoad: false,
 };
 
-export default function setBuildingsReducer(state = initialState, action) {
+export default function buildingsReducer(state = initialState, action) {
   switch (action.type) {
     case 'SET_BUILDINGS':
       return {
@@ -27,7 +27,7 @@ export default function setBuildingsReducer(state = initialState, action) {
         ...state,
         buildingsLoad: true,
       };
-    case 'UPGRADE':
+    case 'UPGRADE_ERROR':
       return {
         ...state,
         upgradeLoad: false,

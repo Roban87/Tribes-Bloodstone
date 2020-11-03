@@ -10,6 +10,7 @@ export const selectBuildingAction = (building) => ({ type: 'SELECT_BUILDING', pa
 export function setBuildingsAsync() {
   return (async (dispatch) => {
     const endpoint = '/kingdom/buildings';
+    dispatch(buildingsLoadAction());
     try {
       const results = await fetchDataGeneral(endpoint, 'GET');
       return dispatch(setBuildingsAction(results.buildings));
@@ -22,7 +23,6 @@ export function setBuildingsAsync() {
 export function selectBuildingAsync(buildingId) {
   return async (dispatch) => {
     const endpoint = `/kingdom/buildings/${buildingId}`;
-    dispatch(buildingsLoadAction());
     try {
       const result = await fetchDataGeneral(endpoint, 'GET');
       return dispatch(selectBuildingAction(result));
