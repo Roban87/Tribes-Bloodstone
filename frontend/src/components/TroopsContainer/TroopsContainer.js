@@ -13,21 +13,23 @@ function TroopsContainer(props) {
     dispatch(setTroopsAsync());
   }, [dispatch]);
 
+  console.log(troops);
+
   return (
     <div>
+      <div className="troops-total">
+        My troops: {troops.length}
+      </div>
       <div className="troops">
         {setTroopsError ? <h2>{setTroopsError}</h2> : null}
-        {troops.length &&
-          troops.map((troop) => (
-            <Troops key={troop.id} troop={troop} />
-          ))}
+        {troops.length && troops.map((troop) => <Troops key={troop.id} troop={troop} />)}
       </div>
     </div>
   );
 }
 
 const mapStateToProps = (state) => ({
-  troops: state.troops.troops,
+  troops: state.troops,
   setTroopsError: state.error.troopsError,
 });
 
@@ -41,7 +43,7 @@ TroopsContainer.propTypes = {
       defence: PropTypes.number,
       started_at: PropTypes.string,
       finished_at: PropTypes.string,
-    })
+    }),
   ),
   setTroopsError: PropTypes.string,
 };

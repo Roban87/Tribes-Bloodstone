@@ -1,9 +1,9 @@
 import React from 'react';
 
-function Troops() {
+function Troops(props) {
+  const {troop} = props;
   return (
     <div className="troops-container">
-      <div className="total-info">Troops data</div>
       <div className="troops-list">Troops list</div>
     </div>
   );

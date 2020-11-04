@@ -1,9 +1,9 @@
 import fetchDataGeneral from '../utilities/generalFetch';
 import { setTroopsError } from './errorActions';
 
-export const setTroopsAction = (resources) => ({
+export const setTroopsAction = (troops) => ({
   type: 'SET_TROOPS',
-  resources,
+  payload: troops,
 });
 
 export const troopsLoadAction = () => ({ type: 'TROOPS_LOADING' });
@@ -18,8 +18,8 @@ export function setTroopsAsync() {
     const endpoint = '/kingdom/troops';
     const method = 'GET';
     try {
-      const result = await fetchDataGeneral(endpoint, method);
-      return dispatch(setTroopsAction(result.troops));
+      const results = await fetchDataGeneral(endpoint, method);
+      return dispatch(setTroopsAction(results.troops));
     } catch (err) {
       return dispatch(setTroopsError(err.message));
     }

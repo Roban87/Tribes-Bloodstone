@@ -7,6 +7,7 @@ import '../styles/Main.css';
 import ResourcesContainer from '../components/ResourcesContainer/ResourcesContainer';
 import KingdomBuildings from '../components/kingdomBuildings/KingdomBuildings';
 import BuildingDetails from '../components/BuildingDetails/BuildingDetails';
+import TroopsContainer from '../components/TroopsContainer/TroopsContainer';
 
 function Main(props) {
   const {
@@ -28,11 +29,7 @@ function Main(props) {
 
           <Route exact path="/kingdom/buildings/:id" component={BuildingDetails} />
 
-          <Route exact path="/kingdom/troops">
-            <h1>
-              Troops
-            </h1>
-          </Route>
+          <Route exact path="/kingdom/troops" component={TroopsContainer} />
 
         </Switch>
       </div>
