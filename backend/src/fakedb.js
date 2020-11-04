@@ -2,61 +2,73 @@ import { registerValidator } from './services';
 import { buildingsRepo, troopsRepo } from './repositories';
 
 async function pushData() {
-  await registerValidator.registUser('Mate', 'password', 'MateKingdom');
-  registerValidator.registUser('Mark', 'password', 'MarkKingdom');
-  await registerValidator.registUser('Zoli', 'password', 'ZoliKingdom');
-  await registerValidator.registUser('Oshii', 'password', 'OshiiKingdom');
-  await registerValidator.registUser('Kornel', 'password', 'KornelKingdom');
-  await registerValidator.registUser('Peter', 'password', 'PeterKingdom');
-  await registerValidator.registUser('Kond', 'password', 'KondKingdom');
-  await registerValidator.registUser('Viktor', 'password', 'ViktorKingdom');
-  await registerValidator.registUser('Aze', 'password', 'AzeKingdom');
-  await registerValidator.registUser('Tojas', 'password', 'TojasKingdom');
-
-  await buildingsRepo.addBuilding('farm', 1);
-  await buildingsRepo.addBuilding('farm', 2);
-  await buildingsRepo.addBuilding('farm', 3);
-  await buildingsRepo.addBuilding('farm', 4);
-  await buildingsRepo.addBuilding('farm', 5);
-  await buildingsRepo.addBuilding('farm', 6);
-  await buildingsRepo.addBuilding('farm', 7);
-  await buildingsRepo.addBuilding('farm', 7);
-  await buildingsRepo.addBuilding('farm', 9);
-  await buildingsRepo.addBuilding('farm', 8);
-  await buildingsRepo.addBuilding('farm', 10);
-
-  await troopsRepo.addTroop(1, {
-    hp: 10, attack: 5, defense: 5, time: 60,
-  });
-  await troopsRepo.addTroop(2, {
-    hp: 10, attack: 5, defense: 5, time: 60,
-  });
-  await troopsRepo.addTroop(3, {
-    hp: 10, attack: 5, defense: 5, time: 60,
-  });
-  await troopsRepo.addTroop(4, {
-    hp: 10, attack: 5, defense: 5, time: 60,
-  });
-  await troopsRepo.addTroop(5, {
-    hp: 10, attack: 5, defense: 5, time: 60,
-  });
-  await troopsRepo.addTroop(6, {
-    hp: 10, attack: 5, defense: 5, time: 60,
-  });
-  await troopsRepo.addTroop(7, {
-    hp: 10, attack: 5, defense: 5, time: 60,
-  });
-  await troopsRepo.addTroop(8, {
-    hp: 10, attack: 5, defense: 5, time: 60,
-  });
-  await troopsRepo.addTroop(9, {
-    hp: 10, attack: 5, defense: 5, time: 60,
-  });
-  await troopsRepo.addTroop(10, {
-    hp: 10, attack: 5, defense: 5, time: 60,
+  async function asyncForEach(array, callback) {
+    // eslint-disable-next-line no-plusplus
+    for (let index = 0; index < array.length; index += 1) {
+      // eslint-disable-next-line no-await-in-loop
+      await callback(array[index], index, array);
+    }
+  }
+  const users = [
+    {
+      username: 'Mate',
+      kingdomname: 'MateKingdom',
+    },
+    {
+      username: 'Mark',
+      kingdomname: 'MarkKingdom',
+    },
+    {
+      username: 'Zoli',
+      kingdomname: 'ZoliKingdom',
+    },
+    {
+      username: 'Oshii',
+      kingdomname: 'OshiiKingdom',
+    },
+    {
+      username: 'Kornel',
+      kingdomname: 'KornelKingdom',
+    },
+    {
+      username: 'Peter',
+      kingdomname: 'PeterKingdom',
+    },
+    {
+      username: 'Kond',
+      kingdomname: 'KondKingdom',
+    },
+    {
+      username: 'Viktor',
+      kingdomname: 'ViktorKingdom',
+    },
+    {
+      username: 'Aze',
+      kingdomname: 'AzeKingdom',
+    },
+    {
+      username: 'Tojas',
+      kingdomname: 'TojasKingdom',
+    },
+  ];
+  const troopObject = {
+    hp: 10,
+    attack: 5,
+    defense: 5,
+    time: 60,
+  };
+  await asyncForEach(users, async (element) => {
+    const user = await registerValidator.registUser(
+      element.username,
+      'password',
+      element.kingdomname,
+    );
+    await buildingsRepo.addBuilding('farm', user.kingdomId);
+    await troopsRepo.addTroop(user.kingdomId, troopObject);
   });
 }
 pushData().then(() => {
+  // eslint-disable-next-line no-console
   console.log('The database filled up with fake informations!');
   process.exit(0);
 });
