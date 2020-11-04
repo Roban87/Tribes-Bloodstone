@@ -11,12 +11,47 @@
   letter-spacing: 1px;
   display: flex;
   align-content: center;
-  justify-content: center;
   line-height: 20px;
   height: 20px;
 }
 
 .detail-image {
   width: 20px;
-  margin-right: 5px;
+  margin-left: 3px;
+}
+
+.troops-container {
+    margin: 20px;
+    background-color: rgb(70,150,136);
+    color: white;
+    width: 250px;
+    height: 70px;
+    line-height: 50px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: start;
+    align-content: center;
+}
+
+.troops-list {
+    display: flex;
+    justify-content: start;
+    align-content: center;
+    margin: auto;
+}
+
+.troop-levels {
+    margin: 0;
+    color: white;
+    font-size: 18px;
+    letter-spacing: 1px;
+    font-weight: 100;
+}
+
+.small-troop-image {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin: auto 10px;
+    margin-left: 0;
 }

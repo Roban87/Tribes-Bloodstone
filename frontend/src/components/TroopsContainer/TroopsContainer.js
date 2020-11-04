@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect, useDispatch } from 'react-redux';
 import Troops from '../Troops/Troops';
@@ -17,43 +17,58 @@ function TroopsContainer(props) {
     dispatch(setTroopsAsync());
   }, [dispatch]);
 
+  let levels = [];
+  let count = {};
+
+  function displayTroops() {
+    levels = troops.map((troop) => troop.level);
+    count = levels.reduce((prev, cur) => {
+      const p = prev;
+      p[cur] = (p[cur] || 0) + 1;
+      return prev;
+    }, {});
+  }
+  displayTroops();
+
   return (
     <div>
       <div className="troops-total">
         <img className="troop-image" src={troopImage} alt="Troops" />
         <div className="troops-total-data">
           <p className="troops-data">
-            <img className="detail-image" src={sword} alt="Sword" />
             Attack: &nbsp;
-            {troops[0] && troops.map((troop) => {
-              let sum = 0;
-              sum += troop.attack;
-              return sum;
-            }).reduce((a, b) => a + b)}
+            {troops[0] && troops
+              .map((troop) => {
+                let sum = 0;
+                sum += troop.attack;
+                return sum;
+              })
+              .reduce((a, b) => a + b)}
+            <img className="detail-image" src={sword} alt="Sword" />
           </p>
           <p className="troops-data">
-            <img className="detail-image" src={shield} alt="Shield" />
             Defence: &nbsp;
-            {troops[0] && troops.map((troop) => {
-              let sum = 0;
-              sum += troop.defence;
-              return sum;
-            }).reduce((a, b) => a + b)}
+            {troops[0] && troops
+              .map((troop) => {
+                let sum = 0;
+                sum += troop.defence;
+                return sum;
+              })
+              .reduce((a, b) => a + b)}
+            <img className="detail-image" src={shield} alt="Shield" />
           </p>
           <p className="troops-data">
-            <img className="detail-image" src={bread} alt="Bread" />
             Sustenance: &nbsp;
-            {troops[0] && troops.map((troop) => {
-              let sum = 0;
-              sum += troop.attack;
-              return sum;
-            }).reduce((a, b) => a + b)}
+            {troops[0] && troops.length * 5}
+            <img className="detail-image" src={bread} alt="Bread" />
           </p>
         </div>
       </div>
       <div className="troops">
         {setTroopsError ? <h2>{setTroopsError}</h2> : null}
-        {troops.length && troops.map((troop) => <Troops key={troop.id} troop={troop} />)}
+        {levels.length
+        && Object.entries(count).map((level) => <Troops key={level[0]} level={level[0]} count={level[1]} />)}
+        {/* {troops.length && troops.map((troop) => <Troops key={troop.id} troop={troop} />)} */}
       </div>
     </div>
   );
