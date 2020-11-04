@@ -21,6 +21,10 @@ function ResourcesContainer(props) {
 
   useEffect(() => {
     getResources();
+    const interval = setInterval(() => {
+      getResources();
+    }, 60000);
+    return () => clearInterval(interval);
   }, [getResources]);
 
   return (
