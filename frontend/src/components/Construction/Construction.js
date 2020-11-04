@@ -15,17 +15,14 @@ function Construction(props) {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    console.log(props.started_at);
-    console.log(props.finished_at);
-    
-    const timeDiff = (props.finished_at - props.started_at) / 100; // ez lesz a props timestamp difference a 60000
-    const timeLeftTime = (timeNow - props.started_at) / 100;
-    const proportion = (timeLeftTime / timeDiff);
-    console.log(proportion);
+    const timeDiff = (Date.parse(props.element.finishedAt) - Date.parse(props.element.startedAt)) / 100; // X ez lesz a props timestamp difference a 60000
+    const timeLeftTime = (timeNow - Date.parse(props.element.startedAt)) / 100; // Y
+    const proportion = (timeLeftTime / timeDiff) * 100;
     setProgress((prevProgress) => prevProgress + proportion);
-
     const timer = setInterval(() => {
-      setProgress((prevProgress) => (prevProgress >= 100 ? prevProgress : prevProgress + 1));
+      setProgress((prevProgress) =>
+        prevProgress >= 100 ? prevProgress : prevProgress + 1
+      );
     }, timeDiff);
 
     return () => {
@@ -42,16 +39,13 @@ function Construction(props) {
               <span className="my-kingdom-container">My Kingdom</span>
             ) : (
               <span>
-                {props.level === 1 ? (
+                {props.element.level === 1 ? (
                   <span>Building</span>
                 ) : (
                   <span>Upgrade</span>
-                )}
-                {' '}
-                {props.type}
-                {' '}
-                Level
-                {props.level}
+                )}{' '}
+                {props.element.type} Level
+                {props.element.level}
               </span>
             )}
           </div>
@@ -60,7 +54,7 @@ function Construction(props) {
               hour: '2-digit',
               minute: '2-digit',
               hour12: false,
-            }).format(props.finished_at)}
+            }).format(Date.parse(props.element.finishedAt))}
           </div>
         </div>
         <div className="loading-container">
@@ -72,19 +66,21 @@ function Construction(props) {
                 color="primary"
               />
             )}
-            {progress >= 100 && props.level === 1 && (
+            {progress >= 100 && props.element.level === 1 && (
               <div className="new-item">
                 <span>You have a new </span>
-                {props.type === 'farm' || props.type === 'mine' ? (
+                {props.element.type === 'farm' || props.element.type === 'townhall' || props.element.type === 'academy' ||
+                props.element.type === 'mine' ? (
                   <span>building!</span>
                 ) : (
                   <span>troop!</span>
                 )}
               </div>
             )}
-            {progress >= 100 && props.level > 1 && (
+            {progress >= 100 && props.element.level > 1 && (
               <div className="new-item">
-                {props.type === 'farm' || props.type === 'mine' ? (
+                {props.element.type === 'farm' || props.element.type === 'townhall' || props.element.type === 'academy' ||
+                props.element.type === 'mine' ? (
                   <span>Building </span>
                 ) : (
                   <span>Troop </span>
