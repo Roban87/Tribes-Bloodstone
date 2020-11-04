@@ -25,4 +25,20 @@ export const troopsRepo = {
       throw { message: 'Internal server error', status: 500 };
     }
   },
+  async removeTroops(troopIdArray) {
+    const sqlQuery = 'DELETE FROM troops WHERE id IN (?)';
+    try {
+      return await db.query(sqlQuery, [troopIdArray]);
+    } catch (err) {
+      throw { message: 'Internal server error', status: 500 };
+    }
+  },
+  async injureTroop(troop) {
+    const sqlQuery = 'UPDATE troops SET hp = ? WHERE id = ?';
+    try {
+      return await db.query(sqlQuery, [troop.hp, troop.id]);
+    } catch (err) {
+      throw { message: 'Internal server error', status: 500 };
+    }
+  },
 };

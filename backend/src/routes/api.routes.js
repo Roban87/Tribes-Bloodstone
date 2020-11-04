@@ -9,6 +9,7 @@ import {
   kingdomController,
   troopsController,
   rulesController,
+  battleController,
 } from '../controllers';
 import authHandler from '../middlewares/authorization-handler';
 import updateResources from '../middlewares/update-resources';
@@ -38,5 +39,6 @@ router.get('/kingdom/troops', troopsController.get);
 router.post('/kingdom/troops', troopsController.post);
 router.get('/kingdom/resource', resourceController.get);
 router.get('/rules', rulesController.get);
+router.get('/kingdom/battle/:enemyId', battleController.get);
 
 export default router;

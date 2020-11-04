@@ -66,4 +66,20 @@ export const buildingsRepo = {
       throw { status: 500, message: 'Internal server error' };
     }
   },
+  async resetBuildingsAfterBattle(kingdomId) {
+    const sqlQuery = 'UPDATE buildings SET level = 1 WHERE kingdom_id = ? AND type IN ("townhall", "academy");';
+    try {
+      return await db.query(sqlQuery, [kingdomId]);
+    } catch (err) {
+      throw { status: 500, message: 'Internal server error' };
+    }
+  },
+  async removeBuilding(buildingId) {
+    const sqlQuery = 'DELETE FROM buildings WHERE id = ?;';
+    try {
+      return await db.query(sqlQuery, [buildingId]);
+    } catch (err) {
+      throw { status: 500, message: 'Internal server error' };
+    }
+  },
 };
