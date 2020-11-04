@@ -9,7 +9,8 @@
     "test:cover": "jest --collectCoverage",
     "start": "nodemon --exec babel-node -r ./node_modules/dotenv/config src/index.js",
     "build": "babel src -d dist",
-    "serve": "node -r dotenv/config dist/index.js"
+    "serve": "node -r dotenv/config dist/index.js",
+    "fakedb": "babel-node -r ./node_modules/dotenv/config src/fakedb.js "
   },
   "keywords": [],
   "author": "",

@@ -23,3 +23,7 @@
     
 - after you got the successfull message you can force push everything
     :$ git push --force origin <your_branchname></your_branchname>
+
+## Create Fake DataBase:
+    - go to backend folder: after you created the db-migrate files run this command
+        :$ yarn fakedb
