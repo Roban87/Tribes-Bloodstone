@@ -3,7 +3,6 @@ import { buildingsRepo, troopsRepo } from './repositories';
 
 async function pushData() {
   async function asyncForEach(array, callback) {
-    // eslint-disable-next-line no-plusplus
     for (let index = 0; index < array.length; index += 1) {
       // eslint-disable-next-line no-await-in-loop
       await callback(array[index], index, array);
@@ -71,4 +70,7 @@ pushData().then(() => {
   // eslint-disable-next-line no-console
   console.log('The database filled up with fake informations!');
   process.exit(0);
+}).catch(() => {
+  console.log('Couldn`t fill the database with fake informations!');
+  process.exit(1);
 });
