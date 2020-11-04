@@ -25,7 +25,7 @@ function Main(props) {
 
       <div className="content-container">
         <Switch>
-          <Route exact path="/kingdom/buildings" component={KingdomBuildings} />
+          <Route exact path={['/kingdom', '/kingdom/buildings']} component={KingdomBuildings} />
 
           <Route exact path="/kingdom/buildings/:id" component={BuildingDetails} />
 
