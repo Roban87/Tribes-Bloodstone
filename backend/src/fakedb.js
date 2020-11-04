@@ -1,5 +1,5 @@
 import { registerValidator } from './services';
-import { buildingsRepo, troopsRepo } from './repositories';
+import { buildingsRepo, troopsRepo, kingdomRepo } from './repositories';
 
 async function pushData() {
   async function asyncForEach(array, callback) {
@@ -56,7 +56,8 @@ async function pushData() {
     defense: 5,
     time: 60,
   };
-  await asyncForEach(users, async (element) => {
+  const locations = ['HUN', 'FRA', 'GER', 'SLO', 'SWI', 'ITA', 'POR', 'GRE', 'FIN', 'SPA'];
+  await asyncForEach(users, async (element, index) => {
     const user = await registerValidator.registUser(
       element.username,
       'password',
@@ -64,6 +65,7 @@ async function pushData() {
     );
     await buildingsRepo.addBuilding('farm', user.kingdomId);
     await troopsRepo.addTroop(user.kingdomId, troopObject);
+    await kingdomRepo.postRegisterMap(user.kingdomId, locations[index]);
   });
 }
 pushData().then(() => {
