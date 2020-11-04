@@ -48,10 +48,12 @@ function KingdomBuildings(props) {
       </div>
 
       <div className="add-buttons-container">
-        {addBuildingError ? <h2 className="add-building-error-message">{addBuildingError}</h2> : null}
-        <AddBuildingButton type="farm" onClick={onClickHandle} />
-        <AddBuildingButton type="mine" onClick={onClickHandle} />
-        <AddBuildingButton type="academy" onClick={onClickHandle} />
+        <div className="add-building-error-message">{addBuildingError ? <h2>{addBuildingError}</h2> : null}</div>
+        <div>
+          <AddBuildingButton type="farm" onClick={onClickHandle} />
+          <AddBuildingButton type="mine" onClick={onClickHandle} />
+          <AddBuildingButton type="academy" onClick={onClickHandle} />
+        </div>
       </div>
     </div>
   );

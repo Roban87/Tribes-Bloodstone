@@ -15,7 +15,9 @@ function AddBuildingButton(props) {
         value={type}
       />
       <p>
-        {`Add ${type}`}
+        {'Add '}
+        <br />
+        {`${type}`}
       </p>
     </div>
   );

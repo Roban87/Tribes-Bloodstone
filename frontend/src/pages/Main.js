@@ -13,11 +13,30 @@ import TroopsContainer from '../components/TroopsContainer/TroopsContainer';
 function Main(props) {
   const {
     getRules,
+    location,
   } = props;
+
+  const { pathname } = location;
 
   useEffect(() => {
     getRules();
   }, [getRules]);
+
+  const menuPlace = (path) => {
+    if (path === '/kingdom' || path === '/kingdom/buildings') {
+      return 'Buildings';
+    }
+    if (path === '/kingdom/troops') {
+      return 'Troops';
+    }
+    if (path === '/kingdom/battle') {
+      return 'Battle';
+    }
+    if (path === '/kingdom/leaderboard') {
+      return 'Leaderboard';
+    }
+    return null;
+  };
 
   return (
     <div className="main-container">
@@ -25,6 +44,7 @@ function Main(props) {
       <ResourcesContainer className="resources-container" />
 
       <div className="content-container">
+        <span className="this-path">{menuPlace(pathname)}</span>
         <Switch>
           <Route exact path={['/kingdom', '/kingdom/buildings']} component={KingdomBuildings} />
 
@@ -35,7 +55,9 @@ function Main(props) {
         </Switch>
       </div>
 
-      <div className="construction-log-container" />
+      <div className="construction-log-container">
+        <p>Construction Log</p>
+      </div>
 
     </div>
   );
@@ -43,6 +65,7 @@ function Main(props) {
 
 Main.propTypes = {
   getRules: PropTypes.func.isRequired,
+  location: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 const mapStateToProps = ({ rules }) => ({

@@ -1,4 +1,5 @@
 .buildings {
+  min-width: 100%;
   display: flex;
   width: inherit;
   height: inherit;
@@ -6,5 +7,22 @@
 }
 
 .add-buttons-container {
+  min-width: 100%;
   display: flex;
+  flex-direction: column;
+}
+
+.add-buttons-container > div:nth-of-type(2) {
+  display: flex;
+  flex-direction: row;
+}
+
+@media screen and (max-width: 767px) {
+  .buildings {
+    justify-content: space-evenly;
+  }
+
+  .add-buttons-container > div:nth-of-type(2) {
+    justify-content: space-evenly;
+  }
 }

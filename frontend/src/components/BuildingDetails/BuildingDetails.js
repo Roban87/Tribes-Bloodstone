@@ -58,7 +58,7 @@ export default function BuildingDetails(props) {
           <div className="image-div">
             <img
               className="building-image"
-              src={require(`../../assets/buildings/${building.type}.png`)}
+              src={require(`../../assets/buildings/${building.type}.svg`)}
               alt="building"
             />
             <h2>
@@ -69,21 +69,23 @@ export default function BuildingDetails(props) {
             </h2>
           </div>
 
-          <div className="building-description">
-            {parser(buildingDetails[building.type])}
-          </div>
+          <div>
+            <div className="building-description">
+              {parser(buildingDetails[building.type])}
+            </div>
 
-          { building.type === 'academy'
-            ? (
-              <div className="add-troop-container">
-                <div className="add-troop-error-message-container">{addTroopError ? <span style={{ color: 'red' }}>{addTroopError}</span> : null}</div>
-                <AddTroop />
-              </div>
-            )
-            : null}
-          <div className="upgrade-building-container">
-            <div className="upgrade-error-message-container">{upgradeError ? <span style={{ color: 'red' }}>{upgradeError}</span> : null}</div>
-            <UpgradeBuilding building={building} />
+            { building.type === 'academy'
+              ? (
+                <div className="add-troop-container">
+                  <div className="add-troop-error-message-container">{addTroopError ? <span style={{ color: 'red' }}>{addTroopError}</span> : null}</div>
+                  <AddTroop />
+                </div>
+              )
+              : null}
+            <div className="upgrade-building-container">
+              <div className="upgrade-error-message-container">{upgradeError ? <span style={{ color: 'red' }}>{upgradeError}</span> : null}</div>
+              <UpgradeBuilding building={building} />
+            </div>
           </div>
         </div>
       ) : null}
