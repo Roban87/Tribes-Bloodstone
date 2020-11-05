@@ -125,5 +125,5 @@ it('displays errormessage if found in state', () => {
 
   expect(container.querySelector('.building-description > p').textContent).toEqual('You can produce food on your Farm. The higher level your Farm is the more food it will produce.');
   expect(container.querySelector('.image-div >h2').textContent).toEqual('FarmLevel 2');
-  expect(container.querySelector('.upgrade-error-message').textContent).toEqual('error message');
+  expect(container.querySelector('.upgrade-error-message-container span').textContent).toEqual('error message');
 });

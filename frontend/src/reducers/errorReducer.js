@@ -4,6 +4,7 @@ const initialState = {
   addBuildingError: '',
   resourceError: '',
   rulesError: '',
+  addTroopError: '',
   message: '',
 };
 
@@ -29,7 +30,7 @@ export default function errorReducer(state = initialState, action) {
         ...state,
         upgradeError: action.payload,
       };
-    case 'UPGRADE':
+    case 'UPGRADE_BUILDING':
       return {
         ...state,
         upgradeError: '',
@@ -68,6 +69,16 @@ export default function errorReducer(state = initialState, action) {
       return {
         ...state,
         rulesError: '',
+      };
+    case 'ADD_TROOP_ERROR':
+      return {
+        ...state,
+        addTroopError: action.payload,
+      };
+    case 'REMOVE_ADD_TROOP_ERROR':
+      return {
+        ...state,
+        addTroopError: '',
       };
     default:
       return state;

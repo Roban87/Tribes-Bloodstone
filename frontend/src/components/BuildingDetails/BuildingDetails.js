@@ -5,16 +5,15 @@ import parser from 'html-react-parser';
 import './BuildingDetails.css';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { removeUpgradeError } from '../../actions/errorActions';
+import { removeUpgradeError, removeAddTroopError } from '../../actions/errorActions';
 import UpgradeBuilding from '../UpgradeBuilding/UpgradeBuilding';
+import AddTroop from '../AddTroop/AddTroop';
 
 const attackIcon = require('../../assets/icons/attack1.png');
 const defenseIcon = require('../../assets/icons/defence1.png');
 const breadIcon = require('../../assets/icons/bread.png');
 const coinsIcon = require('../../assets/icons/coins.png');
 const levelIcon = require('../../assets/icons/level.png');
-const coinIcon = require('../../assets/icons/coin.png');
-const addTroopIcon = require('../../assets/icons/addTroop.png');
 
 export default function BuildingDetails(props) {
   const { match } = props;
@@ -22,6 +21,7 @@ export default function BuildingDetails(props) {
   const building = useSelector((state) => (
     state.buildings.buildings.filter((item) => item.id === Number(id))[0]));
   const upgradeError = useSelector((state) => state.error.upgradeError);
+  const addTroopError = useSelector((state) => state.error.addTroopError);
   const dispatch = useDispatch();
   const buildingDetails = {
     academy: `
@@ -43,6 +43,7 @@ export default function BuildingDetails(props) {
 
   useEffect(() => () => {
     dispatch(removeUpgradeError());
+    dispatch(removeAddTroopError());
   }, [dispatch, id]);
 
   function capitalizeName(name) {
@@ -74,26 +75,14 @@ export default function BuildingDetails(props) {
 
           { building.type === 'academy'
             ? (
-              <div className="addTroop-button">
-                <img src={addTroopIcon} className="troop-icon" alt="troop-icon" />
-                <div className="addTroop-details">
-                  <p>
-                    create troop level
-                    {building.level}
-                  </p>
-                  <p>
-                    200
-                    <img src={coinIcon} alt="coin-icon" />
-                    {' '}
-                    1:00
-                  </p>
-                </div>
+              <div className="add-troop-container">
+                <div className="add-troop-error-message-container">{addTroopError ? <span style={{ color: 'red' }}>{addTroopError}</span> : null}</div>
+                <AddTroop />
               </div>
             )
             : null}
-          {upgradeError ? <p className="upgrade-error-message" style={{ color: 'red' }}>{upgradeError}</p>
-            : null}
           <div className="upgrade-building-container">
+            <div className="upgrade-error-message-container">{upgradeError ? <span style={{ color: 'red' }}>{upgradeError}</span> : null}</div>
             <UpgradeBuilding building={building} />
           </div>
         </div>
