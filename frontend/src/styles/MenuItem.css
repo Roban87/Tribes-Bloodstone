@@ -1,0 +1,44 @@
+.menuImage {
+  width: 5em;
+  height: 5em;
+  background-size: cover;
+  border-radius: 50%;
+}
+
+.menuItem {
+  min-width: 25%;
+  height: 100%;
+  margin: 0;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  overflow: hidden;
+  justify-content: center;
+}
+
+.menuItem:active {
+  background-color: #2323236c;
+}
+
+.menuText {
+  color: white;
+}
+
+.menuItem:hover {
+  background-color: #2323236c;
+}
+
+.menuImage.Buildings {
+  background-image: url('../assets/menu/buildings.jpg');
+}
+.menuImage.Troops {
+  background-image: url('../assets/menu/troops.jpg');
+}
+.menuImage.Battle {
+  background-image: url('../assets/menu/map.jpg');
+}
+.menuImage.Leaderboard {
+  background-image: url('../assets/menu/leaderboard.jpg');
+}
