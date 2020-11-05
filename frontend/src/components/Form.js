@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import '../styles/Form.css';
 import { useHistory } from 'react-router-dom';
 import fetchDataGeneral from '../utilities/generalFetch';
-import { loginStartedAction, loginSuccessAction } from '../actions/loginAction';
+import { loginStartedAction, loginSuccessAction } from '../actions/sessionAction';
 import { setLoginError } from '../actions/errorActions';
 
 function Form({ formType, loginError }) {
@@ -51,7 +51,7 @@ function Form({ formType, loginError }) {
       setPassword('');
       setUsername('');
       history.push('/kingdom');
-      return dispatch(loginSuccessAction(loginResponse.token, username));
+      return dispatch(loginSuccessAction(loginResponse.token));
     } catch (error) {
       return dispatch(setLoginError(error.message));
     }

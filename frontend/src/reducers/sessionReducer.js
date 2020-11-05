@@ -1,20 +1,25 @@
 const initialState = {
   isAuthenticated: false,
   token: '',
-  userName: '',
 };
 
-const loginReducer = (state = initialState, action) => {
+const sessionReducer = (state = initialState, action) => {
   if (action.type === 'LOGIN_SUCCESS') {
     return {
       ...state,
       isAuthenticated: true,
       token: action.token,
-      userName: action.user,
+    };
+  }
+  if (action.type === 'LOGOUT') {
+    return {
+      ...state,
+      isAuthenticated: false,
+      token: '',
     };
   }
 
   return state;
 };
 
-export default loginReducer;
+export default sessionReducer;

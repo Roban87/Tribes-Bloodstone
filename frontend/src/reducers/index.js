@@ -5,7 +5,7 @@ import buildingsReducer from './buildingsReducer';
 import resourcesReducer from './resourcesReducer';
 import setRulesReducer from './rulesReducer';
 import troopsReducer from './troopsReducer';
-import loginReducer from './loginReducer';
+import sessionReducer from './sessionReducer';
 
 const rootReducer = combineReducers({
   error: errorReducer,
@@ -14,7 +14,7 @@ const rootReducer = combineReducers({
   resources: resourcesReducer,
   rules: setRulesReducer,
   troops: troopsReducer,
-  login: loginReducer,
+  session: sessionReducer,
 });
 
 export default rootReducer;
