@@ -2,6 +2,8 @@ import { troopsRepo, buildingsRepo, resourceRepo } from '../../repositories';
 import { troopsService } from '../troopsService';
 
 test('returns object containing new troop', async () => {
+  const spyHandlePurchase = jest.spyOn(resourceRepo, 'handlePurchase');
+  spyHandlePurchase.mockReturnValue(null);
   const spyGetBuildings = jest.spyOn(buildingsRepo, 'getBuildings');
   spyGetBuildings.mockReturnValue([
     {
@@ -60,6 +62,8 @@ test('no academy, returns error message', async () => {
 });
 
 test('storage limit exceded, returns error message', async () => {
+  const spyHandlePurchase = jest.spyOn(resourceRepo, 'handlePurchase');
+  spyHandlePurchase.mockReturnValue(null);
   const spyGetBuildings = jest.spyOn(buildingsRepo, 'getBuildings');
   spyGetBuildings.mockReturnValue([
     {
@@ -74,7 +78,7 @@ test('storage limit exceded, returns error message', async () => {
     },
   ]);
   const spyGetTroops = jest.spyOn(troopsRepo, 'getTroops');
-  spyGetTroops.mockReturnValue({ results: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''] });
+  spyGetTroops.mockReturnValue(['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']);
 
   let thrownError = {};
 
@@ -87,6 +91,8 @@ test('storage limit exceded, returns error message', async () => {
 });
 
 test('not enough money, returns error message', async () => {
+  const spyHandlePurchase = jest.spyOn(resourceRepo, 'handlePurchase');
+  spyHandlePurchase.mockReturnValue(null);
   const spyGetBuildings = jest.spyOn(buildingsRepo, 'getBuildings');
   spyGetBuildings.mockReturnValue([
     {
