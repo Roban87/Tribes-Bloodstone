@@ -127,7 +127,7 @@ const MapChart = (props) => {
 MapChart.propTypes = {
   kingdoms: PropTypes.arrayOf(PropTypes.string).isRequired,
   setTooltipContent: PropTypes.func.isRequired,
-  selectedkingdom: PropTypes.string.isRequired,
+  selectedkingdom: PropTypes.func.isRequired,
 };
 
 export default memo(MapChart);
