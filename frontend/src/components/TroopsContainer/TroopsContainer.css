@@ -1,0 +1,57 @@
+.troop-image {
+  width: 150px;
+  margin: 20px;
+  margin-bottom: 10px;
+}
+
+.troops-data {
+  margin-left: 20px;
+  margin-top: 5px;
+  font-size: 15px;
+  letter-spacing: 1px;
+  display: flex;
+  align-content: center;
+  line-height: 20px;
+  height: 20px;
+}
+
+.detail-image {
+  width: 20px;
+  margin-left: 3px;
+}
+
+.troops-container {
+    margin: 20px;
+    background-color: rgb(70,150,136);
+    color: white;
+    width: 300px;
+    height: 80px;
+    line-height: 50px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+}
+
+.troops-list {
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+    margin: auto;
+}
+
+.troop-levels {
+    margin: 0;
+    color: white;
+    font-size: 22px;
+    letter-spacing: 0.5px;
+    font-weight: 100;
+}
+
+.small-troop-image {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin: auto 10px;
+    margin-left: 0;
+}
