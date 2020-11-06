@@ -3,7 +3,7 @@ import { setRulesError } from './errorActions';
 
 export const setRules = (rules) => ({
   type: 'SET_RULES',
-  rules,
+  payload: rules,
 });
 
 export function setRulesAsync() {

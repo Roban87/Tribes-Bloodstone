@@ -6,6 +6,7 @@ const initialState = {
   rulesError: '',
   addTroopError: '',
   message: '',
+  loginError: '',
 };
 
 export default function errorReducer(state = initialState, action) {
@@ -79,6 +80,21 @@ export default function errorReducer(state = initialState, action) {
       return {
         ...state,
         addTroopError: '',
+      };
+    case 'LOGIN_FAILED':
+      return {
+        ...state,
+        loginError: action.payload,
+      };
+    case 'LOGIN_STARTED':
+      return {
+        ...state,
+        loginError: '',
+      };
+    case 'LOGIN_SUCCESS':
+      return {
+        ...state,
+        loginError: '',
       };
     default:
       return state;

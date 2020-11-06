@@ -19,7 +19,7 @@ function Header({ isLoggedIn, loggingOut }) {
     color: 'black',
   };
 
-  if (isLoggedIn !== null) {
+  if (isLoggedIn !== false) {
     currentStatus = loggedInLinks;
   }
   return (

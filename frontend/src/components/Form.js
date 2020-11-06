@@ -1,37 +1,43 @@
 import React, { useState } from 'react';
+import { connect, useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 import '../styles/Form.css';
 import { useHistory } from 'react-router-dom';
 import fetchDataGeneral from '../utilities/generalFetch';
+import { loginStartedAction, loginSuccessAction } from '../actions/sessionAction';
+import { setLoginError } from '../actions/errorActions';
 
-function Form({ formType }) {
+function Form({ formType, loginError }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
   const [kingdomName, setKingdomName] = useState('');
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const onUsernameChange = (e) => {
-    if (errorMessage) {
-      setErrorMessage('');
+    if (loginError) {
+      dispatch(setLoginError(''));
     }
     setUsername(e.target.value);
   };
 
   const onPasswordChange = (e) => {
-    if (errorMessage) {
-      setErrorMessage('');
+    if (loginError) {
+      dispatch(setLoginError(''));
     }
     setPassword(e.target.value);
   };
 
   const onKingdomNameChange = (e) => {
-    if (errorMessage) {
-      setErrorMessage('');
+    if (loginError) {
+      dispatch(setLoginError(''));
     }
     setKingdomName(e.target.value);
   };
 
   const loginUser = async () => {
+    dispatch(loginStartedAction());
+
     const endpoint = '/login';
     const method = 'POST';
     const loginData = {
@@ -41,23 +47,19 @@ function Form({ formType }) {
 
     try {
       const loginResponse = await fetchDataGeneral(endpoint, method, loginData);
-
-      if (!loginResponse.token) {
-        setErrorMessage(loginResponse.message);
-        return null;
-      }
-
       window.localStorage.token = loginResponse.token;
       setPassword('');
       setUsername('');
       history.push('/kingdom');
+      return dispatch(loginSuccessAction(loginResponse.token));
     } catch (error) {
-      console.log(error);
+      return dispatch(setLoginError(error.message));
     }
-    return null;
   };
 
   const registerUser = async () => {
+    dispatch(loginStartedAction());
+
     const endpoint = '/register';
     const method = 'POST';
     const registData = {
@@ -67,19 +69,10 @@ function Form({ formType }) {
     };
 
     try {
-      const registerResponse = await fetchDataGeneral(
-        endpoint,
-        method,
-        registData,
-      );
-      return registerResponse.message
-        ? setErrorMessage(registerResponse.message)
-        : history.push({
-          pathname: '/register/map',
-          kingdomId: registerResponse.kingdomId,
-        });
+      const registerResponse = await fetchDataGeneral(endpoint, method, registData);
+      history.push({ pathname: '/register/map', kingdomId: registerResponse.kingdomId });
     } catch (error) {
-      console.log(error);
+      dispatch(setLoginError(error.message));
     }
     return null;
   };
@@ -88,14 +81,14 @@ function Form({ formType }) {
     e.preventDefault();
     if (formType === 'login') {
       if (!username || !password) {
-        setErrorMessage('All the input fields are required');
+        dispatch(setLoginError('All the input fields are required'));
         return null;
       }
       loginUser();
     }
     if (formType === 'register') {
       if (!username || !password) {
-        setErrorMessage('Username and password are required');
+        dispatch(setLoginError('Username and password are required'));
         return null;
       }
       registerUser();
@@ -125,11 +118,11 @@ function Form({ formType }) {
           value={password}
           placeholder="Password"
           onChange={onPasswordChange}
-          style={errorMessage ? errorStyle : null}
+          style={loginError ? errorStyle : null}
         />
-        {errorMessage && (
+        {loginError && (
           <div className="error-message">
-            <p>{errorMessage}</p>
+            <p>{loginError}</p>
             <i className="fas fa-exclamation-triangle" />
           </div>
         )}
@@ -151,4 +144,13 @@ function Form({ formType }) {
   );
 }
 
-export default Form;
+Form.propTypes = {
+  formType: PropTypes.string.isRequired,
+  loginError: PropTypes.string.isRequired,
+};
+
+const mapStateToProps = ({ error }) => ({
+  loginError: error.loginError,
+});
+
+export default connect(mapStateToProps)(Form);
