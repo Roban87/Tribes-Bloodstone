@@ -1,6 +1,6 @@
 import { kingdomService } from '../kingdomService';
 import {
-  kingdomRepo, buildingsRepo, resourceRepo, troopsRepo,
+  kingdomRepo, buildingsRepo, resourceRepo, troopsRepo, userRepo,
 } from '../../repositories';
 
 const kingdomDB = [
@@ -126,4 +126,12 @@ test('select kingdom informations', async () => {
     ],
     location: { country_code: null },
   });
+});
+
+test('get user kingdom data', async () => {
+  const spy = jest.spyOn(userRepo, 'getUserKingdomData');
+  spy.mockReturnValue('hello');
+
+  const result = await kingdomService.getUserKingdomData();
+  expect(result).toEqual('hello');
 });

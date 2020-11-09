@@ -72,8 +72,10 @@ export const battleService = {
       await buildingsRepo.removeBuilding(resourceBuildings[0].id);
       const buildingRules = rules.upgrade()[resourceBuildings[0].type];
       const generation = buildingRules.generation * resourceBuildings[0].level;
-      const resourceType = resourceBuildings[0].type === 'farm' ? 'food' : 'gold';
-      await resourceRepo.updateResourceRate(kingdomId, resourceType, -generation);
+      if (resourceBuildings[0].type === 'farm' || resourceBuildings[0].type === 'mine') {
+        const resourceType = resourceBuildings[0].type === 'farm' ? 'food' : 'gold';
+        await resourceRepo.updateResourceRate(kingdomId, resourceType, -generation);
+      }
       return `Level ${resourceBuildings[0].level} ${resourceBuildings[0].type}`;
     }
     return 'none';

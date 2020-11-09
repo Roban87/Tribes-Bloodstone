@@ -1,14 +1,17 @@
 import React, { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { setRulesAsync } from '../actions/rulesAction';
+import { setUserAsyncAction } from '../actions/userActions';
+import { setKingdomsAsync } from '../actions/kingdomsActions';
 import '../styles/Main.css';
 import ResourcesContainer from '../components/ResourcesContainer/ResourcesContainer';
 import KingdomBuildings from '../components/kingdomBuildings/KingdomBuildings';
 import BuildingDetails from '../components/BuildingDetails/BuildingDetails';
 import Menu from '../components/Menu/Menu';
 import TroopsContainer from '../components/TroopsContainer/TroopsContainer';
+import Battle from '../components/Battle/Battle';
 
 function Main(props) {
   const {
@@ -18,9 +21,12 @@ function Main(props) {
 
   const { pathname } = location;
 
+  const dispatch = useDispatch();
   useEffect(() => {
     getRules();
-  }, [getRules]);
+    dispatch(setUserAsyncAction());
+    dispatch(setKingdomsAsync());
+  }, [getRules, dispatch]);
 
   const menuPlace = (path) => {
     if (path === '/kingdom' || path === '/kingdom/buildings') {
@@ -51,6 +57,8 @@ function Main(props) {
           <Route exact path="/kingdom/buildings/:id" component={BuildingDetails} />
 
           <Route exact path="/kingdom/troops" component={TroopsContainer} />
+
+          <Route exact path="/kingdom/battle" component={Battle} />
 
         </Switch>
       </div>

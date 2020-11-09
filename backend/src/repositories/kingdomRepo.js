@@ -13,7 +13,10 @@ export const kingdomRepo = {
 
   async getKingdomMap() {
     try {
-      const kingdomsQuery = 'SELECT id AS kingdom_id, kingdomname, population, location FROM kingdoms';
+      const kingdomsQuery = `SELECT kingdoms.id AS kingdom_id, kingdomname, IFNULL(COUNT(troops.id), 0) AS population, location 
+        FROM kingdoms 
+        LEFT JOIN troops ON kingdoms.id = troops.kingdom_id 
+        GROUP BY kingdom_id, kingdomname, location`;
       const queryData = await db.query(kingdomsQuery);
       return queryData.results;
     } catch (error) {
