@@ -10,18 +10,19 @@
   flex-flow: column;
   justify-content: left;
   align-items: flex-start;
-  
   padding-top: 20px;
   padding-bottom: 100px;
   position: relative;
   width: 70%;
   height: 350px;
   margin: auto;
-  background-color: rgba(173, 173, 173, 0.9);
+  background-color: rgba(255, 255, 255, 0.8);
 }
+
 .submit-container h2 {
   margin: 20px;
 }
+
 .kingdom-input {
   font-size: 1.2em;
   height: 30px;
@@ -31,6 +32,7 @@
   border: none;
   border-bottom: 2px solid rgb(104, 104, 104);
 }
+
 .kingdom-input:focus {
   font-size: 1.2em;
   height: 30px;
@@ -40,13 +42,17 @@
   border: none;
   border-bottom: 2px solid rgb(184, 184, 184);
 }
+
 .kingdom-input:focus::-webkit-input-placeholder {
   color: rgb(184, 184, 184);
 }
+
 .submit-button {
   width: 150px;
   color: white;
-  background-color: rgb(42, 99, 255);
+  background-color: #3cb878;
+  margin-left: 20px;
+  box-shadow: 0px 5px 5px #999;
 }
 
 .submit-button:hover {
@@ -54,14 +60,43 @@
   background-color: rgb(117, 117, 117);
   width: 150px;
 }
+
+.submit-button:active {
+  box-shadow: 0px 3px #666;
+  transform: translateY(2px);
+}
+
 .error-message {
-  color: rgb(221,67,48);
-  font-weight: bold;
+  
   width: 90%;
   margin: 0px 20px;
   height: 20px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
+}
+
+.error-message p {
+  margin: 0;
+  font-size: 1em;
+  color: rgb(221,67,48);
+  font-weight: lighter;
+  text-align: left;
+}
+
+@media screen and (max-width: 767px) {
+  .settings-container {
+    margin: 0;
+    margin-top: 6vw;
+  }
+
+  .submit-container {
+    width: 90%;
+  }
+
+  .kingdom-input {
+    width: 75%;
+    margin: 20px auto 5px 20px;
+  }
 }

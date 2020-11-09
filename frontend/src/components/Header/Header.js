@@ -25,21 +25,23 @@ function Header({ isLoggedIn, loggingOut }) {
   return (
     <div className="header" key="header">
       <HeaderMain isLoggedIn={isLoggedIn} />
-      {currentStatus.map((item) => (
-        <Link
-          key={item.text}
-          to={item.path}
-          style={linkStyle}
-          className="link"
-          onClick={() => {
-            if (item.text === 'Logout') {
-              loggingOut();
-            }
-          }}
-        >
-          {item.text}
-        </Link>
-      ))}
+      <div>
+        {currentStatus.map((item) => (
+          <Link
+            key={item.text}
+            to={item.path}
+            style={linkStyle}
+            className="link"
+            onClick={() => {
+              if (item.text === 'Logout') {
+                loggingOut();
+              }
+            }}
+          >
+            {item.text}
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }

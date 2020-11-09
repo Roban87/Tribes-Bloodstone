@@ -1,9 +1,10 @@
 .add-building-button {
-  width: 14vw;
+  width: 140px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  margin-bottom: 3vh;
 }
 
 button {
@@ -17,9 +18,11 @@ button {
   background-size: cover;
   overflow: hidden;
   cursor: pointer;
-  width: 9vw;
-  height: 9vw;
+  width: 120px;
+  height: 120px;
   border: none;
+  border-radius: 60px;
+  box-shadow: 0px 5px 5px #999;
 }
 
 .addfarm {
@@ -27,9 +30,11 @@ button {
   background-size: cover;
   overflow: hidden;
   cursor: pointer;
-  width: 9vw;
-  height: 9vw;
+  width: 120px;
+  height: 120px;
   border: none;
+  border-radius: 60px;
+  box-shadow: 0px 5px 5px #999;
 }
 
 .addacademy {
@@ -37,9 +42,19 @@ button {
   background-size: cover;
   overflow: hidden;
   cursor: pointer;
-  width: 9vw;
-  height: 9vw;
+  width: 120px;
+  height: 120px;
   border: none;
+  border-radius: 60px;
+  box-shadow: 0px 5px 5px #999;
+}
+
+.addmine:hover, .addfarm:hover, .addacademy:hover {
+  background-color: transparent;  
+}
+.addmine:active, .addfarm:active, .addacademy:active {
+  box-shadow: 0px 3px #666;
+  transform: translateY(2px);
 }
 
 p::first-letter {
@@ -50,4 +65,47 @@ p {
   width: fit-content;
   margin: 0px auto;
   color: #727374;
+}
+
+.add-building-error-message {
+  display: block;
+  height: 1.1em;
+  line-height: 30px;
+  margin-left: 10px;
+  justify-self: center;
+  align-self: flex-start;
+}
+
+.add-building-error-message h2 {
+  font-size: 1em;
+  color: red;
+  text-align: center;
+  font-weight: normal;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .add-building-button {
+    width: 127px;
+  }
+
+  .addmine, .addfarm, .addacademy {
+    width: 102px;
+    height: 102px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .add-building-button {
+    width: 90px;
+  }
+
+  .addmine, .addfarm, .addacademy {
+    width: 80px;
+    height: 80px;
+  }
+  .add-building-error-message {
+    align-self: center;
+    margin-left: 0;
+  }
+
 }

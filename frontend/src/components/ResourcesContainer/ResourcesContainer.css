@@ -17,3 +17,11 @@ p {
   font-weight: bold;
   letter-spacing: 3px;
 }
+
+@media screen and (max-width: 1024px)  {
+
+  .resources-container > div:first-of-type {
+    flex-direction: row;
+    flex-grow: 1;
+  }
+}

@@ -4,4 +4,16 @@
 
 .login-container h1 {
   color: white;
+  font-size: 2.2em;
+  padding-bottom: 2vh;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+
+}
+
+@media screen and (max-width: 767px) {
+  .user-form {
+    max-width: 400px;
+  }
 }

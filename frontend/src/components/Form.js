@@ -99,9 +99,11 @@ function Form({ formType, loginError }) {
   const kingdomInputStyle = {
     borderBottom: '2px solid rgb(14,155,141)',
   };
+
   const errorStyle = {
     borderBottom: '2px solid rgb(221,67,48)',
   };
+
   return (
     <div>
       <form onSubmit={handleSubmit} className="user-form">

@@ -3,8 +3,8 @@
   background-size: cover;
   overflow: hidden;
   cursor: pointer;
-  width: 9vw;
-  height: 9vw;
+  width: 120px;
+  height: 120px;
   border: none;
 }
 
@@ -13,8 +13,8 @@
   background-size: cover;
   overflow: hidden;
   cursor: pointer;
-  width: 9vw;
-  height: 9vw;
+  width: 120px;
+  height: 120px;
   border: none;
 }
 
@@ -23,8 +23,8 @@
   background-size: cover;
   overflow: hidden;
   cursor: pointer;
-  width: 9vw;
-  height: 9vw;
+  width: 120px;
+  height: 120px;
   border: none;
 }
 
@@ -33,8 +33,8 @@
   background-size: cover;
   overflow: hidden;
   cursor: pointer;
-  width: 9vw;
-  height: 9vw;
+  width: 120px;
+  height: 120px;
   border: none;
 }
 
@@ -43,12 +43,15 @@
   box-shadow: none;
 }
 
-.building-buttons:focus {
+.building-buttons:active {
   box-shadow: none;
+  background-color: transparent;
+  transform: translateY(0);
+  transform: translateX(0);
 }
 
 .building-buttons:hover {
-  background-color: none;
+  background-color: transparent;
 }
 
 p::first-letter {
@@ -59,11 +62,11 @@ p {
   width: fit-content;
   margin: 0px auto;
   color: #727374;
-  font-size: 1vw;
+  font-size: .8em;
 }
 
 .building {
-  width: 14vw;
+  width: 140px;
   margin-bottom: .8vw;
   display: flex;
   flex-direction: column;
@@ -73,4 +76,25 @@ p {
 
 .building button {
   position: static;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .building {
+    width: 127px;
+  }
+  .mine, .farm, .academy, .townhall {
+    width: 102px;
+    height: 102px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .building {
+    width: 90px;
+  }
+
+  .mine, .farm, .academy, .townhall {
+    width: 80px;
+    height: 80px;
+  }
 }
