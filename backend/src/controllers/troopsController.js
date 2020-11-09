@@ -22,4 +22,15 @@ export const troopsController = {
       next(error);
     }
   },
+
+  async put(req, res, next) {
+    const { kingdomId } = req.user;
+    const { amount, level } = req.body;
+    try {
+      const upgradeTroops = await troopsService.upgradeTroops(level, amount, kingdomId);
+      res.status(200).json({ troops: upgradeTroops });
+    } catch (error) {
+      next(error);
+    }
+  },
 };

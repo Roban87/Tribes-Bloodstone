@@ -37,6 +37,7 @@ router.get('/kingdom/buildings/:buildingId', buildingsController.getBuilding);
 router.put('/kingdom/buildings/:buildingId', buildingsController.put);
 router.get('/kingdom/troops', troopsController.get);
 router.post('/kingdom/troops', troopsController.post);
+router.put('/kingdom/troops', troopsController.put);
 router.get('/kingdom/resource', resourceController.get);
 router.get('/rules', rulesController.get);
 router.get('/kingdom/battle/:enemyId', battleController.get);
