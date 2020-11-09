@@ -12,18 +12,18 @@
   align-items: center;
   flex-direction: row;
   font-size: calc(10px + 2vmin);
-  justify-content: flex-end;
+  justify-content: space-between;
   column-gap: 20px;
 }
 
-.headerMain {
-  position: fixed;
+.headerMain, .header-tribes {
+  position: static;
   left: 10px;
   font-size: calc(12px + 2vmin);
   color: white;
 }
 
-.link {
-  right: 10px;
-  position: relative;
+.header-tribes, .headerMain, .link {
+  margin: auto 2vw;
 }
+

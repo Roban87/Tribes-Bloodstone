@@ -1,6 +1,6 @@
 .menuImage {
-  width: 5em;
-  height: 5em;
+  width: 6em;
+  height: 6em;
   background-size: cover;
   border-radius: 50%;
 }
@@ -41,4 +41,37 @@
 }
 .menuImage.Leaderboard {
   background-image: url('../assets/menu/leaderboard.jpg');
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) { 
+  .menuItem {
+    padding: 2vw 0;
+  }
+
+  .menuImage {
+    width: 11vw;
+    height: 11vw;
+  }
+
+  .menuText {
+    font-size: 1em;
+    letter-spacing: .25em;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .menuItem {
+    padding: 2vw 0;
+  }
+
+  .menuImage {
+    width: 14vw;
+    height: 14vw;
+  }
+
+  .menuText {
+    display: none;
+  }
+
+  
 }

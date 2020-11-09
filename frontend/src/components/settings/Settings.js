@@ -34,6 +34,7 @@ function Settings() {
       setErrorMessage('The kingdomname needs to be longer than 3 characters');
     }
   };
+
   return (
     <div className="settings-container">
       <form className="submit-container" onSubmit={handleSubmit}>

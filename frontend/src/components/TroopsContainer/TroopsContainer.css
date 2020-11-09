@@ -1,57 +1,120 @@
+.content-container > div:first-of-type {
+  flex-direction: row;
+}
+
+.troops-total {
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+}
+
 .troop-image {
-  width: 150px;
-  margin: 20px;
-  margin-bottom: 10px;
+  width: 160px;
+  margin: .3vw;
+  margin-bottom: .6em;
 }
 
 .troops-data {
-  margin-left: 20px;
+  width: 100%;
   margin-top: 5px;
-  font-size: 15px;
+  margin-left: 5px;
+  font-size: 1.2em;
   letter-spacing: 1px;
-  display: flex;
-  align-content: center;
-  line-height: 20px;
-  height: 20px;
+  line-height: 1em;
+  text-align: left;
 }
 
 .detail-image {
-  width: 20px;
+  height: 1.2em;
   margin-left: 3px;
 }
 
+.troops {
+  height: 100%;
+}
+
 .troops-container {
-    margin: 20px;
-    background-color: rgb(70,150,136);
-    color: white;
-    width: 300px;
-    height: 80px;
-    line-height: 50px;
-    border-radius: 10px;
-    display: flex;
-    justify-content: flex-start;
-    align-content: center;
+  margin: 1.5em 0 5px 3em;
+  padding: 10px 13px;
+  width: 300px;
+  height: 70px;
+  min-width: 240px;
+  min-height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #3cb878;
+  color: white;
+  border-radius: 20px;
+  box-shadow: 0px 5px 5px #999;
 }
 
 .troops-list {
-    display: flex;
-    justify-content: flex-start;
-    align-content: center;
-    margin: auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+  width: 100%;
 }
 
 .troop-levels {
-    margin: 0;
-    color: white;
-    font-size: 22px;
-    letter-spacing: 0.5px;
-    font-weight: 100;
+  margin: .6em auto;
+  font-size: 1.5em;
+  color: white;
+  width: 80%;
+  letter-spacing: 0.5px;
+  font-weight: 100;
 }
 
 .small-troop-image {
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    margin: auto 10px;
-    margin-left: 0;
+  height: 100%;
+  border: white solid .5px;
+  border-radius: 50%;
+  margin: auto 10px;
+  margin-left: 0;
+}
+
+@media screen and (max-width: 767px) {
+  .content-container > div:first-of-type {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .troop-image {
+    width: 90px;
+    margin: 1vw;
+    align-self: flex-end;
+  }
+
+  .troops-total {
+    flex-direction: row;
+  }
+
+  .troops-total-data {
+    margin-top: .3em;
+    margin-bottom: .2em;
+  }
+
+  .troops-data {
+    font-size: 1em;
+    margin-left: .8em;
+  }
+
+  .troops {
+    margin: 0 auto;
+  }
+
+  .troops-container {
+    margin: 1.5em auto;
+    width: 230px;
+    height: 60px;
+    min-width: 100px;
+    min-height: 25px;
+    border-radius: 10px;
+  }
+
+  .troop-levels {
+    font-size: 1.2em;
+  }
+
 }

@@ -5,7 +5,7 @@ import '../styles/NotImplemented.css';
 
 function NotImplemented({ isLoggedIn, loggingOut }) {
   return (
-    <div className="notImplemented">
+    <div className="not-implemented">
       <h1>Sorry, this page is not implemented yet!</h1>
       <h2>Please come back later!</h2>
       <Link

@@ -19,7 +19,7 @@ svg {
 
 .map-container {
   width: 800px;
-  height: 600px;
+  height: 580px;
   margin: auto;
   padding: 20px;
   background-color: rgba(45, 67, 83, 0.746);
@@ -73,4 +73,69 @@ svg {
   box-shadow: 0px 0px 12px rgb(175, 175, 175);
   transform: translateY(2px);
   transform: translateX(1px);
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .kingdoms-container {
+    margin-top: 100px;
+  }
+
+  .map-container {
+    width: 90%;
+    height: 100%;
+  }
+
+  .selected-kingdom-header {
+    font-size: 1.5em;
+  }
+
+  .map-select-header {
+    font-size: 1.8em;
+  }
+
+  .submit-kingdom {
+    width: 100%;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .map-select-button {
+    font-size: .9em;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .kingdoms-container {
+    margin-top: 50px;
+  }
+
+  .map-container {
+    width: 80%;
+    height: 100%;
+  }
+
+  .selected-kingdom-header {
+    font-size: .9em;
+  }
+
+  .map-select-header {
+    font-size: 1.2em;
+  }
+
+  .submit-kingdom {
+    width: 100%;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .map-select-button {
+    font-size: .9em;
+    height: 30px;
+    width: 60px;
+  }
+
 }
