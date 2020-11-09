@@ -7,3 +7,4 @@ export * from './loginService';
 export * from './kingdomService';
 export * from './troopsService';
 export * from './rulesService';
+export * from './battleService';

@@ -17,6 +17,17 @@ export default function buildingsReducer(state = initialState, action) {
         ...state,
         buildingsLoad: false,
       };
+    case 'UPGRADE_BUILDING':
+      return {
+        ...state,
+        upgradeLoad: false,
+        buildings: state.buildings.map((building) => {
+          if (building.id === action.payload.id) {
+            return action.payload;
+          }
+          return building;
+        }),
+      };
     case 'UPGRADE_LOADING':
       return {
         ...state,
