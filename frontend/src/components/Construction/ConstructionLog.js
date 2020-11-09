@@ -9,6 +9,7 @@ import { setBuildingsAsync } from '../../actions/buildingsActions';
 
 function ConstructionLog(props) {
   const { buildings } = props;
+
   const dispatch = useDispatch();
 
   useEffect(() => {
