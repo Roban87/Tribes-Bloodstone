@@ -43,11 +43,19 @@ export const resourceRepo = {
     try {
       const sql = `
         UPDATE resources
-        SET generation = ?
+        SET generation = generation + ?
         WHERE kingdom_id = ? 
         AND type = ?;
       `;
       return await db.query(sql, [increment, kingdomId, resourceType]);
+    } catch (err) {
+      throw { status: 500, message: 'Internal server error' };
+    }
+  },
+  async updateResourceAfterBattle(kingdomId, goldAmount, foodAmount) {
+    const sqlQuery = 'UPDATE resources SET amount = (case when type = "gold" then amount + ? when type = "food" then amount + ? end) WHERE kingdom_id = ?';
+    try {
+      return await db.query(sqlQuery, [goldAmount, foodAmount, kingdomId]);
     } catch (err) {
       throw { status: 500, message: 'Internal server error' };
     }

@@ -1,10 +1,9 @@
 import fetchDataGeneral from '../utilities/generalFetch';
 import { setUpgradeError } from './errorActions';
-import { getResourcesFetch } from './resourcesAction';
 
 export const upgradeLoading = () => ({ type: 'UPGRADE_LOADING' });
 
-export const upgradeBuilding = (building) => ({ type: 'UPGRADE', payload: building });
+export const upgradeBuilding = (building) => ({ type: 'UPGRADE_BUILDING', payload: building });
 
 const upgradeBuildingAsync = (buildingId) => async (dispatch) => {
   dispatch(upgradeLoading);
@@ -13,8 +12,7 @@ const upgradeBuildingAsync = (buildingId) => async (dispatch) => {
 
   try {
     const result = await fetchDataGeneral(endpoint, method);
-    dispatch(upgradeBuilding(result));
-    return dispatch(getResourcesFetch());
+    return dispatch(upgradeBuilding(result));
   } catch (err) {
     return dispatch(setUpgradeError(err.message));
   }

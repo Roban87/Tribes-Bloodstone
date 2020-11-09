@@ -2,9 +2,9 @@ import React from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import upgradeBuildingAsync from '../../actions/upgradeBuildingActions';
-import { getResourcesFetch } from '../../actions/resourcesAction';
 import { setUpgradeError } from '../../actions/errorActions';
 import './UpgradeBuilding.css';
+import { getResourcesFetch } from '../../actions/resourcesAction';
 
 const upgradeIcon = require('../../assets/icons/upgrade.png');
 const coinIcon = require('../../assets/icons/coin.png');
