@@ -69,4 +69,8 @@ export const buildingsService = {
     const upgradedBuilding = await buildingsRepo.getSingleBuilding(buildingId);
     return upgradedBuilding.results[0];
   },
+
+  async getLeadersBuildings() {
+    return await buildingsRepo.getLeadersBuildings();
+  },
 };
