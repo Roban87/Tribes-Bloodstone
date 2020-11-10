@@ -1,5 +1,7 @@
-.content-container > div:first-of-type {
-  flex-direction: row;
+.troop-image {
+  width: 150px;
+  margin: 20px;
+  margin-bottom: 10px;
 }
 
 .troops-total {
@@ -8,70 +10,154 @@
   align-content: flex-start;
 }
 
-.troop-image {
-  width: 160px;
-  margin: .3vw;
-  margin-bottom: .6em;
-}
-
 .troops-data {
-  width: 100%;
+  margin-left: 20px;
   margin-top: 5px;
-  margin-left: 5px;
-  font-size: 1.2em;
+  font-size: 15px;
   letter-spacing: 1px;
-  line-height: 1em;
-  text-align: left;
+  display: flex;
+  align-content: center;
+  line-height: 20px;
+  height: 20px;
 }
 
 .detail-image {
-  height: 1.2em;
+  width: 20px;
   margin-left: 3px;
 }
 
-.troops {
-  height: 100%;
-}
-
 .troops-container {
-  margin: 1.5em 0 5px 3em;
-  padding: 10px 13px;
-  width: 300px;
-  height: 70px;
-  min-width: 240px;
-  min-height: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #3cb878;
+  z-index: 1;
+  margin: 20px;
+  margin-right: 0;
+  background-color: rgb(70, 150, 136);
   color: white;
-  border-radius: 20px;
-  box-shadow: 0px 5px 5px #999;
+  width: 300px;
+  height: 80px;
+  line-height: 50px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-content: center;
 }
 
 .troops-list {
   display: flex;
-  justify-content: space-around;
-  align-items: center;
-  height: 100%;
-  width: 100%;
+  justify-content: flex-start;
+  align-content: center;
+  margin: auto;
 }
 
 .troop-levels {
-  margin: .6em auto;
-  font-size: 1.5em;
+  margin: 0;
   color: white;
-  width: 80%;
+  font-size: 22px;
   letter-spacing: 0.5px;
   font-weight: 100;
 }
 
 .small-troop-image {
-  height: 100%;
-  border: white solid .5px;
   border-radius: 50%;
+  width: 50px;
+  height: 50px;
   margin: auto 10px;
   margin-left: 0;
+}
+
+.list-upgrade {
+  display: flex;
+  flex-direction: column;
+}
+
+.upgrade-troops {
+  margin: auto;
+  margin-left: -10px;
+  width: 100px;
+  height: 70px;
+  background-color: #ed7748;
+  border-radius: 10px;
+  color: white;
+  display: flex;
+
+}
+
+.upgradable-troops {
+  width: 400px;
+  height: fit-content;
+  margin: 0;
+  display: flex;
+  align-content: center;
+}
+
+.upgrade-text {
+  margin-left: 10px;
+  letter-spacing: 0.5px;
+  color: white;
+  font-size: 15px;
+}
+
+.upgrade-text-mini {
+  margin: 0;
+  margin-left: 2px;
+  letter-spacing: 0.5px;
+  color: white;
+  font-size: 14px;
+  line-height: 25px;
+}
+
+.upgrade-text-mini::first-letter {
+  text-transform: lowercase;
+}
+
+
+.upgrade-cost {
+  letter-spacing: 0.5px;
+  color: white;
+  font-size: 15px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin-left: 15px;
+}
+
+.upgrade-field {
+  margin: auto;
+  margin-right: 10px;
+}
+
+.upgrade-field:hover {
+  cursor: pointer;
+}
+
+.coin {
+  margin: auto;
+}
+
+.input-field {
+  background-color: rgba(255, 255, 255, 0.767);
+  border-color: white solid;
+  border-radius: 6px;
+  width: 25px;
+  height: 20px;
+  text-align: center;
+  margin: 2px;
+}
+
+.input-field:focus {
+  background-color: white;
+  border-color: white solid;
+  outline-width: 0;
+}
+
+.input-field::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input {
+  display: flex;
+  align-content: center;
+  justify-content: center;
 }
 
 @media screen and (max-width: 767px) {

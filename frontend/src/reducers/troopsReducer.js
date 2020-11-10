@@ -32,10 +32,13 @@ export default function troopsReducer(state = initialState, action) {
         ...state,
         upgradeLoad: false,
         troops: state.troops.map((troop) => {
-          if (troop.id === action.payload.id) {
-            return action.payload;
+          for (let i = 0; i < action.payload.troops.length; i += 1) {
+            if (troop.id === action.payload.troops[i].id) {
+              return action.payload.troops[i];
+            }
+            return troop;
           }
-          return troop;
+          return null;
         }),
       };
     case 'UPGRADE_TROOP_ERROR':
