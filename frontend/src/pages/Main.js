@@ -6,6 +6,7 @@ import { setRulesAsync } from '../actions/rulesAction';
 import { setUserAsyncAction } from '../actions/userActions';
 import { setKingdomsAsync } from '../actions/kingdomsActions';
 import { setTroopsAsync } from '../actions/troopsActions';
+import { getBuildingsLeaderboardFetch } from '../actions/leaderboardActions';
 import '../styles/Main.css';
 import ResourcesContainer from '../components/ResourcesContainer/ResourcesContainer';
 import KingdomBuildings from '../components/kingdomBuildings/KingdomBuildings';
@@ -13,11 +14,15 @@ import BuildingDetails from '../components/BuildingDetails/BuildingDetails';
 import Menu from '../components/Menu/Menu';
 import TroopsContainer from '../components/TroopsContainer/TroopsContainer';
 import Battle from '../components/Battle/Battle';
+import LeaderboardBuildings from '../components/LeaderboardBuildings/LeaderboardBuildings';
 
 function Main(props) {
   const {
     getRules,
+    getBuildingLeaderboard,
     location,
+    leaderboardBuildings,
+    leaderboardError,
   } = props;
 
   const { pathname } = location;
@@ -25,10 +30,11 @@ function Main(props) {
   const dispatch = useDispatch();
   useEffect(() => {
     getRules();
+    getBuildingLeaderboard();
     dispatch(setUserAsyncAction());
     dispatch(setKingdomsAsync());
     dispatch(setTroopsAsync());
-  }, [getRules, dispatch]);
+  }, [getRules, dispatch, getBuildingLeaderboard]);
 
   const menuPlace = (path) => {
     if (path === '/kingdom' || path === '/kingdom/buildings') {
@@ -61,6 +67,8 @@ function Main(props) {
           <Route exact path="/kingdom/troops" component={TroopsContainer} />
 
           <Route exact path="/kingdom/battle" component={Battle} />
+          <Route path="/kingdom/leaderboard" component={LeaderboardBuildings} />
+          <Route path="/kingdom/leaderboard" component={() => <LeaderboardBuildings buildings={leaderboardBuildings} error={leaderboardError} />} />
 
         </Switch>
       </div>
@@ -75,15 +83,21 @@ function Main(props) {
 
 Main.propTypes = {
   getRules: PropTypes.func.isRequired,
+  getBuildingLeaderboard: PropTypes.func.isRequired,
   location: PropTypes.objectOf(PropTypes.string).isRequired,
+  leaderboardBuildings: PropTypes.arrayOf(PropTypes.object).isRequired,
+  leaderboardError: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = ({ rules }) => ({
+const mapStateToProps = ({ rules, leaderboard, error }) => ({
   rules: rules.rules,
+  leaderboardBuildings: leaderboard.leaderboardBuildings,
+  leaderboardError: error.leaderboardError,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getRules: () => dispatch(setRulesAsync()),
+  getBuildingLeaderboard: () => dispatch(getBuildingsLeaderboardFetch()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

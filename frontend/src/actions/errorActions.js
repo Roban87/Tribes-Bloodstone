@@ -27,3 +27,4 @@ export const setKingdomsError = (errorMessage) => ({ type: 'KINGDOMS_ERROR', pay
 export const setBattleError = (errorMessage) => ({ type: 'BATTLE_ERROR', payload: errorMessage });
 
 export const removeBattleError = () => ({ type: 'CLEAR_BATTLE_ERROR' });
+export const leaderboardError = (errorMessage) => ({ type: 'LEADERBOARD_ERROR', payload: errorMessage });
