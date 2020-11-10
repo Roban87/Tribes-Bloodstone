@@ -16,7 +16,8 @@
     "react-simple-maps": "^2.1.2",
     "react-tooltip": "^4.2.10",
     "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "zxcvbn": "^4.4.2"
   },
   "scripts": {
     "start": "react-scripts start",
