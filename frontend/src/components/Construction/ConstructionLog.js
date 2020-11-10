@@ -8,9 +8,6 @@ function ConstructionLog(props) {
   const { buildings, troops } = props;
   const [items, setItem] = useState([]);
 
-  useEffect(() => {
-    setItem({items: [...buildings, ...troops]})
-  });
   const logs = buildings
     .concat(troops)
     .filter((element) => {
@@ -21,11 +18,10 @@ function ConstructionLog(props) {
         return element;
       }
     })
+    .sort(compare)
     .map((element, index) => {
       return <Construction key={index} element={element} />;
     })
-    .sort(compare)
-    .reverse()
     .slice(0, 6);
 
   function compare(a, b) {
@@ -35,10 +31,6 @@ function ConstructionLog(props) {
   return (
     <div>
       <ConstructionTitle />
-      {buildings.concat(troops)
-        .sort(compare)
-        .slice(0, 6)
-      .forEach((element) => console.log(element.finishedAt))}
       {logs.length > 0 && logs}
     </div>
   );
