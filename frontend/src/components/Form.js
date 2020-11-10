@@ -4,7 +4,10 @@ import PropTypes from 'prop-types';
 import '../styles/Form.css';
 import { useHistory } from 'react-router-dom';
 import fetchDataGeneral from '../utilities/generalFetch';
-import { loginStartedAction, loginSuccessAction } from '../actions/sessionAction';
+import {
+  loginStartedAction,
+  loginSuccessAction,
+} from '../actions/sessionAction';
 import { setLoginError } from '../actions/errorActions';
 import PasswordStrengthMeter from './PasswordStrengthMeter/PasswordStrengthMeter';
 
@@ -70,8 +73,15 @@ function Form({ formType, loginError }) {
     };
 
     try {
-      const registerResponse = await fetchDataGeneral(endpoint, method, registData);
-      history.push({ pathname: '/register/map', kingdomId: registerResponse.kingdomId });
+      const registerResponse = await fetchDataGeneral(
+        endpoint,
+        method,
+        registData,
+      );
+      history.push({
+        pathname: '/register/map',
+        kingdomId: registerResponse.kingdomId,
+      });
     } catch (error) {
       dispatch(setLoginError(error.message));
     }
@@ -123,7 +133,9 @@ function Form({ formType, loginError }) {
           onChange={onPasswordChange}
           style={loginError ? errorStyle : null}
         />
-        {formType === 'register' && <PasswordStrengthMeter password={password}/>}
+        {formType === 'register' && (
+          <PasswordStrengthMeter password={password} />
+        )}
         {loginError && (
           <div className="error-message">
             <p>{loginError}</p>

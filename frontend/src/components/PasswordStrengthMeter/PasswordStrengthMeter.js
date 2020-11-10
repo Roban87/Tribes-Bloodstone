@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import './PasswordStrengthMeter.css';
 import React from 'react';
 import zxcvbn from 'zxcvbn';
@@ -28,7 +29,8 @@ function PasswordStrengthMeter({ password }) {
         {' '}
         {password && (
           <>
-            <strong>Password strength:</strong>{' '}
+            <strong>Password strength:</strong>
+            {' '}
             {createPasswordLabel(testedResult)}
           </>
         )}
