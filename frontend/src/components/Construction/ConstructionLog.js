@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect}from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Construction from './Construction';
@@ -6,14 +6,17 @@ import ConstructionTitle from './ContstructionTitle';
 
 function ConstructionLog(props) {
   const { buildings, troops } = props;
+  const [items, setItem] = useState([]);
 
+  useEffect(() => {
+    setItem({items: [...buildings, ...troops]})
+  });
   const logs = buildings
     .concat(troops)
-    .sort((a, b) => a.finished_at - b.finished_at)
     .filter((element) => {
       if (
         Date.parse(element.finishedAt) >
-        new Date().getTime() - 30 * 10 * 1000
+        new Date().getTime() - 50 * 10 * 1000
       ) {
         return element;
       }
@@ -21,12 +24,21 @@ function ConstructionLog(props) {
     .map((element, index) => {
       return <Construction key={index} element={element} />;
     })
+    .sort(compare)
     .reverse()
-    .slice(0, 6)
+    .slice(0, 6);
+
+  function compare(a, b) {
+    return new Date(b.finishedAt) - new Date(a.finishedAt);
+  }
 
   return (
     <div>
       <ConstructionTitle />
+      {buildings.concat(troops)
+        .sort(compare)
+        .slice(0, 6)
+      .forEach((element) => console.log(element.finishedAt))}
       {logs.length > 0 && logs}
     </div>
   );
