@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 import fetchDataGeneral from '../utilities/generalFetch';
 import { loginStartedAction, loginSuccessAction } from '../actions/sessionAction';
 import { setLoginError } from '../actions/errorActions';
+import PasswordStrengthMeter from './PasswordStrengthMeter/PasswordStrengthMeter';
 
 function Form({ formType, loginError }) {
   const [username, setUsername] = useState('');
@@ -122,6 +123,7 @@ function Form({ formType, loginError }) {
           onChange={onPasswordChange}
           style={loginError ? errorStyle : null}
         />
+        {formType === 'register' && <PasswordStrengthMeter password={password}/>}
         {loginError && (
           <div className="error-message">
             <p>{loginError}</p>
