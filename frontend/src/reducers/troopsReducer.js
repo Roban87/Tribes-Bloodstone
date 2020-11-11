@@ -31,15 +31,11 @@ export default function troopsReducer(state = initialState, action) {
       return {
         ...state,
         upgradeLoad: false,
-        troops: state.troops.map((troop) => {
-          for (let i = 0; i < action.payload.troops.length; i += 1) {
-            if (troop.id === action.payload.troops[i].id) {
-              return action.payload.troops[i];
-            }
-            return troop;
-          }
-          return null;
-        }),
+        troops: state.troops
+          .map((troop) => {
+            const found = action.payload.troops.find((mod) => mod.id === troop.id);
+            return found || troop;
+          }),
       };
     case 'UPGRADE_TROOP_ERROR':
       return {
