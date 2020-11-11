@@ -20,7 +20,7 @@ function Main(props) {
   useEffect(() => {
     getRules();
     dispatch(setKingdomAsync());
-  }, [getRules]);
+  }, [getRules, dispatch]);
 
   const menuPlace = (path) => {
     if (path === '/kingdom' || path === '/kingdom/buildings') {
