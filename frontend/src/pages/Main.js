@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { setRulesAsync } from '../actions/rulesAction';
+import setKingdomAsync from '../actions/kingdomAction';
 import '../styles/Main.css';
 import ResourcesContainer from '../components/ResourcesContainer/ResourcesContainer';
 import KingdomBuildings from '../components/kingdomBuildings/KingdomBuildings';
@@ -17,9 +18,12 @@ function Main(props) {
   } = props;
 
   const { pathname } = location;
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getRules();
+    dispatch(setKingdomAsync());
+
   }, [getRules]);
 
   const menuPlace = (path) => {

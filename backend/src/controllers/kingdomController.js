@@ -14,4 +14,13 @@ export const kingdomController = {
       next(error);
     }
   },
+  async get(req, res, next) {
+    const { kingdomId } = req.user;
+    try {
+      const response = await kingdomService.getKingdom(kingdomId);
+      res.json(response.results);
+    } catch (error) {
+      next(error);
+    }
+  },
 };

@@ -34,4 +34,7 @@ export const kingdomService = {
     await kingdomRepo.updateName(kingdomname, kingdomId);
     return await this.selectKingdomInformations(kingdomId);
   },
+  async getKingdom(kingdomId) {
+    return await kingdomRepo.getKingdom(kingdomId);
+  },
 };
