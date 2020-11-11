@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import './PasswordStrengthMeter.css';
 import React from 'react';
+import PropTypes from 'prop-types';
 import zxcvbn from 'zxcvbn';
 
 function PasswordStrengthMeter({ password }) {
@@ -38,5 +39,13 @@ function PasswordStrengthMeter({ password }) {
     </div>
   );
 }
+
+PasswordStrengthMeter.propTypes = {
+  password: PropTypes.string,
+};
+
+PasswordStrengthMeter.defaultProps = {
+  password: '',
+};
 
 export default PasswordStrengthMeter;

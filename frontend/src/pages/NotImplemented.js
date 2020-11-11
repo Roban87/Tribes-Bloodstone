@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import '../styles/NotImplemented.css';
@@ -19,5 +20,8 @@ function NotImplemented({ isLoggedIn, loggingOut }) {
     </div>
   );
 }
-
+NotImplemented.propTypes = {
+  loggingOut: PropTypes.func.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
+};
 export default NotImplemented;

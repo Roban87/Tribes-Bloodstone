@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import HeaderMain from './HeaderMain';
 import './Header.css';
 
@@ -45,5 +46,10 @@ function Header({ isLoggedIn, loggingOut }) {
     </div>
   );
 }
+
+Header.propTypes = {
+  loggingOut: PropTypes.func.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
+};
 
 export default Header;

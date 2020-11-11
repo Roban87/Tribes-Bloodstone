@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './buildings.css';
 import { useHistory } from 'react-router-dom';
 
@@ -25,5 +26,16 @@ function Buildings({ building }) {
     </div>
   );
 }
+
+Buildings.propTypes = {
+  building: PropTypes.shape({
+    finishedAt: PropTypes.string,
+    startedAt: PropTypes.string,
+    type: PropTypes.string,
+    id: PropTypes.number,
+    hp: PropTypes.number,
+    level: PropTypes.number,
+  }).isRequired,
+};
 
 export default Buildings;
