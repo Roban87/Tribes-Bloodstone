@@ -37,7 +37,31 @@ export const troopsRepo = {
     const sqlQuery = 'UPDATE troops SET hp = ? WHERE id = ?';
     try {
       return await db.query(sqlQuery, [troop.hp, troop.id]);
-    } catch (err) {
+    } catch (error) {
+      throw { message: 'Internal server error', status: 500 };
+    }
+  },
+  async upgradeTroops(amount, level, kingdomId, rules) {
+    try {
+      const {
+        time, hp, attack, defense,
+      } = rules;
+      const sqlQuery = `
+      UPDATE troops SET 
+      level = level + 1, 
+      hp = level * ?, 
+      attack = level * ?, 
+      defence = level * ?, 
+      started_at = CURRENT_TIMESTAMP(), 
+      finished_at = DATE_ADD(CURRENT_TIMESTAMP(), INTERVAL (level * ?) SECOND)
+      WHERE kingdom_id = ? AND level = ?
+      LIMIT ?;
+      `;
+      await db
+        .query(sqlQuery, [hp, attack, defense, time, kingdomId, level, Number(amount)]);
+      const responseQuery = 'SELECT * FROM troops WHERE kingdom_id = ? ORDER BY started_at DESC LIMIT ?;';
+      return await db.query(responseQuery, [kingdomId, Number(amount)]);
+    } catch (error) {
       throw { message: 'Internal server error', status: 500 };
     }
   },
