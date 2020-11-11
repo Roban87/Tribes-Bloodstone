@@ -43,4 +43,13 @@ export const buildingsController = {
       next(err);
     }
   },
+
+  async getLeaderboard(req, res) {
+    try {
+      const buildingsLeadersResult = await buildingsService.getLeadersBuildings();
+      res.status(200).json({ leaderboard: buildingsLeadersResult });
+    } catch (error) {
+      res.status(500).json({ error: 'Faild to load Leaderboard! Please, refresh the page!' });
+    }
+  },
 };
