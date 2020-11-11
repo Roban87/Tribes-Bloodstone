@@ -41,5 +41,6 @@ router.put('/kingdom/troops', troopsController.put);
 router.get('/kingdom/resource', resourceController.get);
 router.get('/rules', rulesController.get);
 router.get('/kingdom/battle/:enemyId', battleController.get);
+router.get('/leaderboard/buildings', buildingsController.getLeaderboard);
 
 export default router;

@@ -66,6 +66,7 @@ export const buildingsRepo = {
       throw { status: 500, message: 'Internal server error' };
     }
   },
+
   async resetBuildingsAfterBattle(kingdomId) {
     const sqlQuery = 'UPDATE buildings SET level = 1 WHERE kingdom_id = ? AND type IN ("townhall", "academy");';
     try {
@@ -74,6 +75,7 @@ export const buildingsRepo = {
       throw { status: 500, message: 'Internal server error' };
     }
   },
+
   async removeBuilding(buildingId) {
     const sqlQuery = 'DELETE FROM buildings WHERE id = ?;';
     try {
@@ -81,5 +83,18 @@ export const buildingsRepo = {
     } catch (err) {
       throw { status: 500, message: 'Internal server error' };
     }
+  },
+
+  async getLeadersBuildings() {
+    const leadersSql = `
+      SELECT kingdomname, SUM(level) AS buildingsLevel 
+      FROM kingdoms 
+      JOIN buildings ON kingdoms.id = buildings.kingdom_id
+      GROUP BY kingdomname
+      ORDER BY SUM(level)
+      DESC;
+    `;
+    const leadersResult = await db.query(leadersSql);
+    return leadersResult.results;
   },
 };

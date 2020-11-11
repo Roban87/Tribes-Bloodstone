@@ -6,6 +6,26 @@ import { resourceService } from '../../services';
 import config from '../../config';
 
 const token = jwt.sign('payload', config.secret);
+
+const leaderDatabase = [
+  {
+    kingdomname: 'alma',
+    buildingsLevel: 1,
+  },
+  {
+    kingdomname: 'köre',
+    buildingsLevel: 1,
+  },
+  {
+    kingdomname: 'kutya',
+    buildingsLevel: 1,
+  },
+  {
+    kingdomname: 'cica',
+    buildingsLevel: 4,
+  },
+];
+
 const database = {
   buildings: [
     {
@@ -213,6 +233,44 @@ describe('PUT api/kingdom/buildings//:buildingId', () => {
       .end((err, res) => {
         if (err) return done(err);
         expect(res.body).toEqual(database.buildings[4]);
+        return done();
+      });
+  });
+});
+
+describe('GET /leaderboard/buildings test', () => {
+  it('get leaderboard', async (done) => {
+    const spyGetLeadersBuildings = jest.spyOn(buildingsRepo, 'getLeadersBuildings');
+    spyGetLeadersBuildings.mockReturnValue(leaderDatabase);
+
+    request(app)
+      .get('/api/leaderboard/buildings')
+      .set('Accept', 'application/json')
+      .set('Authorization', `Bearer ${token}`)
+      .expect('Content-type', /json/)
+      .expect(200)
+      .end((error, res) => {
+        if (error) return done(error);
+        expect(res.body).toEqual({
+          leaderboard: [
+            {
+              kingdomname: 'alma',
+              buildingsLevel: 1,
+            },
+            {
+              kingdomname: 'köre',
+              buildingsLevel: 1,
+            },
+            {
+              kingdomname: 'kutya',
+              buildingsLevel: 1,
+            },
+            {
+              kingdomname: 'cica',
+              buildingsLevel: 4,
+            },
+          ],
+        });
         return done();
       });
   });

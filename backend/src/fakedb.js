@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { registerValidator } from './services';
 import { buildingsRepo, troopsRepo, kingdomRepo } from './repositories';
 
@@ -78,7 +79,6 @@ async function pushData() {
 }
 pushData()
   .then(() => {
-    // eslint-disable-next-line no-console
     console.log('The database filled up with fake informations!');
     process.exit(0);
   })

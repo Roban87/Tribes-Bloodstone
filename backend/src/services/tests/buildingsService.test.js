@@ -1,6 +1,27 @@
 import { buildingsService } from '../buildingsService';
 import { buildingsRepo, resourceRepo } from '../../repositories';
 
+const leaderDatabase = {
+  leader: [
+    {
+      kingdomname: 'alma',
+      buildingsLevel: 1,
+    },
+    {
+      kingdomname: 'köre',
+      buildingsLevel: 1,
+    },
+    {
+      kingdomname: 'kutya',
+      buildingsLevel: 1,
+    },
+    {
+      kingdomname: 'cica',
+      buildingsLevel: 4,
+    },
+  ],
+};
+
 const database = {
   buildings: [
     {
@@ -255,4 +276,31 @@ test('upgradeBuilding returns error when not enough money', async () => {
   expect(thrownError.status).toEqual(400);
   expect(buildingsRepo.getBuildings).toHaveBeenCalledWith(4);
   expect(resourceRepo.getGoldAmount).toHaveBeenCalledWith(4);
+});
+
+describe('Leaderboard service tests', () => {
+  test('get buildings leaderboard', async () => {
+    const spy = jest.spyOn(buildingsRepo, 'getLeadersBuildings');
+    spy.mockReturnValue(leaderDatabase.leader);
+
+    const testLeaderboard = await buildingsService.getLeadersBuildings();
+    expect(testLeaderboard).toEqual([
+      {
+        kingdomname: 'alma',
+        buildingsLevel: 1,
+      },
+      {
+        kingdomname: 'köre',
+        buildingsLevel: 1,
+      },
+      {
+        kingdomname: 'kutya',
+        buildingsLevel: 1,
+      },
+      {
+        kingdomname: 'cica',
+        buildingsLevel: 4,
+      },
+    ]);
+  });
 });
