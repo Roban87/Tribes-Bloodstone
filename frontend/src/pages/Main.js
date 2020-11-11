@@ -12,10 +12,7 @@ import Menu from '../components/Menu/Menu';
 import TroopsContainer from '../components/TroopsContainer/TroopsContainer';
 
 function Main(props) {
-  const {
-    getRules,
-    location,
-  } = props;
+  const { getRules, location } = props;
 
   const { pathname } = location;
   const dispatch = useDispatch();
@@ -23,7 +20,6 @@ function Main(props) {
   useEffect(() => {
     getRules();
     dispatch(setKingdomAsync());
-
   }, [getRules]);
 
   const menuPlace = (path) => {
@@ -50,19 +46,25 @@ function Main(props) {
       <div className="content-container">
         <span className="this-path">{menuPlace(pathname)}</span>
         <Switch>
-          <Route exact path={['/kingdom', '/kingdom/buildings']} component={KingdomBuildings} />
+          <Route
+            exact
+            path={['/kingdom', '/kingdom/buildings']}
+            component={KingdomBuildings}
+          />
 
-          <Route exact path="/kingdom/buildings/:id" component={BuildingDetails} />
+          <Route
+            exact
+            path="/kingdom/buildings/:id"
+            component={BuildingDetails}
+          />
 
           <Route exact path="/kingdom/troops" component={TroopsContainer} />
-
         </Switch>
       </div>
 
       <div className="construction-log-container">
         <p>Construction Log</p>
       </div>
-
     </div>
   );
 }
