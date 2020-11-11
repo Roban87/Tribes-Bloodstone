@@ -112,3 +112,24 @@ describe('POST api/kingdom/troops', () => {
       });
   });
 });
+
+describe('PUT api/kingdom/troops', () => {
+  it('returns a JSON object of the upgraded troop', (done) => {
+    const spyAddTroop = jest.spyOn(troopsService, 'upgradeTroops');
+    spyAddTroop.mockReturnValue(troopsDB.troops);
+    // const spyUpdate = jest.spyOn(resourceService, 'updateResources');
+    // spyUpdate.mockReturnValue(null);
+    request(app)
+      .put('/api/kingdom/troops')
+      .set('Accept', 'application/json')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ amout: 1, level: 1 })
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err);
+        expect(res.body).toEqual(troopsDB);
+        return done();
+      });
+  });
+});
