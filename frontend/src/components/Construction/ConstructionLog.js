@@ -1,5 +1,3 @@
-/* eslint-disable consistent-return */
-/* eslint-disable no-useless-return */
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -16,14 +14,7 @@ function ConstructionLog(props) {
   const logs = buildings
     .concat(troops)
     .sort(compare)
-    .filter((element) => {
-      if (Date.parse(element.finishedAt) > new Date().getTime() - 50 * 10 * 1000) {
-        return element;
-      // eslint-disable-next-line no-else-return
-      } else {
-        return;
-      }
-    })
+    .filter((element) => (Date.parse(element.finishedAt) > new Date().getTime() - 50 * 10 * 1000))
     .map((element) => <Construction key={element.id} element={element} />)
     .slice(0, 6);
 
