@@ -15,18 +15,18 @@ function UpgradeTroops(props) {
 
   return (
     <div className="upgrade-field">
-      <p className="upgrade-text">upgrade</p>
+      <p className="upgrade-text">Enter the amount:</p>
       <div className="input">
         <input className="input-field" type="number" min="0" onChange={handleChange} />
         <p className="upgrade-text-mini">troops</p>
+        {upgradePrice ? (
+          <p className="upgrade-cost">
+            for&nbsp;
+            {upgradePrice}
+            <img className="coin" src={coin} alt="coin" />
+          </p>
+        ) : null}
       </div>
-      {upgradePrice ? (
-        <p className="upgrade-cost">
-          for&nbsp;
-          {upgradePrice}
-          <img className="coin" src={coin} alt="coin" />
-        </p>
-      ) : null}
     </div>
   );
 }

@@ -39,13 +39,16 @@ function Troops(props) {
           </p>
         </div>
       </div>
-      <button type="button" className="upgrade-troops" onClick={handleClick} disabled={isDisabled}>
-        <UpgradeTroops
-          count={count}
-          level={level}
-          upgradeAmount={(amount) => setUpgradeAmount(amount)}
-        />
-      </button>
+      <div className="upgrade-section">
+        <div className="upgrade-component">
+          <UpgradeTroops
+            count={count}
+            level={level}
+            upgradeAmount={(amount) => setUpgradeAmount(amount)}
+          />
+        </div>
+        <button type="button" className="upgrade-troops" onClick={handleClick} disabled={isDisabled}>Upgrade</button>
+      </div>
     </div>
   );
 }
