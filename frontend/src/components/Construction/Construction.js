@@ -1,9 +1,12 @@
+
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import './Construction.css';
 import { LinearProgress } from '@material-ui/core';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
-function Construction(props) {
+function Construction({ element }) {
+
   const theme = createMuiTheme({
     palette: {
       primary: {
@@ -15,14 +18,12 @@ function Construction(props) {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const timeDiff = (Date.parse(props.element.finishedAt) - Date.parse(props.element.startedAt)) / 100; // X ez lesz a props timestamp difference a 60000
-    const timeLeftTime = (timeNow - Date.parse(props.element.startedAt)) / 100; // Y
+    const timeDiff = (Date.parse(element.finishedAt) - Date.parse(element.startedAt)) / 100; // X ez lesz a props timestamp difference a 60000
+    const timeLeftTime = (timeNow - Date.parse(element.startedAt)) / 100; // Y
     const proportion = (timeLeftTime / timeDiff) * 100;
     setProgress((prevProgress) => prevProgress + proportion);
     const timer = setInterval(() => {
-      setProgress((prevProgress) =>
-        prevProgress >= 100 ? prevProgress : prevProgress + 1
-      );
+      setProgress((prevProgress) => (prevProgress >= 100 ? prevProgress : prevProgress + 1));
     }, [timeDiff]);
 
     return () => {
@@ -39,13 +40,16 @@ function Construction(props) {
               <span className="my-kingdom-container">My Kingdom</span>
             ) : (
               <span>
-                {props.element.level === 1 ? (
+                {element.level === 1 ? (
                   <span>Building</span>
                 ) : (
                   <span>Upgrade</span>
-                )}{' '}
-                {props.element.type} Level
-                {props.element.level}
+                )}
+                {' '}
+                {(element.type === undefined) ? 'troop' : element.type }
+                {' '}
+                Level
+                {element.level}
               </span>
             )}
           </div>
@@ -54,7 +58,7 @@ function Construction(props) {
               hour: '2-digit',
               minute: '2-digit',
               hour12: false,
-            }).format(Date.parse(props.element.finishedAt))}
+            }).format(Date.parse(element.finishedAt))}
           </div>
         </div>
         <div className="loading-container">
@@ -66,25 +70,25 @@ function Construction(props) {
                 color="primary"
               />
             )}
-            {progress >= 100 && props.element.level === 1 && (
+            {progress >= 100 && element.level === 1 && (
               <div className="new-item">
                 <span>You have a new </span>
-                {props.element.type === 'farm' || props.element.type === 'townhall' || props.element.type === 'academy' ||
-                props.element.type === 'mine' ? (
+                {element.type === 'farm' || element.type === 'townhall' || element.type === 'academy'
+                || element.type === 'mine' ? (
                   <span>building!</span>
-                ) : (
-                  <span>troop!</span>
-                )}
+                  ) : (
+                    <span>troop!</span>
+                  )}
               </div>
             )}
-            {progress >= 100 && props.element.level > 1 && (
+            {progress >= 100 && element.level > 1 && (
               <div className="new-item">
-                {props.element.type === 'farm' || props.element.type === 'townhall' || props.element.type === 'academy' ||
-                props.element.type === 'mine' ? (
+                {element.type === 'farm' || element.type === 'townhall' || element.type === 'academy'
+                || element.type === 'mine' ? (
                   <span>Building </span>
-                ) : (
-                  <span>Troop </span>
-                )}
+                  ) : (
+                    <span>Troop </span>
+                  )}
                 <span>upgraded! </span>
               </div>
             )}
@@ -95,4 +99,17 @@ function Construction(props) {
   );
 }
 
+Construction.propTypes = {
+  element: PropTypes.objectOf(PropTypes.string).isRequired,
+};
+Construction.propTypes = {
+  element: PropTypes.shape({
+    finishedAt: PropTypes.string,
+    startedAt: PropTypes.string,
+    type: PropTypes.string,
+    id: PropTypes.number,
+    hp: PropTypes.number,
+    level: PropTypes.number,
+  })
+};
 export default Construction;
