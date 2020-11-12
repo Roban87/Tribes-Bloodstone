@@ -10,6 +10,7 @@ const initialState = {
   kingdomsError: '',
   registerMapError: '',
   battleError: '',
+  leaderboardError: '',
 };
 
 export default function errorReducer(state = initialState, action) {
@@ -123,6 +124,16 @@ export default function errorReducer(state = initialState, action) {
       return {
         ...state,
         battleError: '',
+      };
+    case 'SET_LEADERBOARD_BUILDINGS':
+      return {
+        ...state,
+        leaderboardError: '',
+      };
+    case 'LEADERBOARD_ERROR':
+      return {
+        ...state,
+        leaderboardError: action.payload,
       };
     default:
       return state;

@@ -47,7 +47,7 @@ it('Componenet loaded with data', () => {
   expect(store.dispatch).toHaveBeenCalled();
 });
 
-it('compoenent laded with error message', () => {
+it('compoenent loaded with error message', () => {
   const store = mockStore({
     resources: {
       foodAmount: 0,
