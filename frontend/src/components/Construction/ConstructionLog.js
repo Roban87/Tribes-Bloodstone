@@ -1,4 +1,4 @@
-import React, { useState, useEffect}from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Construction from './Construction';
@@ -6,10 +6,10 @@ import ConstructionTitle from './ContstructionTitle';
 
 function ConstructionLog(props) {
   const { buildings, troops } = props;
-  const [items, setItem] = useState([]);
 
   const logs = buildings
     .concat(troops)
+    .sort(compare)
     .filter((element) => {
       if (
         Date.parse(element.finishedAt) >
@@ -18,9 +18,8 @@ function ConstructionLog(props) {
         return element;
       }
     })
-    .sort(compare)
     .map((element, index) => {
-      return <Construction key={index} element={element} />;
+      return <Construction key={element.id} element={element} />;
     })
     .slice(0, 6);
 

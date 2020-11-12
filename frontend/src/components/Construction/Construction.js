@@ -23,7 +23,7 @@ function Construction(props) {
       setProgress((prevProgress) =>
         prevProgress >= 100 ? prevProgress : prevProgress + 1
       );
-    }, timeDiff);
+    }, [timeDiff]);
 
     return () => {
       clearInterval(timer);
