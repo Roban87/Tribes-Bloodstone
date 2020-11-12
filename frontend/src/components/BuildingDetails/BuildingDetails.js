@@ -1,6 +1,7 @@
 /* eslint-disable import/no-dynamic-require */
 /* eslint-disable global-require */
 import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import parser from 'html-react-parser';
 import './BuildingDetails.css';
 import PropTypes from 'prop-types';
@@ -18,6 +19,7 @@ const levelIcon = require('../../assets/icons/level.png');
 export default function BuildingDetails(props) {
   const { match } = props;
   const { id } = match.params;
+  const history = useHistory();
   const building = useSelector((state) => (
     state.buildings.buildings.filter((item) => item.id === Number(id))[0]));
   const upgradeError = useSelector((state) => state.error.upgradeError);
@@ -39,6 +41,10 @@ export default function BuildingDetails(props) {
     townhall: `
     <p>The Townhall allows you to build new buildings. By increasing the level of your Townhall you will be able to build more advanced buildings</p>
     <p>Every level increases the starting level of new buildings by 1 <img src="${levelIcon}" /></p>`,
+  };
+
+  const goBack = () => {
+    history.push('/kingdom/buildings');
   };
 
   useEffect(() => () => {
@@ -67,6 +73,7 @@ export default function BuildingDetails(props) {
               {'Level '}
               {building.level}
             </h2>
+            <button type="submit" className="back-button" onClick={goBack}> Back </button>
           </div>
 
           <div>
