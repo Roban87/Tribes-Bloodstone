@@ -18,8 +18,6 @@ import LeaderboardBuildings from '../components/LeaderboardBuildings/Leaderboard
 
 function Main(props) {
   const {
-    getRules,
-    getBuildingLeaderboard,
     location,
     leaderboardBuildings,
     leaderboardError,
@@ -29,12 +27,12 @@ function Main(props) {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    getRules();
-    getBuildingLeaderboard();
+    dispatch(setRulesAsync());
+    dispatch(getBuildingsLeaderboardFetch());
     dispatch(setUserAsyncAction());
     dispatch(setKingdomsAsync());
     dispatch(setTroopsAsync());
-  }, [getRules, dispatch, getBuildingLeaderboard]);
+  }, [dispatch]);
 
   const menuPlace = (path) => {
     if (path === '/kingdom' || path === '/kingdom/buildings') {
@@ -67,7 +65,6 @@ function Main(props) {
           <Route exact path="/kingdom/troops" component={TroopsContainer} />
 
           <Route exact path="/kingdom/battle" component={Battle} />
-          <Route path="/kingdom/leaderboard" component={LeaderboardBuildings} />
           <Route path="/kingdom/leaderboard" component={() => <LeaderboardBuildings buildings={leaderboardBuildings} error={leaderboardError} />} />
 
         </Switch>
@@ -82,8 +79,6 @@ function Main(props) {
 }
 
 Main.propTypes = {
-  getRules: PropTypes.func.isRequired,
-  getBuildingLeaderboard: PropTypes.func.isRequired,
   location: PropTypes.objectOf(PropTypes.string).isRequired,
   leaderboardBuildings: PropTypes.arrayOf(PropTypes.object).isRequired,
   leaderboardError: PropTypes.string.isRequired,
@@ -95,9 +90,4 @@ const mapStateToProps = ({ rules, leaderboard, error }) => ({
   leaderboardError: error.leaderboardError,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getRules: () => dispatch(setRulesAsync()),
-  getBuildingLeaderboard: () => dispatch(getBuildingsLeaderboardFetch()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default connect(mapStateToProps)(Main);
