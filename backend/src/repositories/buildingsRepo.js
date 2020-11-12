@@ -4,8 +4,12 @@ export const buildingsRepo = {
 
   async getBuildings(kingdomId) {
     const buildingsQuery = 'SELECT id, type, level, hp, started_at AS startedAt, finished_at AS finishedAt FROM buildings WHERE kingdom_id=?';
-    const queryData = await db.query(buildingsQuery, [kingdomId]);
-    return queryData.results;
+    try {
+      const queryData = await db.query(buildingsQuery, [kingdomId]);
+      return queryData.results;
+    } catch (err) {
+      throw { status: 500, message: err.sqlMessage };
+    }
   },
 
   async getSingleBuilding(buildingId) {
@@ -13,19 +17,27 @@ export const buildingsRepo = {
       const sql = 'SELECT id, type, level, hp, started_at AS startedAt, finished_at AS finishedAt, kingdom_id AS kingdomId FROM buildings WHERE id = ?';
       return await db.query(sql, buildingId);
     } catch (err) {
-      throw { status: 500, message: 'Internal server error' };
+      throw { status: 500, message: err.sqlMessage };
     }
   },
 
   async addBuilding(type, kingdomId) {
     const addBuildingQuery = 'INSERT INTO buildings (type, kingdom_id, finished_at) VALUES (?, ?, TIMESTAMPADD(MINUTE, 1, CURRENT_TIMESTAMP));';
-    return await db.query(addBuildingQuery, [type, kingdomId]);
+    try {
+      return await db.query(addBuildingQuery, [type, kingdomId]);
+    } catch (err) {
+      throw { status: 500, message: err.sqlMessage };
+    }
   },
 
   async getNewBuilding(kingdomId) {
     const getNewBuildingQuery = 'SELECT id, type, level, hp, UNIX_TIMESTAMP(started_at) AS startedAt, UNIX_TIMESTAMP(finished_at) AS finishedAt FROM buildings WHERE id=LAST_INSERT_ID() AND kingdom_id=?;';
-    const newBuildingData = await db.query(getNewBuildingQuery, [kingdomId]);
-    return newBuildingData.results;
+    try {
+      const newBuildingData = await db.query(getNewBuildingQuery, [kingdomId]);
+      return newBuildingData.results;
+    } catch (err) {
+      throw { status: 500, message: err.sqlMessage };
+    }
   },
 
   async addNewBuilding(type, kingdomId, price) {
@@ -42,9 +54,9 @@ export const buildingsRepo = {
 
       await connection.commit();
       return newBuildingData.results;
-    } catch (error) {
+    } catch (err) {
       await connection.rollback();
-      throw error;
+      throw { status: 500, message: err.sqlMessage };
     } finally {
       connection.release();
     }
@@ -63,7 +75,7 @@ export const buildingsRepo = {
         `;
       return await db.query(sql, [upgradeTime, hp, buildingId]);
     } catch (err) {
-      throw { status: 500, message: 'Internal server error' };
+      throw { status: 500, message: err.sqlMessage };
     }
   },
 
@@ -72,7 +84,7 @@ export const buildingsRepo = {
     try {
       return await db.query(sqlQuery, [kingdomId]);
     } catch (err) {
-      throw { status: 500, message: 'Internal server error' };
+      throw { status: 500, message: err.sqlMessage };
     }
   },
 
@@ -81,7 +93,7 @@ export const buildingsRepo = {
     try {
       return await db.query(sqlQuery, [buildingId]);
     } catch (err) {
-      throw { status: 500, message: 'Internal server error' };
+      throw { status: 500, message: err.sqlMessage };
     }
   },
 
@@ -94,7 +106,11 @@ export const buildingsRepo = {
       ORDER BY SUM(level)
       DESC;
     `;
-    const leadersResult = await db.query(leadersSql);
-    return leadersResult.results;
+    try {
+      const leadersResult = await db.query(leadersSql);
+      return leadersResult.results;
+    } catch (err) {
+      throw { status: 500, message: err.sqlMessage };
+    }
   },
 };
