@@ -1,3 +1,5 @@
+/* eslint-disable consistent-return */
+/* eslint-disable no-useless-return */
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -17,6 +19,9 @@ function ConstructionLog(props) {
     .filter((element) => {
       if (Date.parse(element.finishedAt) > new Date().getTime() - 50 * 10 * 1000) {
         return element;
+      // eslint-disable-next-line no-else-return
+      } else {
+        return;
       }
     })
     .map((element) => <Construction key={element.id} element={element} />)
@@ -54,7 +59,7 @@ ConstructionLog.propTypes = {
       defence: PropTypes.number,
       started_at: PropTypes.string,
       finished_at: PropTypes.string,
-    })
+    }),
   ),
 };
 ConstructionLog.defaultProps = {
