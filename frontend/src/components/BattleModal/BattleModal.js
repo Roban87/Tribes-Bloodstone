@@ -27,6 +27,7 @@ function BattleModal(props) {
   };
   const clearModal = () => {
     dispatch(clearBattleResults());
+    dispatch(removeBattleError());
   };
   const handleClick = () => {
     const currentTime = new Date().getTime();
@@ -108,7 +109,7 @@ const mapStateToProps = (state) => ({
 
 BattleModal.propTypes = {
   id: PropTypes.number.isRequired,
-  battleResults: PropTypes.objectOf({
+  battleResults: PropTypes.shape({
     message: PropTypes.string,
     myKingdom_troops: PropTypes.number,
     myKingdom_died_troops: PropTypes.number,
@@ -116,10 +117,10 @@ BattleModal.propTypes = {
     enemy_troops: PropTypes.number,
     enemy_died_troops: PropTypes.number,
     enemy_buildings_lost: PropTypes.string,
-    resourceChange: {
+    resourceChange: PropTypes.shape({
       gold: PropTypes.number,
       food: PropTypes.number,
-    },
+    }),
   }),
 };
 

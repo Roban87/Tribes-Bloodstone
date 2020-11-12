@@ -26,6 +26,7 @@ router.post('/login', loginController.post);
 router.post('/register', registerController.post);
 router.post('/register/map/', registerMapController.post);
 router.get('/kingdom/map/', registerMapController.get);
+router.get('/kingdom/battle/', registerMapController.get);
 
 router.use(authHandler);
 router.use(updateResources);

@@ -1,0 +1,94 @@
+body {
+  margin: 0;
+  padding: 0;
+  align-content: center;
+  justify-content: center;
+}
+
+svg {
+  z-index: 1;
+  display: inline-block;
+  vertical-align: middle;
+  border-radius: 5%;
+  border: solid 1px grey;
+  background-color: rgba(0, 0, 0, 0.534);
+}
+
+.battlle-map {
+  margin-top: 30px;
+  width: 750px;
+  height: 400px;
+}
+
+.battle-map-container {
+  width: 750px;
+  height: 450px;
+  margin: auto;
+  padding: 20px;
+  background-color: rgba(45, 67, 83, 0.746);
+  border-radius: 10%;
+  display: flex;
+  flex-direction: column !important;
+}
+
+.battle-map-select-header {
+  height: 50px;
+  margin: 0 auto;
+  color: white;
+}
+/* 
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .kingdoms-container {
+    margin-top: 100px;
+  }
+
+  .map-container {
+    width: 90%;
+    height: 100%;
+  }
+
+  .selected-kingdom-header {
+    font-size: 1.5em;
+  }
+
+  .map-select-header {
+    font-size: 1.8em;
+  }
+
+  .submit-kingdom {
+    width: 100%;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+}
+
+@media screen and (max-width: 767px) {
+  .kingdoms-container {
+    margin-top: 50px;
+  }
+
+  .map-container {
+    width: 80%;
+    height: 100%;
+  }
+
+  .selected-kingdom-header {
+    font-size: .9em;
+  }
+
+  .map-select-header {
+    font-size: 1.2em;
+  }
+
+  .submit-kingdom {
+    width: 100%;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+} */
