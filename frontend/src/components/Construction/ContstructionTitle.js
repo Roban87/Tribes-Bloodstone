@@ -4,7 +4,7 @@ import './Construction.css';
 function ContstructionTitle() {
   return (
     <div className="construction-container">
-      <div className="picture-container"></div>
+      <div className="picture-container" />
       <div className="contstructionTitle-container">Construction log:</div>
     </div>
   );

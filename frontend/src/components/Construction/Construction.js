@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './Construction.css';
@@ -6,7 +5,6 @@ import { LinearProgress } from '@material-ui/core';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 function Construction({ element }) {
-
   const theme = createMuiTheme({
     palette: {
       primary: {
@@ -18,8 +16,8 @@ function Construction({ element }) {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const timeDiff = (Date.parse(element.finishedAt) - Date.parse(element.startedAt)) / 100; // X ez lesz a props timestamp difference a 60000
-    const timeLeftTime = (timeNow - Date.parse(element.startedAt)) / 100; // Y
+    const timeDiff = (Date.parse(element.finishedAt) - Date.parse(element.startedAt)) / 100;
+    const timeLeftTime = (timeNow - Date.parse(element.startedAt)) / 100;
     const proportion = (timeLeftTime / timeDiff) * 100;
     setProgress((prevProgress) => prevProgress + proportion);
     const timer = setInterval(() => {
@@ -110,6 +108,6 @@ Construction.propTypes = {
     id: PropTypes.number,
     hp: PropTypes.number,
     level: PropTypes.number,
-  })
+  }).isRequired,
 };
 export default Construction;

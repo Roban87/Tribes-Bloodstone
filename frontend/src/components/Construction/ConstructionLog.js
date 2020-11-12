@@ -7,25 +7,20 @@ import ConstructionTitle from './ContstructionTitle';
 function ConstructionLog(props) {
   const { buildings, troops } = props;
 
+  function compare(a, b) {
+    return new Date(b.finishedAt) - new Date(a.finishedAt);
+  }
+
   const logs = buildings
     .concat(troops)
     .sort(compare)
     .filter((element) => {
-      if (
-        Date.parse(element.finishedAt) >
-        new Date().getTime() - 50 * 10 * 1000
-      ) {
+      if (Date.parse(element.finishedAt) > new Date().getTime() - 50 * 10 * 1000) {
         return element;
       }
     })
-    .map((element, index) => {
-      return <Construction key={element.id} element={element} />;
-    })
+    .map((element) => <Construction key={element.id} element={element} />)
     .slice(0, 6);
-
-  function compare(a, b) {
-    return new Date(b.finishedAt) - new Date(a.finishedAt);
-  }
 
   return (
     <div>
@@ -48,7 +43,7 @@ ConstructionLog.propTypes = {
       hp: PropTypes.number,
       startedAt: PropTypes.string,
       finishedAt: PropTypes.string,
-    })
+    }),
   ),
   troops: PropTypes.arrayOf(
     PropTypes.shape({
