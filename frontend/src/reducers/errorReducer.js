@@ -7,6 +7,9 @@ const initialState = {
   addTroopError: '',
   message: '',
   loginError: '',
+  kingdomsError: '',
+  registerMapError: '',
+  battleError: '',
 };
 
 export default function errorReducer(state = initialState, action) {
@@ -95,6 +98,31 @@ export default function errorReducer(state = initialState, action) {
       return {
         ...state,
         loginError: '',
+      };
+    case 'KINGDOMS_ERROR':
+      return {
+        ...state,
+        kingdomsError: action.payload,
+      };
+    case 'SET_KINGDOMS':
+      return {
+        ...state,
+        kingdomsError: '',
+      };
+    case 'BATTLE_ERROR':
+      return {
+        ...state,
+        battleError: action.payload,
+      };
+    case 'BATTLE':
+      return {
+        ...state,
+        battleError: '',
+      };
+    case 'CLEAR_BATTLE_ERROR':
+      return {
+        ...state,
+        battleError: '',
       };
     default:
       return state;

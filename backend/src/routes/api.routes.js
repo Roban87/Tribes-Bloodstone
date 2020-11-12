@@ -31,6 +31,7 @@ router.use(authHandler);
 router.use(updateResources);
 
 router.put('/kingdom', kingdomController.put);
+router.get('/kingdom', kingdomController.get);
 router.get('/kingdom/buildings', buildingsController.get);
 router.post('/kingdom/buildings', buildingsController.post);
 router.get('/kingdom/buildings/:buildingId', buildingsController.getBuilding);
@@ -42,5 +43,5 @@ router.get('/kingdom/resource', resourceController.get);
 router.get('/rules', rulesController.get);
 router.get('/kingdom/battle/:enemyId', battleController.get);
 router.get('/leaderboard/buildings', buildingsController.getLeaderboard);
-
+router.get('/kingdom/battle', registerMapController.get);
 export default router;

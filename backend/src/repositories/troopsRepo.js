@@ -65,4 +65,13 @@ export const troopsRepo = {
       throw { message: 'Internal server error', status: 500 };
     }
   },
+  async getAllTroops() {
+    const sqlQuery = 'SELECT * FROM troops';
+    try {
+      const troopsQuery = await db.query(sqlQuery);
+      return troopsQuery.results;
+    } catch (err) {
+      throw { message: 'Internal server error', status: 500 };
+    }
+  },
 };
