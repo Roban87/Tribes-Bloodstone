@@ -12,10 +12,9 @@ function Construction({ element }) {
       },
     },
   });
-  const timeNow = new Date();
   const [progress, setProgress] = useState(0);
-
   useEffect(() => {
+    const timeNow = new Date();
     const timeDiff = (Date.parse(element.finishedAt) - Date.parse(element.startedAt)) / 100;
     const timeLeftTime = (timeNow - Date.parse(element.startedAt)) / 100;
     const proportion = (timeLeftTime / timeDiff) * 100;
@@ -27,7 +26,7 @@ function Construction({ element }) {
     return () => {
       clearInterval(timer);
     };
-  }, []);
+  }, [element.startedAt, element.finishedAt]);
   return (
     <div className="construction-container">
       <div className="picture-container" />
