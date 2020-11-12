@@ -17,7 +17,7 @@ function ResourcesContainer(props) {
     goldGeneration,
     errorMessage,
     getResources,
-  } = props; 
+  } = props;
 
   useEffect(() => {
     getResources();
