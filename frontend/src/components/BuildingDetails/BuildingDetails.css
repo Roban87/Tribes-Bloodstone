@@ -79,6 +79,14 @@
   margin-top: 5px;
   justify-self: center;
 }
+.back-button {
+  background-color: rgba(255, 0, 0, 0.603);
+  border-radius: 10px;
+}
+.back-button:hover {
+  background-color: rgba(196, 0, 0, 0.603);
+  border-radius: 10px;
+}
 
 @media screen and (min-width: 768px) and (max-width: 1024px) {
   .building-image {
@@ -131,4 +139,8 @@
     margin-bottom: 1.4vw;
   }
 
+  .back-button {
+    width: 100px;
+    margin-right: 42%;
+  }
 }
