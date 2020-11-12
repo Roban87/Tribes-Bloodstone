@@ -9,6 +9,7 @@ import troopsReducer from './troopsReducer';
 import sessionReducer from './sessionReducer';
 import battleReducer from './battleReducer';
 import userReducer from './userReducer';
+import leaderboardReducer from './leaderboardReducer';
 
 const rootReducer = combineReducers({
   error: errorReducer,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   kingdoms: kingdomsReducer,
   battle: battleReducer,
   user: userReducer,
+  leaderboard: leaderboardReducer,
 });
 
 export default rootReducer;
