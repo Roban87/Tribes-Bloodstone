@@ -18,7 +18,6 @@ const sessionReducer = (state = initialState, action) => {
       token: '',
     };
   }
-
   return state;
 };
 

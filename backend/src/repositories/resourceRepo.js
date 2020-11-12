@@ -14,8 +14,11 @@ export const resourceRepo = {
 
   async updateResources(kingdomId) {
     const sql = `UPDATE resources 
-                SET amount=amount + (FLOOR(((UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(updatedAt)) / 60 )) * generation ) 
-                WHERE kingdom_id=?;`;
+                    SET amount = CASE 
+                    WHEN amount + (FLOOR(((UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(updatedAt)) / 60 )) * generation ) < 0 THEN 0 
+                    ELSE amount + (FLOOR(((UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(updatedAt)) / 60 )) * generation ) 
+                    END
+                    WHERE kingdom_id=?;`;
     return await db.query(sql, kingdomId);
   },
 

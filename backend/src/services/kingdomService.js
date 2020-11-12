@@ -1,4 +1,5 @@
 import {
+  userRepo,
   buildingsRepo,
   resourceRepo,
   troopsRepo,
@@ -33,5 +34,8 @@ export const kingdomService = {
     this.emptyNameValidator(kingdomname);
     await kingdomRepo.updateName(kingdomname, kingdomId);
     return await this.selectKingdomInformations(kingdomId);
+  },
+  async getUserKingdomData(userId, kingdomId) {
+    return await userRepo.getUserKingdomData(userId, kingdomId);
   },
 };

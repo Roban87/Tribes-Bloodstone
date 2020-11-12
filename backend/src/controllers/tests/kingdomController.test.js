@@ -2,7 +2,7 @@ import request from 'supertest';
 import jwt from 'jsonwebtoken';
 import app from '../../app';
 import config from '../../config';
-import { resourceService } from '../../services';
+import { kingdomService, resourceService } from '../../services';
 import {
   kingdomRepo, buildingsRepo, resourceRepo, troopsRepo,
 } from '../../repositories';
@@ -106,6 +106,25 @@ describe('PUT /api/kingdom', () => {
       .expect('Content-Type', /json/)
       .send({ name: 'futys' })
       .expect(200)
+      .end((err) => {
+        if (err) return done(err);
+        return done();
+      });
+  });
+});
+
+describe('GET /api/kingdom/', () => {
+  const spy = jest.spyOn(kingdomService, 'getUserKingdomData');
+  spy.mockReturnValue({ message: 'hello' });
+
+  it('returns json object', (done) => {
+    request(app)
+      .get('/api/kingdom')
+      .set('Accept', 'application/json')
+      .set('Authorization', `Bearer ${token}`)
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .expect({ message: 'hello' })
       .end((err) => {
         if (err) return done(err);
         return done();

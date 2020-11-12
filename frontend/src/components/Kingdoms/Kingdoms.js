@@ -1,34 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import ReactTooltip from 'react-tooltip';
+import { useDispatch, connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import ReactTooltip from 'react-tooltip';
+import { useHistory } from 'react-router-dom';
+import { setKingdomsAsync } from '../../actions/kingdomsActions';
 import Map from '../Map/MapChart';
 import fetchDataGeneral from '../../utilities/generalFetch';
 
 function Kingdoms(props) {
-  const [content, setContent] = useState('');
-  const [kingdoms, setKingdoms] = useState([]);
-  const [errorMessage, setErrorMessage] = useState('');
-  const [selectedKingdom, setSelectedKingdom] = useState('');
-  const history = useHistory();
   const { kingdomId } = props;
-
+  const [content, setContent] = useState('');
+  const { kingdoms } = props;
+  const [selectedKingdom, setSelectedKingdom] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const history = useHistory();
+  const dispatch = useDispatch();
   useEffect(() => {
-    async function fetchKingdoms() {
-      try {
-        const endpoint = '/kingdom/map/';
-        const method = 'GET';
-        const kingdomsData = await fetchDataGeneral(endpoint, method);
-        const occupiedLocations = await kingdomsData.kingdoms.map(
-          (kingdom) => kingdom.location,
-        );
-        await setKingdoms(occupiedLocations);
-      } catch (error) {
-        setErrorMessage('Something went wrong');
-      }
-    }
-    fetchKingdoms();
-  }, []);
+    dispatch(setKingdomsAsync());
+  }, [dispatch]);
 
   async function submitKingdom() {
     try {
@@ -80,6 +69,15 @@ function Kingdoms(props) {
 
 Kingdoms.propTypes = {
   kingdomId: PropTypes.number.isRequired,
+  kingdoms: PropTypes.arrayOf(PropTypes.string),
 };
 
-export default Kingdoms;
+Kingdoms.defaultProps = {
+  kingdoms: [],
+};
+
+const mapStateToProps = (state) => ({
+  kingdoms: state.kingdoms.kingdoms.map((kingdom) => kingdom.location),
+});
+
+export default connect(mapStateToProps)(Kingdoms);

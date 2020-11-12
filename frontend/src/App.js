@@ -1,20 +1,31 @@
 import React, { useEffect } from 'react';
-import { connect, useDispatch } from 'react-redux';
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+} from 'react-router-dom';
 import { logoutAction, setSessionAction } from './actions/sessionAction';
+import NotImplemented from './pages/NotImplemented';
 import Header from './components/Header/Header';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import NotImplemented from './pages/NotImplemented';
 import Main from './pages/Main';
 import Settings from './components/settings/Settings';
 import RegisterMap from './pages/RegisterMap';
 
-function App({ isAuthenticated }) {
+function App() {
   const dispatch = useDispatch();
-
+  const isAuthenticated = useSelector((state) => state.session.isAuthenticated);
+  const tokenExists = () => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      return true;
+    }
+    return false;
+  };
   useEffect(() => {
     dispatch(setSessionAction());
   }, [dispatch]);
@@ -33,6 +44,9 @@ function App({ isAuthenticated }) {
           <Route exact path="/settings" component={Settings} />
           <Route exact path="/register/map" component={RegisterMap} />
           <Route path="/kingdom/" component={Main} />
+          <Route exact path="/">
+            {tokenExists() ? <Redirect to="/kingdom" /> : <Redirect to="/login" />}
+          </Route>
           <Route path="/">
             <NotImplemented isLoggedIn={isAuthenticated} loggingOut={loggingOut} />
           </Route>
@@ -42,13 +56,4 @@ function App({ isAuthenticated }) {
   );
 }
 
-App.propTypes = {
-  isAuthenticated: PropTypes.bool.isRequired,
-};
-
-const mapStateToProps = ({ session }) => ({
-  isAuthenticated: session.isAuthenticated,
-  token: session.token,
-});
-
-export default connect(mapStateToProps)(App);
+export default App;

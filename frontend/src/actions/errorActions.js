@@ -21,3 +21,9 @@ export const setTroopsError = (errorMessage) => ({ type: 'TROOPS_ERROR', payload
 export const setErrorMessage = (message) => ({ type: 'SET_ERROR', error: message });
 
 export const setLoginError = (errorMessage) => ({ type: 'LOGIN_FAILED', payload: errorMessage });
+
+export const setKingdomsError = (errorMessage) => ({ type: 'KINGDOMS_ERROR', payload: errorMessage });
+
+export const setBattleError = (errorMessage) => ({ type: 'BATTLE_ERROR', payload: errorMessage });
+
+export const removeBattleError = () => ({ type: 'CLEAR_BATTLE_ERROR' });
