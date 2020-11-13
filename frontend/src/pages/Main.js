@@ -31,7 +31,7 @@ function Main(props) {
     dispatch(setRulesAsync());
     dispatch(getBuildingsLeaderboardFetch());
     dispatch(setUserAsyncAction());
-    dispatch(setKingdomsAsync());
+    dispatch(setKingdomsAsync('/kingdom/battle'));
     dispatch(setTroopsAsync());
   }, [dispatch]);
 
