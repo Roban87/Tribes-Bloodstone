@@ -7,6 +7,7 @@ import './kingdomBuildings.css';
 import { setBuildingsAsync } from '../../actions/buildingsActions';
 import { setAddBuildingError, removeAddBuildingError } from '../../actions/errorActions';
 import { getResourcesFetch } from '../../actions/resourcesAction';
+import { getBuildingsLeaderboardFetch } from '../../actions/leaderboardActions';
 import fetchDataGeneral from '../../utilities/generalFetch';
 
 function KingdomBuildings(props) {
@@ -29,6 +30,7 @@ function KingdomBuildings(props) {
     }
     dispatch(setBuildingsAsync());
     dispatch(getResourcesFetch());
+    dispatch(getBuildingsLeaderboardFetch());
   }
 
   useEffect(() => {
