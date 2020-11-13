@@ -3,18 +3,19 @@
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: space-between;
+    justify-content: space-evenly;
     width: 100%;
     height: 60px;
-    border-radius: 2px;
-    margin: 5px;
+    margin-bottom: 2vh;
+    padding-bottom: 5px;
 }
 .picture-container{
     background-image: url('../../assets/constructionLog.png');
-    padding: 0px;
-    background-repeat:no-repeat;
-    background-size:contain;
-    width:27%;
+    padding: 0;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 90px;
+    height: 65px;
 }
 .right-side-container{
     display: flex;
@@ -34,6 +35,7 @@
 }
 .clock{
     margin: 4px;
+    padding-right: 10px;
 }
 .loading-container{
     width: 90%;
@@ -43,6 +45,7 @@
 .contstructionTitle-container{
     font-size: 1.5em;
     font-weight: bold;
+    text-align: center;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -51,4 +54,8 @@
 .my-kingdom-container{
     font-size: 1.2em;
     font-weight: bold;
+}
+
+.new-item {
+    margin-left: 5px;
 }
