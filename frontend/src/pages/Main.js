@@ -15,6 +15,7 @@ import Menu from '../components/Menu/Menu';
 import TroopsContainer from '../components/TroopsContainer/TroopsContainer';
 import Battle from '../components/Battle/Battle';
 import LeaderboardBuildings from '../components/LeaderboardBuildings/LeaderboardBuildings';
+import ConstructionLog from '../components/Construction/ConstructionLog';
 
 function Main(props) {
   const {
@@ -71,9 +72,8 @@ function Main(props) {
       </div>
 
       <div className="construction-log-container">
-        <p>Construction Log</p>
+        <ConstructionLog />
       </div>
-
     </div>
   );
 }
