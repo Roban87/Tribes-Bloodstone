@@ -16,7 +16,7 @@ function Kingdoms(props) {
   const history = useHistory();
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(setKingdomsAsync());
+    dispatch(setKingdomsAsync('/kingdom/map/'));
   }, [dispatch]);
 
   async function submitKingdom() {

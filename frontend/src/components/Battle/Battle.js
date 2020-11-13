@@ -11,7 +11,7 @@ function Battle(props) {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   useEffect(() => {
-    dispatch(setKingdomsAsync());
+    dispatch(setKingdomsAsync('/kingdom/battle'));
   }, [dispatch]);
   const openModal = () => {
     dispatch(openModalAction());
