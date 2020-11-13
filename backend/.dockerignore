@@ -1,0 +1,9 @@
+node_modules/
+output/
+logs/
+.env
+.env.test
+yarn-error.log
+dist
+coverage
+.eslintcache
