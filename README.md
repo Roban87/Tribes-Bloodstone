@@ -1,5 +1,7 @@
 # Tribes Full-Stack project
 
+Green Fox Academy small group (5 people), full-stack javascript project!
+
 ## Folders
 
 - `frontend`: the frontend code using React
